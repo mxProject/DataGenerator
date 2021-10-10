@@ -116,6 +116,7 @@ public static DataGeneratorFieldTypeConverterBuilder CreateDefault()
         .RegisterAdditionalField<ExpressionFieldSettings>("Expression")
 
         .RegisterAdditionalTupleField<JoinFieldSettings>("Join")
+        .RegisterAdditionalTupleField<JoinDbQueryFieldSettings>("JoinDbQuery")
         ;
 }
 ```

@@ -79,12 +79,76 @@ namespace mxProject.Devs.DataGeneration
                     switch (valueTypes.Length)
                     {
                         case 1:
-                            genericTypes = new[] { keyTypes[0], valueTypes[0] };
+                            genericTypes = new[]
+                            {
+                                keyTypes[0],
+                                valueTypes[0]
+                            };
                             return Invoke(nameof(ToDictionary_Key1_Value1), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
 
                         case 2:
-                            genericTypes = new[] { keyTypes[0], valueTypes[0], valueTypes[1] };
+                            genericTypes = new[]
+                            {
+                                keyTypes[0],
+                                valueTypes[0], valueTypes[1]
+                            };
                             return Invoke(nameof(ToDictionary_Key1_Value2), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 3:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0],
+                                valueTypes[0], valueTypes[1], valueTypes[2]
+                            };
+                            return Invoke(nameof(ToDictionary_Key1_Value3), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 4:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3]
+                            };
+                            return Invoke(nameof(ToDictionary_Key1_Value4), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 5:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4]
+                            };
+                            return Invoke(nameof(ToDictionary_Key1_Value5), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 6:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5]
+                            };
+                            return Invoke(nameof(ToDictionary_Key1_Value6), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 7:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6]
+                            };
+                            return Invoke(nameof(ToDictionary_Key1_Value7), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 8:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7]
+                            };
+                            return Invoke(nameof(ToDictionary_Key1_Value8), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 9:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7], valueTypes[8]
+                            };
+                            return Invoke(nameof(ToDictionary_Key1_Value9), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
 
                         default:
                             break;
@@ -97,12 +161,650 @@ namespace mxProject.Devs.DataGeneration
                     switch (valueTypes.Length)
                     {
                         case 1:
-                            genericTypes = new[] { keyTypes[0], keyTypes[1], valueTypes[0] };
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1],
+                                valueTypes[0]
+                            };
                             return Invoke(nameof(ToDictionary_Key2_Value1), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
 
                         case 2:
-                            genericTypes = new[] { keyTypes[0], keyTypes[1], valueTypes[0], valueTypes[1] };
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1],
+                                valueTypes[0], valueTypes[1]
+                            };
                             return Invoke(nameof(ToDictionary_Key2_Value2), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 3:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1],
+                                valueTypes[0], valueTypes[1], valueTypes[2]
+                            };
+                            return Invoke(nameof(ToDictionary_Key2_Value3), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 4:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3]
+                            };
+                            return Invoke(nameof(ToDictionary_Key2_Value4), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 5:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4]
+                            };
+                            return Invoke(nameof(ToDictionary_Key2_Value5), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 6:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5]
+                            };
+                            return Invoke(nameof(ToDictionary_Key2_Value6), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 7:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6]
+                            };
+                            return Invoke(nameof(ToDictionary_Key2_Value7), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 8:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7]
+                            };
+                            return Invoke(nameof(ToDictionary_Key2_Value8), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 9:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7], valueTypes[8]
+                            };
+                            return Invoke(nameof(ToDictionary_Key2_Value9), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case 3:
+
+                    switch (valueTypes.Length)
+                    {
+                        case 1:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2],
+                                valueTypes[0]
+                            };
+                            return Invoke(nameof(ToDictionary_Key3_Value1), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 2:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2],
+                                valueTypes[0], valueTypes[1]
+                            };
+                            return Invoke(nameof(ToDictionary_Key3_Value2), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 3:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2],
+                                valueTypes[0], valueTypes[1], valueTypes[2]
+                            };
+                            return Invoke(nameof(ToDictionary_Key3_Value3), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 4:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3]
+                            };
+                            return Invoke(nameof(ToDictionary_Key3_Value4), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 5:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4]
+                            };
+                            return Invoke(nameof(ToDictionary_Key3_Value5), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 6:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5]
+                            };
+                            return Invoke(nameof(ToDictionary_Key3_Value6), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 7:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6]
+                            };
+                            return Invoke(nameof(ToDictionary_Key3_Value7), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 8:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7]
+                            };
+                            return Invoke(nameof(ToDictionary_Key3_Value8), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 9:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7], valueTypes[8]
+                            };
+                            return Invoke(nameof(ToDictionary_Key3_Value9), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case 4:
+
+                    switch (valueTypes.Length)
+                    {
+                        case 1:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3],
+                                valueTypes[0]
+                            };
+                            return Invoke(nameof(ToDictionary_Key4_Value1), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 2:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3],
+                                valueTypes[0], valueTypes[1]
+                            };
+                            return Invoke(nameof(ToDictionary_Key4_Value2), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 3:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3],
+                                valueTypes[0], valueTypes[1], valueTypes[2]
+                            };
+                            return Invoke(nameof(ToDictionary_Key4_Value3), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 4:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3]
+                            };
+                            return Invoke(nameof(ToDictionary_Key4_Value4), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 5:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4]
+                            };
+                            return Invoke(nameof(ToDictionary_Key4_Value5), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 6:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5]
+                            };
+                            return Invoke(nameof(ToDictionary_Key4_Value6), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 7:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6]
+                            };
+                            return Invoke(nameof(ToDictionary_Key4_Value7), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 8:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7]
+                            };
+                            return Invoke(nameof(ToDictionary_Key4_Value8), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 9:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7], valueTypes[8]
+                            };
+                            return Invoke(nameof(ToDictionary_Key4_Value9), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case 5:
+
+                    switch (valueTypes.Length)
+                    {
+                        case 1:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4],
+                                valueTypes[0]
+                            };
+                            return Invoke(nameof(ToDictionary_Key5_Value1), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 2:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4],
+                                valueTypes[0], valueTypes[1]
+                            };
+                            return Invoke(nameof(ToDictionary_Key5_Value2), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 3:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4],
+                                valueTypes[0], valueTypes[1], valueTypes[2]
+                            };
+                            return Invoke(nameof(ToDictionary_Key5_Value3), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 4:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3]
+                            };
+                            return Invoke(nameof(ToDictionary_Key5_Value4), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 5:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4]
+                            };
+                            return Invoke(nameof(ToDictionary_Key5_Value5), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 6:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5]
+                            };
+                            return Invoke(nameof(ToDictionary_Key5_Value6), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 7:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6]
+                            };
+                            return Invoke(nameof(ToDictionary_Key5_Value7), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 8:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7]
+                            };
+                            return Invoke(nameof(ToDictionary_Key5_Value8), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 9:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7], valueTypes[8]
+                            };
+                            return Invoke(nameof(ToDictionary_Key5_Value9), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case 6:
+
+                    switch (valueTypes.Length)
+                    {
+                        case 1:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5],
+                                valueTypes[0]
+                            };
+                            return Invoke(nameof(ToDictionary_Key6_Value1), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 2:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5],
+                                valueTypes[0], valueTypes[1]
+                            };
+                            return Invoke(nameof(ToDictionary_Key6_Value2), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 3:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5],
+                                valueTypes[0], valueTypes[1], valueTypes[2]
+                            };
+                            return Invoke(nameof(ToDictionary_Key6_Value3), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 4:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3]
+                            };
+                            return Invoke(nameof(ToDictionary_Key6_Value4), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 5:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4]
+                            };
+                            return Invoke(nameof(ToDictionary_Key6_Value5), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 6:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5]
+                            };
+                            return Invoke(nameof(ToDictionary_Key6_Value6), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 7:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6]
+                            };
+                            return Invoke(nameof(ToDictionary_Key6_Value7), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 8:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7]
+                            };
+                            return Invoke(nameof(ToDictionary_Key6_Value8), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 9:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7], valueTypes[8]
+                            };
+                            return Invoke(nameof(ToDictionary_Key6_Value9), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case 7:
+
+                    switch (valueTypes.Length)
+                    {
+                        case 1:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6],
+                                valueTypes[0]
+                            };
+                            return Invoke(nameof(ToDictionary_Key7_Value1), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 2:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6],
+                                valueTypes[0], valueTypes[1]
+                            };
+                            return Invoke(nameof(ToDictionary_Key7_Value2), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 3:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6],
+                                valueTypes[0], valueTypes[1], valueTypes[2]
+                            };
+                            return Invoke(nameof(ToDictionary_Key7_Value3), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 4:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3]
+                            };
+                            return Invoke(nameof(ToDictionary_Key7_Value4), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 5:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4]
+                            };
+                            return Invoke(nameof(ToDictionary_Key7_Value5), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 6:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5]
+                            };
+                            return Invoke(nameof(ToDictionary_Key7_Value6), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 7:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6]
+                            };
+                            return Invoke(nameof(ToDictionary_Key7_Value7), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 8:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7]
+                            };
+                            return Invoke(nameof(ToDictionary_Key7_Value8), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 9:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7], valueTypes[8]
+                            };
+                            return Invoke(nameof(ToDictionary_Key7_Value9), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case 8:
+
+                    switch (valueTypes.Length)
+                    {
+                        case 1:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7],
+                                valueTypes[0]
+                            };
+                            return Invoke(nameof(ToDictionary_Key8_Value1), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 2:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7],
+                                valueTypes[0], valueTypes[1]
+                            };
+                            return Invoke(nameof(ToDictionary_Key8_Value2), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 3:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7],
+                                valueTypes[0], valueTypes[1], valueTypes[2]
+                            };
+                            return Invoke(nameof(ToDictionary_Key8_Value3), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 4:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3]
+                            };
+                            return Invoke(nameof(ToDictionary_Key8_Value4), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 5:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4]
+                            };
+                            return Invoke(nameof(ToDictionary_Key8_Value5), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 6:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5]
+                            };
+                            return Invoke(nameof(ToDictionary_Key8_Value6), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 7:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6]
+                            };
+                            return Invoke(nameof(ToDictionary_Key8_Value7), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 8:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7]
+                            };
+                            return Invoke(nameof(ToDictionary_Key8_Value8), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 9:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7], valueTypes[8]
+                            };
+                            return Invoke(nameof(ToDictionary_Key8_Value9), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case 9:
+
+                    switch (valueTypes.Length)
+                    {
+                        case 1:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7], keyTypes[8],
+                                valueTypes[0]
+                            };
+                            return Invoke(nameof(ToDictionary_Key9_Value1), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 2:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7], keyTypes[8],
+                                valueTypes[0], valueTypes[1]
+                            };
+                            return Invoke(nameof(ToDictionary_Key9_Value2), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 3:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7], keyTypes[8],
+                                valueTypes[0], valueTypes[1], valueTypes[2]
+                            };
+                            return Invoke(nameof(ToDictionary_Key9_Value3), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 4:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7], keyTypes[8],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3]
+                            };
+                            return Invoke(nameof(ToDictionary_Key9_Value4), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 5:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7], keyTypes[8],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4]
+                            };
+                            return Invoke(nameof(ToDictionary_Key9_Value5), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 6:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7], keyTypes[8],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5]
+                            };
+                            return Invoke(nameof(ToDictionary_Key9_Value6), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 7:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7], keyTypes[8],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6]
+                            };
+                            return Invoke(nameof(ToDictionary_Key9_Value7), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 8:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7], keyTypes[8],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7]
+                            };
+                            return Invoke(nameof(ToDictionary_Key9_Value8), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
+
+                        case 9:
+                            genericTypes = new[]
+                            {
+                                keyTypes[0], keyTypes[1], keyTypes[2], keyTypes[3], keyTypes[4], keyTypes[5], keyTypes[6], keyTypes[7], keyTypes[8],
+                                valueTypes[0], valueTypes[1], valueTypes[2], valueTypes[3], valueTypes[4], valueTypes[5], valueTypes[6], valueTypes[7], valueTypes[8]
+                            };
+                            return Invoke(nameof(ToDictionary_Key9_Value9), genericTypes, reader, keyFieldIndexes, valueFieldIndexes);
 
                         default:
                             break;
@@ -111,7 +813,7 @@ namespace mxProject.Devs.DataGeneration
                     break;
             }
 
-            throw new NotSupportedException();
+            throw new NotSupportedException("The specified number of fields is not supported.");
         }
 
         /// <summary>
@@ -878,7 +1580,7 @@ namespace mxProject.Devs.DataGeneration
                     break;
             }
 
-            throw new NotSupportedException();
+            throw new NotSupportedException("The specified number of fields is not supported.");
         }
 
 

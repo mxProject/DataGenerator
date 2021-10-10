@@ -138,6 +138,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Json
                 .RegisterAdditionalField<ExpressionFieldSettings>("Expression")
 
                 .RegisterAdditionalTupleField<JoinFieldSettings>("Join")
+                .RegisterAdditionalTupleField<JoinDbQueryFieldSettings>("JoinDbQuery")
                 ;
         }
 

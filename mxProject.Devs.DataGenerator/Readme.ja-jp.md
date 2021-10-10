@@ -367,6 +367,7 @@ Debug.WriteLine(json);
 |Field Type|Summary|
 |:--|:--|
 |[Join](documents/ja-jp/Join.ja-jp.md)|生成されたデータレコードを引数として受け取り、キーとするフィールドの値に対応する値をディクショナリまたはルックアップから取得して返します。|
+|[JoinDbQuery](documents/ja-jp/JoinDbQuery.ja-jp.md)|生成されたデータレコードを引数として受け取り、キーとするフィールドの値に対応する値をディクショナリまたはルックアップから取得して返します。|
 
 ### Serialization to Json
 

@@ -16824,7 +16824,7 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             {
                 static Exception CreateException(int keyFieldCount, int valueFieldCount)
                 {
-                    return new NotSupportedException();
+                    return new NotSupportedException("The specified number of additional fields is not supported.");
                 }
 
                 return keyFieldCount switch
@@ -16990,7 +16990,7 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
                 }
             }
 
-            throw new NotSupportedException();
+            throw new NotSupportedException("The specified number of additional fields is not supported.");
         }
 
 
