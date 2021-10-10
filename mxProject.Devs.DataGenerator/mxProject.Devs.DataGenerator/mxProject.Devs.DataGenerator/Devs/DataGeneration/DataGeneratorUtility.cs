@@ -136,7 +136,7 @@ namespace mxProject.Devs.DataGeneration
             }
             else
             {
-                return (T)value;
+                return (T)Convert.ChangeType(value, typeof(T));
             }
         }
 

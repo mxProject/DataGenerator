@@ -247,7 +247,7 @@ namespace mxProject.Devs.DataGeneration.DataReaders
 
             if (value == null) { return null; }
 
-            return (T)value;
+            return DataGeneratorUtility.CastToRawValue<T>(value);
         }
 
         /// <inheritdoc/>
