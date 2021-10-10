@@ -227,7 +227,7 @@ string json = JsonConvert.SerializeObject(generatorSettings, jsonSettings);
 Debug.WriteLine(json);
 ```
 
-次のJSON文字列は、前述の generatorSettings をシリアライズした結果です。
+The DataGeneratorSettings instance in the sample code above is serialized into a JSON string like this:
 
 ```json
 {
@@ -367,6 +367,7 @@ Debug.WriteLine(json);
 |Field Type|Summary|
 |:--|:--|
 |[Join](documents/Join.md)|Takes the generated data record as an argument and returns the value corresponding to the value of the key field from the dictionary or lookup.|
+|[JoinDbQuery](documents/JoinDbQuery.md)|Takes the generated data record as an argument and returns the value corresponding to the value of the key field from the data reader.|
 
 ### Serialization to Json
 

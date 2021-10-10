@@ -17,6 +17,7 @@ using mxProject.Devs.DataGeneration.Configuration.Json;
 using Newtonsoft.Json;
 
 using UnitTestProject1.Extensions;
+using UnitTestProject1.SampleValues;
 
 namespace UnitTestProject1
 {
@@ -864,6 +865,132 @@ namespace UnitTestProject1
             // Create a context that controls the behavior of the generator.
             // You can replace random number generation algorithms, string converters, etc. with your own implementation.
             DataGeneratorContext context = new DataGeneratorContext();
+
+            // Creates a builder.
+            DataGeneratorBuilder builder = generatorSetting.CreateBuilder(context);
+
+            // Creates a generator that generates 10 records and returns it as a DataReader.
+            using IDataReader reader = await builder.BuildAsDataReaderAsync(10);
+
+            Dump(reader);
+
+            string json = JsonConvert.SerializeObject(generatorSetting, s_JsonSerializerSettings);
+
+            System.Diagnostics.Debug.WriteLine(json);
+        }
+
+        #endregion
+
+        #region JoinDbQuery
+
+        [TestMethod]
+        public async Task JoinDbQuery()
+        {
+            var provider = SampleSQLite.CreateProvider();
+
+            using var connection = provider.CreateConnection(":memory:");
+
+            SampleSQLite.PrepareShopMaster(connection);
+
+            using IDataReader shopDataReader = SampleSQLite.GetShopMaster(connection);
+
+            // Creates a context.
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            // Creates a builder.
+            DataGeneratorBuilder builder = new DataGeneratorBuilder();
+
+            // Adds fields.
+            builder
+
+                // This field returns the direct product of CompanyCode and ShopCode.
+                .AddTupleField(factory => DirectProductFieldFactory.CreateTupleField(
+                    new IDataGeneratorField[]
+                    {
+                        factory.Each<int>("CompanyCode", new int?[]{ 1, 2, 3, null }),
+                        factory.Each<long>("ShopCode", new long?[]{ 1, 2, 3, null })
+                    },
+                    context
+                    )
+                )
+
+                // Add fields that return the value corresponding to (CompanyCode, ShopCode).
+                .AddJoinField(factory => factory.WithDataReader(
+
+                    // Specifies the reference key field names.
+                    new string[] { "CompanyCode", "ShopCode" },
+
+                    // Specifies the additional key field names.
+                    new string[] { "COMPANY_CODE", "SHOP_CODE" },
+
+                    // Specifies the additional value field names.
+                    new string[] { "SHOP_NAME", "TELEPHONE_NUMBER" },
+
+                    // Specifies the data reader.
+                    shopDataReader
+                    )
+                )
+                ;
+
+            // Creates a generator that generates 10 records and returns it as a DataReader.
+            using IDataReader reader = await builder.BuildAsDataReaderAsync(10);
+
+            Dump(reader);
+        }
+
+        [TestMethod]
+        public async Task JoinDbQuerySettings()
+        {
+            var provider = SampleSQLite.CreateProvider();
+
+            using var connection = provider.CreateConnection(":memory:");
+
+            SampleSQLite.PrepareShopMaster(connection);
+
+            // Creates a generator settings.
+            DataGeneratorSettings generatorSetting = new DataGeneratorSettings()
+            {
+                TupleFields = new DataGeneratorTupleFieldSettings[]
+                {
+                    // This field returns the direct product of CompanyCode and ShopCode. 
+                    new DirectProductFieldSettings()
+                    {
+                        Fields = new DataGeneratorFieldSettings[]
+                        {
+                            new EachFieldSettings<int>(){ FieldName = "CompanyCode", Values = new int?[]{ 1, 2, 3, null } },
+                            new EachFieldSettings<long>(){ FieldName = "ShopCode", Values = new long?[]{ 1, 2, 3, null } }
+                        }
+                    }
+                },
+
+                AdditionalTupleFields = new DataGeneratorAdditionalTupleFieldSettings[]
+                {
+                    // Adds fields that return the value corresponding to (CompanyCode, ShopCode).
+                    new JoinDbQueryFieldSettings()
+                    {
+                        // Specifies the query data source.
+                        DbQuerySettings = new DbQuerySettings()
+                        {
+                            CommandText = "select * from SHOP_MASTER",
+                            ConnectionString = ":memory:",
+                            //ConnectionString = "Provider=SQLOLEDB; Data Source=(local); Integrated Security=SSPI"
+                        },
+
+                        // Specifies the reference key field names.
+                        ReferenceKeyFieldNames = new[]{ "CompanyCode", "ShopCode" },
+
+                        // Specifies the additional key field names.
+                        AdditionalKeyFieldNames = new[]{ "COMPANY_CODE", "SHOP_CODE" },
+
+                        // Specifies the additional value field names.
+                        AdditionalValueFieldNames = new[]{ "SHOP_NAME", "TELEPHONE_NUMBER" },
+                    }
+                }
+            };
+
+            // Create a context that controls the behavior of the generator.
+            // You can replace random number generation algorithms, string converters, etc. with your own implementation.
+            DataGeneratorContext context = new DataGeneratorContext(dbProvider: SampleSQLite.CreateProvider(connection));
 
             // Creates a builder.
             DataGeneratorBuilder builder = generatorSetting.CreateBuilder(context);
