@@ -9,6 +9,9 @@ using mxProject.Devs.DataGeneration.AdditionalFields;
 namespace mxProject.Devs.DataGeneration.Configuration.AdditionalFields
 {
 
+    /// <summary>
+    /// A setting for a field that returns the values read from a database query.
+    /// </summary>
     public class JoinDbQueryFieldSettings : DataGeneratorAdditionalTupleFieldSettings
     {
 

@@ -9,7 +9,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.AdditionalFields
 {
 
     /// <summary>
-    /// A setting for a field that returns the value of an expression.
+    /// A setting for a field that returns the values stored in a dictionary.
     /// </summary>
     public class JoinFieldSettings : DataGeneratorAdditionalTupleFieldSettings
     {
