@@ -12,6 +12,7 @@
 | [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) | Basic implementation of DataGeneratorField settings. |
 | [DataGeneratorSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorSettings.md) | DataGenerator settings. |
 | [DataGeneratorTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorTupleFieldSettings.md) | Basic implementation of DataGeneratorTupleField settings. |
+| DbQuerySettings |  |
 | [EnumerableSettings](../mxProject.Devs.DataGeneration.Configuration/EnumerableSettings.md) | Basic implementation of enumerable settings. |
 | [EnumerableSettings&lt;T&gt;](../mxProject.Devs.DataGeneration.Configuration/EnumerableSettings`1.md) | Basic implementation of enumerable settings. |
 

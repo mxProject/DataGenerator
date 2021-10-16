@@ -23,11 +23,11 @@ Context that holds the state of the data generation process.
 ## Constructors
 |Scope|Signature|Summary|
 |:--|:--|:--|
-| public | [.ctor(DataGeneratorFieldFactory, IRandomGenerator, IStringConverter, EnumerableFactory, object)](#ctordatageneratorfieldfactory-irandomgenerator-istringconverter-enumerablefactory-object-constructor) | Create a new instance. |
+| public | [.ctor(DataGeneratorFieldFactory, IRandomGenerator, IStringConverter, EnumerableFactory, object, IDbProvider)](#ctordatageneratorfieldfactory-irandomgenerator-istringconverter-enumerablefactory-object-idbprovider-constructor) |  |
 ---
-### .ctor(DataGeneratorFieldFactory, IRandomGenerator, IStringConverter, EnumerableFactory, object) Constructor
+### .ctor(DataGeneratorFieldFactory, IRandomGenerator, IStringConverter, EnumerableFactory, object, IDbProvider) Constructor
 
-Create a new instance.
+
 ```c#
 public DataGeneratorContext(
 	DataGeneratorFieldFactory fieldFactory
@@ -35,16 +35,18 @@ public DataGeneratorContext(
 	, IStringConverter stringConverter
 	, EnumerableFactory enumerableFactory
 	, object cSharpScriptGlobalObject
+	, IDbProvider dbProvider
 )
 ```
 #### Parameters
 |Name|Parameter Type|Description|
 |:--|:--|:--|
-| fieldFactory | [DataGeneratorFieldFactory](../mxProject.Devs.DataGeneration/DataGeneratorFieldFactory.md) | The field factory. |
-| randomGenerator | [IRandomGenerator](../mxProject.Devs.DataGeneration/IRandomGenerator.md) | The random value generation logic. |
-| stringConverter | [IStringConverter](../mxProject.Devs.DataGeneration/IStringConverter.md) | The string converter. |
-| enumerableFactory | [EnumerableFactory](../mxProject.Devs.DataGeneration/EnumerableFactory.md) | The enumerable factory. |
-| cSharpScriptGlobalObject | object | The object to use as a global variable in CSharpScript. |
+| fieldFactory | [DataGeneratorFieldFactory](../mxProject.Devs.DataGeneration/DataGeneratorFieldFactory.md) |  |
+| randomGenerator | [IRandomGenerator](../mxProject.Devs.DataGeneration/IRandomGenerator.md) |  |
+| stringConverter | [IStringConverter](../mxProject.Devs.DataGeneration/IStringConverter.md) |  |
+| enumerableFactory | [EnumerableFactory](../mxProject.Devs.DataGeneration/EnumerableFactory.md) |  |
+| cSharpScriptGlobalObject | object |  |
+| dbProvider | IDbProvider |  |
 
 [Go to constructors](#Constructors)
 
@@ -54,6 +56,7 @@ public DataGeneratorContext(
 |Scope|Name|Property Type|Summary|
 |:--|:--|:--|:--|
 | public | [CSharpScriptGlobalObject](#csharpscriptglobalobject-property) | object | Gets the object to use as a global variable in CSharpScript. |
+| public | [DbProvider](#dbprovider-property) | IDbProvider |  |
 | public | [EnumerableFactory](#enumerablefactory-property) | [EnumerableFactory](../mxProject.Devs.DataGeneration/EnumerableFactory.md) | Gets the enumerable factory. |
 | public | [FieldFactory](#fieldfactory-property) | [DataGeneratorFieldFactory](../mxProject.Devs.DataGeneration/DataGeneratorFieldFactory.md) | Gets the field factory. |
 | public | [RandomGenerator](#randomgenerator-property) | [IRandomGenerator](../mxProject.Devs.DataGeneration/IRandomGenerator.md) | Gets the random value generation logic. |
@@ -64,6 +67,16 @@ public DataGeneratorContext(
 Gets the object to use as a global variable in CSharpScript.
 ```c#
 public object CSharpScriptGlobalObject { get; }
+```
+
+[Go to properties](#Properties)
+
+---
+### DbProvider Property
+
+
+```c#
+public IDbProvider DbProvider { get; }
 ```
 
 [Go to properties](#Properties)
