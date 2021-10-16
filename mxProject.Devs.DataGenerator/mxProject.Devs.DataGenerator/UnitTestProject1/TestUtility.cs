@@ -47,7 +47,7 @@ namespace UnitTestProject1
             var json = JsonConvert.SerializeObject(settings, s_JsonSerializerSettings);
 
             Debug.WriteLine(json);
-            Debug.WriteLine(json.Replace("  ", "\t"));
+            // Debug.WriteLine(json.Replace("  ", "\t"));
 
             settings = JsonConvert.DeserializeObject<DataGeneratorSettings>(json, s_JsonSerializerSettings)!;
         }

@@ -183,11 +183,13 @@ namespace mxProject.Devs.DataGeneration.DataReaders
 
         public T? GetRawValue<T>(int index) where T : struct
         {
+            if (m_DataReader.IsDBNull(index)) { return null; }
             return DataGeneratorUtility.CastToRawValue<T>(m_DataReader.GetValue(index));
         }
 
         public T? GetRawValue<T>(string fieldName) where T : struct
         {
+            if (m_DataReader.IsDBNull(fieldName)) { return null; }
             return DataGeneratorUtility.CastToRawValue<T>(m_DataReader.GetValue(fieldName));
         }
 

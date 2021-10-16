@@ -345,6 +345,7 @@ Debug.WriteLine(json);
 |Field Type|Summary|
 |:--|:--|
 |[Any](documents/ja-jp/Any.ja-jp.md)|指定された値の中から何れかの値を返します。|
+|[DbQuery](documents/ja-jp/DbQuery.ja-jp.md)|指定されたデータリーダーからフィールドの値を読み取って列挙します。|
 |[Each](documents/ja-jp/Each.ja-jp.md)|指定された値を順番に返します。|
 |[Random](documents/ja-jp/Random.ja-jp.md)|指定された範囲内のランダムな値を生成します。|
 |[Sequence](documents/ja-jp/Sequence.ja-jp.md)|指定された範囲内のシーケンシャルな値を生成します。|
@@ -353,6 +354,7 @@ Debug.WriteLine(json);
 
 |Field Type|Summary|
 |:--|:--|
+|[DbQuery](documents/ja-jp/DbQuery.ja-jp.md)|指定されたデータリーダーからフィールドの値を読み取って列挙します。|
 |[DirectProduct](documents/ja-jp/DirectProduct.ja-jp.md)|指定された複数のフィールドの値を生成し、それらの直積を返します。|
 |[EachTuple](documents/ja-jp/EachTuple.ja-jp.md)|指定された複数のフィールドの値の組み合わせを順番に返します。|
 

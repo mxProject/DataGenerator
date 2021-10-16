@@ -23,6 +23,63 @@ namespace mxProject.Devs.DataGeneration
             }
         }
 
+        internal static string[] GetAllFieldNames(this IDataReader reader)
+        {
+            string[] names = new string[reader.FieldCount];
+
+            for (int i = 0; i < reader.FieldCount; ++i)
+            {
+                names[i] = reader.GetName(i);
+            }
+
+            return names;
+        }
+
+        internal static Type[] GetAllValueTypes(this IDataReader reader)
+        {
+            Type[] types = new Type[reader.FieldCount];
+
+            for (int i = 0; i < reader.FieldCount; ++i)
+            {
+                types[i] = DataGeneratorUtility.GetFieldValueType(reader.GetFieldType(i));
+            }
+
+            return types;
+        }
+
+        internal static string[] GetNames(this IDataReader reader, int[] fieldIndexes)
+        {
+            string[] names = new string[fieldIndexes.Length];
+
+            for (int i = 0; i < fieldIndexes.Length; ++i)
+            {
+                names[i] = reader.GetName(fieldIndexes[i]);
+            }
+
+            return names;
+        }
+
+        internal static int[] GetOrdinals(this IDataReader reader, string[] fieldNames)
+        {
+            int[] indexes = new int[fieldNames.Length];
+
+            for (int i = 0; i < fieldNames.Length; ++i)
+            {
+                indexes[i] = reader.GetOrdinal(fieldNames[i]);
+            }
+
+            return indexes;
+        }
+
+        internal static Type GetValueType(this IDataReader reader, int fieldIndex)
+        {
+            return DataGeneratorUtility.GetFieldValueType(reader.GetFieldType(fieldIndex));
+        }
+
+        internal static Type GetValueType(this IDataReader reader, string fieldName)
+        {
+            return DataGeneratorUtility.GetFieldValueType(reader.GetFieldType(reader.GetOrdinal(fieldName)));
+        }
 
         internal static Type[] GetValueTypes(this IDataReader reader, int[] fieldIndexes)
         {
@@ -56,7 +113,7 @@ namespace mxProject.Devs.DataGeneration
         /// <param name="keyFieldIndexes"></param>
         /// <param name="valueFieldIndexes"></param>
         /// <returns></returns>
-        internal static IDictionary ToDictionaryKey(
+        internal static IDictionary ToDictionary(
             this IDataGenerationReader reader,
             int[] keyFieldIndexes,
             int[] valueFieldIndexes
@@ -823,7 +880,7 @@ namespace mxProject.Devs.DataGeneration
         /// <param name="keyFieldNames"></param>
         /// <param name="valueFieldNames"></param>
         /// <returns></returns>
-        internal static IDictionary ToDictionaryKey(
+        internal static IDictionary ToDictionary(
             this IDataGenerationReader reader,
             string[] keyFieldNames,
             string[] valueFieldNames
@@ -17987,6 +18044,260 @@ namespace mxProject.Devs.DataGeneration
                 (keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyFieldNames[8]),
                 (valueFieldNames[0], valueFieldNames[1], valueFieldNames[2], valueFieldNames[3], valueFieldNames[4], valueFieldNames[5], valueFieldNames[6], valueFieldNames[7], valueFieldNames[8])
                 );
+        }
+
+        #endregion
+
+
+
+        /// <summary>
+        /// Reads data from the specified data reader and creates a list.
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="fieldIndexes"></param>
+        /// <returns></returns>
+        internal static IList ToList(this IDataGenerationReader reader, int[] fieldIndexes)
+        {
+            static IList Invoke(string methodName, Type[] genericTypes, IDataGenerationReader reader, int[] fieldIndexes)
+            {
+                var method = typeof(IDataReaderExtensions).GetGenericMethod(methodName, typeof(IDataGenerationReader), typeof(int[]));
+                return typeof(IDataReaderExtensions).InvokeStaticGenericMethod<IList>(method, genericTypes, reader, fieldIndexes)!;
+            }
+
+            var valueTypes = reader.GetValueTypes(fieldIndexes);
+
+            return fieldIndexes.Length switch
+            {
+                1 => Invoke(nameof(ToList_Field1), valueTypes, reader, fieldIndexes),
+                2 => Invoke(nameof(ToList_Field2), valueTypes, reader, fieldIndexes),
+                3 => Invoke(nameof(ToList_Field3), valueTypes, reader, fieldIndexes),
+                4 => Invoke(nameof(ToList_Field4), valueTypes, reader, fieldIndexes),
+                5 => Invoke(nameof(ToList_Field5), valueTypes, reader, fieldIndexes),
+                6 => Invoke(nameof(ToList_Field6), valueTypes, reader, fieldIndexes),
+                7 => Invoke(nameof(ToList_Field7), valueTypes, reader, fieldIndexes),
+                8 => Invoke(nameof(ToList_Field8), valueTypes, reader, fieldIndexes),
+                9 => Invoke(nameof(ToList_Field9), valueTypes, reader, fieldIndexes),
+                _ => throw new NotSupportedException("The specified number of fields is not supported."),
+            };
+        }
+
+        /// <summary>
+        /// Reads data from the specified data reader and creates a list.
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="fieldNames"></param>
+        /// <returns></returns>
+        internal static IList ToList(this IDataGenerationReader reader, string[] fieldNames)
+        {
+            static IList Invoke(string methodName, Type[] genericTypes, IDataGenerationReader reader, int[] fieldIndexes)
+            {
+                var method = typeof(IDataReaderExtensions).GetGenericMethod(methodName, typeof(IDataGenerationReader), typeof(int[]));
+                return typeof(IDataReaderExtensions).InvokeStaticGenericMethod<IList>(method, genericTypes, reader, fieldIndexes)!;
+            }
+
+            var valueTypes = reader.GetValueTypes(fieldNames);
+            var fieldIndexes = reader.GetOrdinals(fieldNames);
+
+            return fieldNames.Length switch
+            {
+                1 => Invoke(nameof(ToList_Field1), valueTypes, reader, fieldIndexes),
+                2 => Invoke(nameof(ToList_Field2), valueTypes, reader, fieldIndexes),
+                3 => Invoke(nameof(ToList_Field3), valueTypes, reader, fieldIndexes),
+                4 => Invoke(nameof(ToList_Field4), valueTypes, reader, fieldIndexes),
+                5 => Invoke(nameof(ToList_Field5), valueTypes, reader, fieldIndexes),
+                6 => Invoke(nameof(ToList_Field6), valueTypes, reader, fieldIndexes),
+                7 => Invoke(nameof(ToList_Field7), valueTypes, reader, fieldIndexes),
+                8 => Invoke(nameof(ToList_Field8), valueTypes, reader, fieldIndexes),
+                9 => Invoke(nameof(ToList_Field9), valueTypes, reader, fieldIndexes),
+                _ => throw new NotSupportedException("The specified number of fields is not supported."),
+            };
+        }
+
+        #region ToList<T>
+
+        private static IList<T?> ToList_Field1<T>(IDataGenerationReader reader, int[] fieldIndexes)
+            where T : struct
+        {
+            List<T?> list = new();
+
+            while (reader.Read())
+            {
+                list.Add(reader.GetRawValue<T>(fieldIndexes[0]));
+            }
+
+            return list;
+        }
+
+        #endregion
+
+        #region ToList<T1, T2>
+
+        private static IList<(T1?, T2?)> ToList_Field2<T1, T2>(IDataGenerationReader reader, int[] fieldIndexes)
+            where T1 : struct
+            where T2 : struct
+        {
+            List<(T1?, T2?)> list = new();
+
+            while (reader.Read())
+            {
+                list.Add(reader.GetRawTuple<T1, T2>(fieldIndexes));
+            }
+
+            return list;
+        }
+
+        #endregion
+
+        #region ToList<T1, T2, T3>
+
+        private static IList<(T1?, T2?, T3?)> ToList_Field3<T1, T2, T3>(IDataGenerationReader reader, int[] fieldIndexes)
+            where T1 : struct
+            where T2 : struct
+            where T3 : struct
+        {
+            List<(T1?, T2?, T3?)> list = new();
+
+            while (reader.Read())
+            {
+                list.Add(reader.GetRawTuple<T1, T2, T3>(fieldIndexes));
+            }
+
+            return list;
+        }
+
+        #endregion
+
+        #region ToList<T1, T2, T3, T4>
+
+        private static IList<(T1?, T2?, T3?, T4?)> ToList_Field4<T1, T2, T3, T4>(IDataGenerationReader reader, int[] fieldIndexes)
+            where T1 : struct
+            where T2 : struct
+            where T3 : struct
+            where T4 : struct
+        {
+            List<(T1?, T2?, T3?, T4?)> list = new();
+
+            while (reader.Read())
+            {
+                list.Add(reader.GetRawTuple<T1, T2, T3, T4>(fieldIndexes));
+            }
+
+            return list;
+        }
+
+        #endregion
+
+        #region ToList<T1, T2, T3, T4, T5>
+
+        private static IList<(T1?, T2?, T3?, T4?, T5?)> ToList_Field5<T1, T2, T3, T4, T5>(IDataGenerationReader reader, int[] fieldIndexes)
+            where T1 : struct
+            where T2 : struct
+            where T3 : struct
+            where T4 : struct
+            where T5 : struct
+        {
+            List<(T1?, T2?, T3?, T4?, T5?)> list = new();
+
+            while (reader.Read())
+            {
+                list.Add(reader.GetRawTuple<T1, T2, T3, T4, T5>(fieldIndexes));
+            }
+
+            return list;
+        }
+
+        #endregion
+
+        #region ToList<T1, T2, T3, T4, T5, T6>
+
+        private static IList<(T1?, T2?, T3?, T4?, T5?, T6?)> ToList_Field6<T1, T2, T3, T4, T5, T6>(IDataGenerationReader reader, int[] fieldIndexes)
+            where T1 : struct
+            where T2 : struct
+            where T3 : struct
+            where T4 : struct
+            where T5 : struct
+            where T6 : struct
+        {
+            List<(T1?, T2?, T3?, T4?, T5?, T6?)> list = new();
+
+            while (reader.Read())
+            {
+                list.Add(reader.GetRawTuple<T1, T2, T3, T4, T5, T6>(fieldIndexes));
+            }
+
+            return list;
+        }
+
+        #endregion
+
+        #region ToList<T1, T2, T3, T4, T5, T6, T7>
+
+        private static IList<(T1?, T2?, T3?, T4?, T5?, T6?, T7?)> ToList_Field7<T1, T2, T3, T4, T5, T6, T7>(IDataGenerationReader reader, int[] fieldIndexes)
+            where T1 : struct
+            where T2 : struct
+            where T3 : struct
+            where T4 : struct
+            where T5 : struct
+            where T6 : struct
+            where T7 : struct
+        {
+            List<(T1?, T2?, T3?, T4?, T5?, T6?, T7?)> list = new();
+
+            while (reader.Read())
+            {
+                list.Add(reader.GetRawTuple<T1, T2, T3, T4, T5, T6, T7>(fieldIndexes));
+            }
+
+            return list;
+        }
+
+        #endregion
+
+        #region ToList<T1, T2, T3, T4, T5, T6, T7, T8>
+
+        private static IList<(T1?, T2?, T3?, T4?, T5?, T6?, T7?, T8?)> ToList_Field8<T1, T2, T3, T4, T5, T6, T7, T8>(IDataGenerationReader reader, int[] fieldIndexes)
+            where T1 : struct
+            where T2 : struct
+            where T3 : struct
+            where T4 : struct
+            where T5 : struct
+            where T6 : struct
+            where T7 : struct
+            where T8 : struct
+        {
+            List<(T1?, T2?, T3?, T4?, T5?, T6?, T7?, T8?)> list = new();
+
+            while (reader.Read())
+            {
+                list.Add(reader.GetRawTuple<T1, T2, T3, T4, T5, T6, T7, T8>(fieldIndexes));
+            }
+
+            return list;
+        }
+
+        #endregion
+
+        #region ToList<T1, T2, T3, T4, T5, T6, T7, T8, T9>
+
+        private static IList<(T1?, T2?, T3?, T4?, T5?, T6?, T7?, T8?, T9?)> ToList_Field9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(IDataGenerationReader reader, int[] fieldIndexes)
+            where T1 : struct
+            where T2 : struct
+            where T3 : struct
+            where T4 : struct
+            where T5 : struct
+            where T6 : struct
+            where T7 : struct
+            where T8 : struct
+            where T9 : struct
+        {
+            List<(T1?, T2?, T3?, T4?, T5?, T6?, T7?, T8?, T9?)> list = new();
+
+            while (reader.Read())
+            {
+                list.Add(reader.GetRawTuple<T1, T2, T3, T4, T5, T6, T7, T8, T9>(fieldIndexes));
+            }
+
+            return list;
         }
 
         #endregion

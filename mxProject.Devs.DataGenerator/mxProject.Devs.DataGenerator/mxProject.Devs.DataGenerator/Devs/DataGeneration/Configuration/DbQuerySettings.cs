@@ -67,9 +67,12 @@ namespace mxProject.Devs.DataGeneration.Configuration
             if ((connection.State & ConnectionState.Open) != ConnectionState.Open)
             {
                 connection.Open();
+                return command.ExecuteReader(CommandBehavior.CloseConnection);
             }
-
-            return command.ExecuteReader(CommandBehavior.CloseConnection);
+            else
+            {
+                return command.ExecuteReader();
+            }
         }
 
     }
