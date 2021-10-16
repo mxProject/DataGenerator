@@ -36,6 +36,80 @@ namespace UnitTestProject1.SampleValues
             }
         }
 
+        internal static void PrepareSampleTable(IDbConnection connection)
+        {
+
+            if ((connection.State & ConnectionState.Open) != ConnectionState.Open) { connection.Open(); }
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = @"
+
+drop table if exists SAMPLE_TABLE
+
+";
+                command.ExecuteNonQuery();
+            }
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = @"
+
+create table if not exists SAMPLE_TABLE
+(
+    FIELD1 integer not null,
+    FIELD2 integer not null,
+    FIELD3 integer,
+    FIELD4 real not null,
+    FIELD5 real not null,
+    FIELD6 real,
+    FIELD7 text not null,
+    FIELD8 text not null,
+    FIELD9 text
+)
+
+";
+                command.ExecuteNonQuery();
+            }
+
+            static void Insert(IDbConnection connection, int field1, int field2, int? field3, double field4, double field5, double? field6, string field7, string field8, string? field9)
+            {
+                using var command = connection.CreateCommand();
+
+                command.CommandText = @$"
+
+insert into SAMPLE_TABLE values (
+{field1}
+, {field2}
+, {(field3.HasValue ? field3.ToString() : "null")}
+, {field4}
+, {field5}
+, {(field6.HasValue ? field6.ToString() : "null")}
+, '{field7}'
+, '{field8}'
+, {(field9 != null ? $"'{field9}'" : "null")}
+)
+
+";
+                command.ExecuteNonQuery();
+            }
+
+            Insert(connection, 1, 10, 100, 1.1, 1.11, 1.111, "a", "aa", "aaa");
+            Insert(connection, 2, 20, null, 2.2, 2.22, null, "b", "bb", null);
+
+        }
+
+        internal static IDataReader GetSampleTable(IDbConnection connection)
+        {
+            using var command = connection.CreateCommand();
+
+            command.CommandText = "select * from SAMPLE_TABLE";
+
+            return command.ExecuteReader();
+        }
+
+
+
         internal static void PrepareShopMaster(IDbConnection connection)
         {
 

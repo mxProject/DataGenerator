@@ -16959,7 +16959,7 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
 
             string methodName = GetMethodName(keyFieldNames.Length, additionalValueFieldNames.Length);
 
-            IDictionary dictionary = additionalValues.AsDataGenerationReader().ToDictionaryKey(additionalKeyFieldNames, additionalValueFieldNames);
+            IDictionary dictionary = additionalValues.AsDataGenerationReader().ToDictionary(additionalKeyFieldNames, additionalValueFieldNames);
 
             Type t = typeof(JoinFieldFactory);
 

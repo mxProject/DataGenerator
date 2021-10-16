@@ -881,6 +881,115 @@ namespace UnitTestProject1
 
         #endregion
 
+        #region DbQuery
+
+        [TestMethod]
+        public async Task DbQuery()
+        {
+            var provider = SampleSQLite.CreateProvider();
+
+            using var connection = provider.CreateConnection(":memory:");
+
+            SampleSQLite.PrepareSampleTable(connection);
+
+            using IDataReader sampleDataReader1 = SampleSQLite.GetSampleTable(connection);
+            using IDataReader sampleDataReader2 = SampleSQLite.GetSampleTable(connection);
+
+            // Creates a context.
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            // Creates a builder.
+            DataGeneratorBuilder builder = new DataGeneratorBuilder();
+
+            // Adds fields.
+            builder
+
+                // One field.
+                .AddField(factory => factory.FromDataReader(
+                    "FIELD1",
+                    sampleDataReader1
+                    )
+                )
+
+                // Multiple fields.
+                .AddTupleField(factory => factory.FromDataReader(
+                    new[]
+                    {
+                        "FIELD2", "FIELD3", "FIELD4"
+                    },
+                    sampleDataReader2
+                    )
+                )
+                ;
+
+            // Creates a generator that generates 10 records and returns it as a DataReader.
+            using IDataReader reader = await builder.BuildAsDataReaderAsync(10);
+
+            Dump(reader);
+        }
+
+        [TestMethod]
+        public async Task DbQuerySettings()
+        {
+            var provider = SampleSQLite.CreateProvider();
+
+            using var connection = provider.CreateConnection(":memory:");
+
+            SampleSQLite.PrepareSampleTable(connection);
+
+            // Creates a generator settings.
+            DataGeneratorSettings generatorSettings = new DataGeneratorSettings()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    // One field.
+                    new DbQueryFieldSettings()
+                    {
+                        FieldName = "FIELD1",
+                        DbQuerySettings = new DbQuerySettings()
+                        {
+                            CommandText = "select * from SAMPLE_TABLE",
+                            ConnectionString = ":memory:"
+                            //ConnectionString = "Provider=SQLOLEDB; Data Source=(local); Integrated Security=SSPI"
+                        }
+                    }
+                },
+                TupleFields = new DataGeneratorTupleFieldSettings[]
+                {
+                    // Multiple fields.
+                    new DbQueryFieldsSettings()
+                    {
+                        FieldNames = new[]
+                        {
+                            "FIELD2",
+                            "FIELD3",
+                            "FIELD4",
+                        },
+                        DbQuerySettings = new DbQuerySettings()
+                        {
+                            CommandText = "select * from SAMPLE_TABLE",
+                            ConnectionString = ":memory:"
+                            //ConnectionString = "Provider=SQLOLEDB; Data Source=(local); Integrated Security=SSPI"
+                        }
+                    }
+                }
+            };
+
+            // Create a context that controls the behavior of the generator.
+            // You can replace random number generation algorithms, string converters, etc. with your own implementation.
+            DataGeneratorContext context = new DataGeneratorContext(dbProvider: SampleSQLite.CreateProvider(connection));
+
+            // Creates a builder.
+            DataGeneratorBuilder builder = generatorSettings.CreateBuilder(context);
+
+            // Creates a generator that generates 10 records and returns it as a DataReader.
+            using IDataReader reader = await builder.BuildAsDataReaderAsync(10);
+
+            Dump(reader);
+        }
+
+        #endregion
+
         #region JoinDbQuery
 
         [TestMethod]
