@@ -12,6 +12,8 @@
 | [AnyFieldSettings&lt;TValue&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyFieldSettings`1.md) | Settings for a field that enumerates one of the specified values. |
 | [AnyFieldSettingsBase&lt;TValue&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyFieldSettingsBase`1.md) | Basic implementation of settings for a field that enumerates one of the specified values. |
 | [AnyStringFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyStringFieldSettings.md) | Settings for a field that enumerates one of the specified string values. |
+| DbQueryFieldSettings |  |
+| DbQueryFieldsSettings |  |
 | [DirectProductFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DirectProductFieldSettings.md) | Settings for a field that enumerates the direct product. |
 | [EachEnumFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/EachEnumFieldSettings.md) | Settings for a field that enumerates the enum values. |
 | [EachEnumFieldSettings&lt;TEnum&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/EachEnumFieldSettings`1.md) | Settings for a field to enumerate the specified enum values. |
