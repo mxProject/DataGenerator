@@ -227,7 +227,7 @@ string json = JsonConvert.SerializeObject(generatorSettings, jsonSettings);
 Debug.WriteLine(json);
 ```
 
-次のJSON文字列は、前述の generatorSettings をシリアライズした結果です。
+The DataGeneratorSettings instance in the sample code above is serialized into a JSON string like this:
 
 ```json
 {
@@ -345,6 +345,7 @@ Debug.WriteLine(json);
 |Field Type|Summary|
 |:--|:--|
 |[Any](documents/Any.md)|Returns one of the specified values.|
+|[DbQuery](documents/DbQuery.md)|Reads and enumerates the values from the specified data reader. |
 |[Each](documents/Each.md)|Returns the specified values in order.|
 |[Random](documents/Random.md)|Generates a random value within the specified range.|
 |[Sequence](documents/Sequence.md)|Generates sequential values within the specified range.|
@@ -353,6 +354,7 @@ Debug.WriteLine(json);
 
 |Field Type|Summary|
 |:--|:--|
+|[DbQuery](documents/DbQuery.md)|Reads and enumerates the values from the specified data reader. |
 |[DirectProduct](documents/DirectProduct.md)|Generates the values for the specified fields and returns their direct product.|
 |[EachTuple](documents/EachTuple.md)|Returns a combination of the values of the specified multiple fields in order.|
 
@@ -367,6 +369,7 @@ Debug.WriteLine(json);
 |Field Type|Summary|
 |:--|:--|
 |[Join](documents/Join.md)|Takes the generated data record as an argument and returns the value corresponding to the value of the key field from the dictionary or lookup.|
+|[JoinDbQuery](documents/JoinDbQuery.md)|Takes the generated data record as an argument and returns the value corresponding to the value of the key field from the data reader.|
 
 ### Serialization to Json
 

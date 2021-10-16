@@ -21,13 +21,15 @@ namespace mxProject.Devs.DataGeneration
         /// <param name="stringConverter">The string converter.</param>
         /// <param name="enumerableFactory">The enumerable factory.</param>
         /// <param name="cSharpScriptGlobalObject">The object to use as a global variable in CSharpScript.</param>
-        public DataGeneratorContext(DataGeneratorFieldFactory? fieldFactory = null, IRandomGenerator? randomGenerator = null, IStringConverter? stringConverter = null, EnumerableFactory? enumerableFactory = null, object? cSharpScriptGlobalObject = null)
+        /// <param name="dbProvider">The database object provider.</param>
+        public DataGeneratorContext(DataGeneratorFieldFactory? fieldFactory = null, IRandomGenerator? randomGenerator = null, IStringConverter? stringConverter = null, EnumerableFactory? enumerableFactory = null, object? cSharpScriptGlobalObject = null, IDbProvider? dbProvider = null)
         {
             RandomGenerator = randomGenerator ?? DefaultRandomGenerator.Instance;
             StringConverter = stringConverter ?? DefaultStringConverter.Instance;
             EnumerableFactory = enumerableFactory ?? new EnumerableFactory(RandomGenerator);
             FieldFactory = fieldFactory ?? new DataGeneratorFieldFactory(EnumerableFactory);
             CSharpScriptGlobalObject = cSharpScriptGlobalObject;
+            DbProvider = dbProvider ?? DefaultDbProvider.Instance;
         }
 
         /// <summary>
@@ -54,6 +56,11 @@ namespace mxProject.Devs.DataGeneration
         /// Gets the object to use as a global variable in CSharpScript.
         /// </summary>
         public object? CSharpScriptGlobalObject { get; }
+
+        /// <summary>
+        /// Gets the database object provider.
+        /// </summary>
+        public IDbProvider DbProvider { get; }
 
     }
 

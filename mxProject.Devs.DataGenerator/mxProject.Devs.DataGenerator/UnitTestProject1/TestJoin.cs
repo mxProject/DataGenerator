@@ -14256,6 +14256,6723 @@ namespace UnitTestProject1
         #endregion
 
 
+
+        #region DataReader TKey, TValue
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key1_Value1()
+        {
+            string[] keyFieldNames = new[] { "key1" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int))
+            };
+
+            var keyValues = SampleJoinValues.GetValues<int>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddField(f => f.Each(additionalKeyFields[0].FieldName, SampleJoinValues.GetValues<int>()))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddField(f => f.Each(keyFieldNames[0], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.Cast<int>(values[0]),
+                values => FieldValueConverter.Default.Cast<int>(values[0])
+                );
+        }
+
+        #endregion
+
+        #region DataReader TKey, (TValue1, TValue2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key1_Value2()
+        {
+            string[] keyFieldNames = new[] { "key1" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek))
+            };
+
+            var keyValues = SampleJoinValues.GetValues<int>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddField(f => f.Each(additionalKeyFields[0].FieldName, SampleJoinValues.GetValues<int>()))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddField(f => f.Each(keyFieldNames[0], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.Cast<int>(values[0]),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader TKey, (TValue1, TValue2, TValue3)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key1_Value3()
+        {
+            string[] keyFieldNames = new[] { "key1" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string))
+            };
+
+            var keyValues = SampleJoinValues.GetValues<int>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddField(f => f.Each(additionalKeyFields[0].FieldName, SampleJoinValues.GetValues<int>()))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddField(f => f.Each(keyFieldNames[0], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.Cast<int>(values[0]),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader TKey, (TValue1, TValue2, TValue3, TValue4)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key1_Value4()
+        {
+            string[] keyFieldNames = new[] { "key1" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char))
+            };
+
+            var keyValues = SampleJoinValues.GetValues<int>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddField(f => f.Each(additionalKeyFields[0].FieldName, SampleJoinValues.GetValues<int>()))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddField(f => f.Each(keyFieldNames[0], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.Cast<int>(values[0]),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader TKey, (TValue1, TValue2, TValue3, TValue4, TValue5)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key1_Value5()
+        {
+            string[] keyFieldNames = new[] { "key1" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime))
+            };
+
+            var keyValues = SampleJoinValues.GetValues<int>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddField(f => f.Each(additionalKeyFields[0].FieldName, SampleJoinValues.GetValues<int>()))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddField(f => f.Each(keyFieldNames[0], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.Cast<int>(values[0]),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader TKey, (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key1_Value6()
+        {
+            string[] keyFieldNames = new[] { "key1" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset))
+            };
+
+            var keyValues = SampleJoinValues.GetValues<int>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddField(f => f.Each(additionalKeyFields[0].FieldName, SampleJoinValues.GetValues<int>()))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddField(f => f.Each(keyFieldNames[0], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.Cast<int>(values[0]),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader TKey, (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key1_Value7()
+        {
+            string[] keyFieldNames = new[] { "key1" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan))
+            };
+
+            var keyValues = SampleJoinValues.GetValues<int>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddField(f => f.Each(additionalKeyFields[0].FieldName, SampleJoinValues.GetValues<int>()))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddField(f => f.Each(keyFieldNames[0], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.Cast<int>(values[0]),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader TKey, (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key1_Value8()
+        {
+            string[] keyFieldNames = new[] { "key1" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double))
+            };
+
+            var keyValues = SampleJoinValues.GetValues<int>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddField(f => f.Each(additionalKeyFields[0].FieldName, SampleJoinValues.GetValues<int>()))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddField(f => f.Each(keyFieldNames[0], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.Cast<int>(values[0]),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader TKey, (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key1_Value9()
+        {
+            string[] keyFieldNames = new[] { "key1" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double)),
+                new DataGeneratorFieldInfo("value09", typeof(decimal))
+            };
+
+            var keyValues = SampleJoinValues.GetValues<int>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddField(f => f.Each(additionalKeyFields[0].FieldName, SampleJoinValues.GetValues<int>()))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .AddField(f => f.Each(additionalValueFields[8].FieldName, SampleJoinValues.GetValues<decimal>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddField(f => f.Each(keyFieldNames[0], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.Cast<int>(values[0]),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double, decimal>(values)
+                );
+        }
+
+        #endregion
+
+
+        #region DataReader (TKey1, TKey2), TValue
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key2_Value1()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue>(values),
+                values => FieldValueConverter.Default.Cast<int>(values[0])
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2), (TValue1, TValue2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key2_Value2()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2), (TValue1, TValue2, TValue3)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key2_Value3()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2), (TValue1, TValue2, TValue3, TValue4)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key2_Value4()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2), (TValue1, TValue2, TValue3, TValue4, TValue5)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key2_Value5()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key2_Value6()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key2_Value7()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key2_Value8()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key2_Value9()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double)),
+                new DataGeneratorFieldInfo("value09", typeof(decimal))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .AddField(f => f.Each(additionalValueFields[8].FieldName, SampleJoinValues.GetValues<decimal>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double, decimal>(values)
+                );
+        }
+
+        #endregion
+
+
+        #region DataReader (TKey1, TKey2, TKey3), TValue
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key3_Value1()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float>(values),
+                values => FieldValueConverter.Default.Cast<int>(values[0])
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3), (TValue1, TValue2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key3_Value2()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3), (TValue1, TValue2, TValue3)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key3_Value3()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3), (TValue1, TValue2, TValue3, TValue4)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key3_Value4()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3), (TValue1, TValue2, TValue3, TValue4, TValue5)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key3_Value5()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key3_Value6()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key3_Value7()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key3_Value8()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key3_Value9()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double)),
+                new DataGeneratorFieldInfo("value09", typeof(decimal))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .AddField(f => f.Each(additionalValueFields[8].FieldName, SampleJoinValues.GetValues<decimal>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double, decimal>(values)
+                );
+        }
+
+        #endregion
+
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4), TValue
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key4_Value1()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short>(values),
+                values => FieldValueConverter.Default.Cast<int>(values[0])
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4), (TValue1, TValue2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key4_Value2()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4), (TValue1, TValue2, TValue3)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key4_Value3()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4), (TValue1, TValue2, TValue3, TValue4)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key4_Value4()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4), (TValue1, TValue2, TValue3, TValue4, TValue5)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key4_Value5()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key4_Value6()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key4_Value7()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key4_Value8()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key4_Value9()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double)),
+                new DataGeneratorFieldInfo("value09", typeof(decimal))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .AddField(f => f.Each(additionalValueFields[8].FieldName, SampleJoinValues.GetValues<decimal>()))
+                    .BuildAsDataReaderAsync(5);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double, decimal>(values)
+                );
+        }
+
+        #endregion
+
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5), TValue
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key5_Value1()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long>(values),
+                values => FieldValueConverter.Default.Cast<int>(values[0])
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5), (TValue1, TValue2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key5_Value2()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5), (TValue1, TValue2, TValue3)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key5_Value3()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5), (TValue1, TValue2, TValue3, TValue4)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key5_Value4()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5), (TValue1, TValue2, TValue3, TValue4, TValue5)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key5_Value5()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key5_Value6()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key5_Value7()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key5_Value8()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key5_Value9()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double)),
+                new DataGeneratorFieldInfo("value09", typeof(decimal))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .AddField(f => f.Each(additionalValueFields[8].FieldName, SampleJoinValues.GetValues<decimal>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double, decimal>(values)
+                );
+        }
+
+        #endregion
+
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6), TValue
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key6_Value1()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte>(values),
+                values => FieldValueConverter.Default.Cast<int>(values[0])
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6), (TValue1, TValue2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key6_Value2()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6), (TValue1, TValue2, TValue3)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key6_Value3()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6), (TValue1, TValue2, TValue3, TValue4)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key6_Value4()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6), (TValue1, TValue2, TValue3, TValue4, TValue5)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key6_Value5()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key6_Value6()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key6_Value7()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key6_Value8()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key6_Value9()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double)),
+                new DataGeneratorFieldInfo("value09", typeof(decimal))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .AddField(f => f.Each(additionalValueFields[8].FieldName, SampleJoinValues.GetValues<decimal>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double, decimal>(values)
+                );
+        }
+
+        #endregion
+
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7), TValue
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key7_Value1()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek>(values),
+                values => FieldValueConverter.Default.Cast<int>(values[0])
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7), (TValue1, TValue2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key7_Value2()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7), (TValue1, TValue2, TValue3)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key7_Value3()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7), (TValue1, TValue2, TValue3, TValue4)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key7_Value4()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7), (TValue1, TValue2, TValue3, TValue4, TValue5)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key7_Value5()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key7_Value6()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key7_Value7()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key7_Value8()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key7_Value9()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double)),
+                new DataGeneratorFieldInfo("value09", typeof(decimal))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .AddField(f => f.Each(additionalValueFields[8].FieldName, SampleJoinValues.GetValues<decimal>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double, decimal>(values)
+                );
+        }
+
+        #endregion
+
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8), TValue
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key8_Value1()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>(values),
+                values => FieldValueConverter.Default.Cast<int>(values[0])
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8), (TValue1, TValue2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key8_Value2()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8), (TValue1, TValue2, TValue3)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key8_Value3()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8), (TValue1, TValue2, TValue3, TValue4)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key8_Value4()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8), (TValue1, TValue2, TValue3, TValue4, TValue5)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key8_Value5()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key8_Value6()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key8_Value7()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key8_Value8()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key8_Value9()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double)),
+                new DataGeneratorFieldInfo("value09", typeof(decimal))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .AddField(f => f.Each(additionalValueFields[8].FieldName, SampleJoinValues.GetValues<decimal>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double, decimal>(values)
+                );
+        }
+
+        #endregion
+
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9), TValue
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key9_Value1()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("key09", typeof(bool))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        additionalKeyFields[8].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyFieldNames[8], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>(values),
+                values => FieldValueConverter.Default.Cast<int>(values[0])
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9), (TValue1, TValue2)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key9_Value2()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("key09", typeof(bool))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        additionalKeyFields[8].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyFieldNames[8], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9), (TValue1, TValue2, TValue3)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key9_Value3()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("key09", typeof(bool))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        additionalKeyFields[8].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyFieldNames[8], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9), (TValue1, TValue2, TValue3, TValue4)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key9_Value4()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("key09", typeof(bool))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        additionalKeyFields[8].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyFieldNames[8], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9), (TValue1, TValue2, TValue3, TValue4, TValue5)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key9_Value5()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("key09", typeof(bool))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        additionalKeyFields[8].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyFieldNames[8], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key9_Value6()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("key09", typeof(bool))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        additionalKeyFields[8].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyFieldNames[8], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key9_Value7()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("key09", typeof(bool))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        additionalKeyFields[8].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyFieldNames[8], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key9_Value8()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("key09", typeof(bool))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        additionalKeyFields[8].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyFieldNames[8], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double>(values)
+                );
+        }
+
+        #endregion
+
+        #region DataReader (TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9), (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task DataReader_Key9_Value9()
+        {
+            string[] keyFieldNames = new[] { "key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9" };
+
+            IDataGeneratorFieldInfo[] additionalKeyFields = new[]
+            {
+                new DataGeneratorFieldInfo("key01", typeof(int)),
+                new DataGeneratorFieldInfo("key02", typeof(string)),
+                new DataGeneratorFieldInfo("key03", typeof(float)),
+                new DataGeneratorFieldInfo("key04", typeof(short)),
+                new DataGeneratorFieldInfo("key05", typeof(long)),
+                new DataGeneratorFieldInfo("key06", typeof(byte)),
+                new DataGeneratorFieldInfo("key07", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("key08", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("key09", typeof(bool))
+            };
+
+            IDataGeneratorFieldInfo[] additionalValueFields = new[]
+            {
+                new DataGeneratorFieldInfo("value01", typeof(int)),
+                new DataGeneratorFieldInfo("value02", typeof(DayOfWeek)),
+                new DataGeneratorFieldInfo("value03", typeof(string)),
+                new DataGeneratorFieldInfo("value04", typeof(char)),
+                new DataGeneratorFieldInfo("value05", typeof(DateTime)),
+                new DataGeneratorFieldInfo("value06", typeof(DateTimeOffset)),
+                new DataGeneratorFieldInfo("value07", typeof(TimeSpan)),
+                new DataGeneratorFieldInfo("value08", typeof(double)),
+                new DataGeneratorFieldInfo("value09", typeof(decimal))
+            };
+
+            var keyValues = SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>();
+
+            static ValueTask<IDataGenerationReader> CreateAdditionalValuesAsync(IDataGeneratorFieldInfo[] additionalKeyFields, IDataGeneratorFieldInfo[] additionalValueFields)
+            {
+                return new DataGeneratorBuilder()
+                    .AddTupleField(f => f.EachTuple(
+                        additionalKeyFields[0].FieldName,
+                        additionalKeyFields[1].FieldName,
+                        additionalKeyFields[2].FieldName,
+                        additionalKeyFields[3].FieldName,
+                        additionalKeyFields[4].FieldName,
+                        additionalKeyFields[5].FieldName,
+                        additionalKeyFields[6].FieldName,
+                        additionalKeyFields[7].FieldName,
+                        additionalKeyFields[8].FieldName,
+                        SampleJoinValues.CreateNullableKeyValues<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>()
+                        ))
+                    .AddField(f => f.SequenceInt32(additionalValueFields[0].FieldName, 1))
+                    .AddField(f => f.EachEnum<DayOfWeek>(additionalValueFields[1].FieldName))
+                    .AddField(f => f.Each(additionalValueFields[2].FieldName, SampleJoinValues.GetValues<StringValue>()))
+                    .AddField(f => f.Each(additionalValueFields[3].FieldName, SampleJoinValues.GetValues<char>()))
+                    .AddField(f => f.Each(additionalValueFields[4].FieldName, SampleJoinValues.GetValues<DateTime>()))
+                    .AddField(f => f.Each(additionalValueFields[5].FieldName, SampleJoinValues.GetValues<DateTimeOffset>()))
+                    .AddField(f => f.Each(additionalValueFields[6].FieldName, SampleJoinValues.GetValues<TimeSpan>()))
+                    .AddField(f => f.Each(additionalValueFields[7].FieldName, SampleJoinValues.GetValues<double>()))
+                    .AddField(f => f.Each(additionalValueFields[8].FieldName, SampleJoinValues.GetValues<decimal>()))
+                    .BuildAsDataReaderAsync(10);
+            }
+
+            using var additionalValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            DataGeneratorBuilder builder = new DataGeneratorBuilder()
+                .AddTupleField(f => f.EachTuple(keyFieldNames[0], keyFieldNames[1], keyFieldNames[2], keyFieldNames[3], keyFieldNames[4], keyFieldNames[5], keyFieldNames[6], keyFieldNames[7], keyFieldNames[8], keyValues))
+                .AddJoinField(f => f.WithDataReader(
+                    keyFieldNames,
+                    GetFieldNames(additionalKeyFields),
+                    GetFieldNames(additionalValueFields),
+                    additionalValues
+                    ))
+                ;
+
+            int generateCount = keyValues.Count();
+
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount);
+
+            using var expectedValues = await CreateAdditionalValuesAsync(additionalKeyFields, additionalValueFields);
+
+            AssertRecordsCore(
+                reader,
+                generateCount,
+                keyFieldNames,
+                additionalValueFields,
+                expectedValues,
+                GetFieldNames(additionalKeyFields),
+                GetFieldNames(additionalValueFields),
+                values => FieldValueConverter.Default.ToNullableTuple<int, StringValue, float, short, long, byte, DayOfWeek, TimeSpan, bool>(values),
+                values => FieldValueConverter.Default.ToNullableTuple<int, DayOfWeek, StringValue, char, DateTime, DateTimeOffset, TimeSpan, double, decimal>(values)
+                );
+        }
+
+        #endregion
+
+        static string[] GetFieldNames(IDataGeneratorFieldInfo[] fields)
+        {
+            string[] names = new string[fields.Length];
+
+            for (int i = 0; i < fields.Length; ++i)
+            {
+                names[i] = fields[i].FieldName;
+            }
+
+            return names;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -14395,6 +21112,95 @@ namespace UnitTestProject1
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TKeys"></typeparam>
+        /// <typeparam name="TValues"></typeparam>
+        /// <param name="reader"></param>
+        /// <param name="expectedCount"></param>
+        /// <param name="keyFieldNames"></param>
+        /// <param name="additionalFields"></param>
+        /// <param name="additionalValues"></param>
+        /// <param name="keyConverter"></param>
+        /// <param name="valueConverter"></param>
+        static void AssertRecordsCore<TKeys, TValues>(
+            IDataReader reader,
+            int expectedCount,
+            string[] keyFieldNames,
+            IDataGeneratorFieldInfo[] additionalFields,
+            IDataReader additionalValues,
+            string[] additionalKeyFieldNames,
+            string[] additionalValueFieldNames,
+            Func<object?[], TKeys> keyConverter,
+            Func<object?[], TValues> valueConverter
+            )
+            where TKeys : notnull
+        {
+            int count = 0;
+
+            StringBuilder sb = new();
+
+            try
+            {
+                TestUtility.DumpHeader(reader, sb);
+
+                object?[] keys = new object?[keyFieldNames.Length];
+                object?[] values = new object?[additionalFields.Length];
+
+                Dictionary<TKeys, TValues> dic = new();
+
+                while (additionalValues.Read())
+                {
+                    for (int i = 0; i < keys.Length; ++i)
+                    {
+                        keys[i] = additionalValues.GetValue(additionalKeyFieldNames[i]);
+                    }
+
+                    for (int i = 0; i < values.Length; ++i)
+                    {
+                        values[i] = additionalValues.GetValue(additionalValueFieldNames[i]);
+                    }
+
+                    dic[keyConverter(keys)] = valueConverter(values);
+                }
+
+                while (reader.Read())
+                {
+                    TestUtility.DumpRecord(reader, sb);
+
+                    for (int i = 0; i < keyFieldNames.Length; ++i)
+                    {
+                        keys[i] = reader.GetValue(keyFieldNames[i]);
+                    }
+
+                    for (int i = 0; i < additionalFields.Length; ++i)
+                    {
+                        values[i] = reader.GetValue(additionalFields[i].FieldName);
+                    }
+
+                    if (dic.TryGetValue(keyConverter(keys), out var found))
+                    {
+                        Assert.AreEqual(found, valueConverter(values));
+                    }
+                    else
+                    {
+                        for (int i = 0; i < values.Length; ++i)
+                        {
+                            Assert.IsNull(values[0]);
+                        }
+                    }
+
+                    ++count;
+                }
+
+                Assert.AreEqual(expectedCount, count);
+            }
+            finally
+            {
+                Console.WriteLine(sb.ToString());
+            }
+        }
 
     }
 }

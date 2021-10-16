@@ -82,6 +82,10 @@ public DataGeneratorFieldFactory(
 | public | [EachTuple&lt;T1, T2&gt;(string, string, IEnumerable&lt;(T1?, T2?)&gt;, double)](#eachtuplet1-t2string-string-ienumerablet1-t2-double-method) | [IDataGeneratorTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorTupleField.md) | Creates a field that enumerates the specified values. |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
 | protected | [Finalize](#finalize-method) | void | Inherited from  System.Object . |
+| public | [FromDataReader(int, IDataReader)](#fromdatareaderint-idatareader-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) |  |
+| public | [FromDataReader(int[], IDataReader)](#fromdatareaderint-idatareader-method) | [IDataGeneratorTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorTupleField.md) |  |
+| public | [FromDataReader(string, IDataReader)](#fromdatareaderstring-idatareader-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) |  |
+| public | [FromDataReader(string[], IDataReader)](#fromdatareaderstring-idatareader-method) | [IDataGeneratorTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorTupleField.md) |  |
 | public | [GetHashCode](#gethashcode-method) | int | Inherited from  System.Object . |
 | public | [GetType](#gettype-method) | Type | Inherited from  System.Object . |
 | protected | [MemberwiseClone](#memberwiseclone-method) | object | Inherited from  System.Object . |
@@ -1345,6 +1349,90 @@ Inherited from  System.Object .
 ```c#
 protected virtual void Finalize()
 ```
+
+[Go to methods](#Methods)
+
+---
+### FromDataReader(int, IDataReader) Method
+
+
+```c#
+public IDataGeneratorField FromDataReader
+(
+	int fieldIndex
+	, IDataReader reader
+)
+```
+#### Parameters
+|Name|Parameter Type|I/O|Description|
+|:--|:--|:-:|:--|
+| fieldIndex | int |  |  |
+| reader | IDataReader |  |  |
+#### Return type
+
+
+[Go to methods](#Methods)
+
+---
+### FromDataReader(int[], IDataReader) Method
+
+
+```c#
+public IDataGeneratorTupleField FromDataReader
+(
+	int[] fieldIndexes
+	, IDataReader reader
+)
+```
+#### Parameters
+|Name|Parameter Type|I/O|Description|
+|:--|:--|:-:|:--|
+| fieldIndexes | int[] |  |  |
+| reader | IDataReader |  |  |
+#### Return type
+
+
+[Go to methods](#Methods)
+
+---
+### FromDataReader(string, IDataReader) Method
+
+
+```c#
+public IDataGeneratorField FromDataReader
+(
+	string fieldName
+	, IDataReader reader
+)
+```
+#### Parameters
+|Name|Parameter Type|I/O|Description|
+|:--|:--|:-:|:--|
+| fieldName | string |  |  |
+| reader | IDataReader |  |  |
+#### Return type
+
+
+[Go to methods](#Methods)
+
+---
+### FromDataReader(string[], IDataReader) Method
+
+
+```c#
+public IDataGeneratorTupleField FromDataReader
+(
+	string[] fieldNames
+	, IDataReader reader
+)
+```
+#### Parameters
+|Name|Parameter Type|I/O|Description|
+|:--|:--|:-:|:--|
+| fieldNames | string[] |  |  |
+| reader | IDataReader |  |  |
+#### Return type
+
 
 [Go to methods](#Methods)
 

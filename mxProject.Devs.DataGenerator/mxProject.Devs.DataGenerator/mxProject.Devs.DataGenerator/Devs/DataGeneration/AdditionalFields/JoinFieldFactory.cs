@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Data;
+using System.Reflection;
 
 namespace mxProject.Devs.DataGeneration.AdditionalFields
 {
@@ -66,6 +68,26 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionary<TKey, TValue>(
+            string keyFieldName,
+            string additionalFieldName,
+            IDictionary<TKey, TValue?> additionalValues
+            )
+            where TKey : struct
+            where TValue : struct
+        {
+            return WithNullableDictionary_Key1_Value1(keyFieldName, additionalFieldName, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of key of the additional values.</typeparam>
+        /// <typeparam name="TValue">The type of first value of the additional values.</typeparam>
+        /// <param name="keyFieldName">The key field name.</param>
+        /// <param name="additionalFieldName">the field name to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key1_Value1<TKey, TValue>(
             string keyFieldName,
             string additionalFieldName,
             IDictionary<TKey, TValue?> additionalValues
@@ -159,6 +181,28 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue1 : struct
             where TValue2 : struct
         {
+            return WithNullableDictionary_Key1_Value2(keyFieldName, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <param name="keyFieldName">The key field name.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key1_Value2<TKey, TValue1, TValue2>(
+            string keyFieldName,
+            string[] additionalFieldNames,
+            IDictionary<TKey, (TValue1?, TValue2?)> additionalValues
+            )
+            where TKey : struct
+            where TValue1 : struct
+            where TValue2 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string keyFieldName, IDictionary<TKey, (TValue1?, TValue2?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -177,7 +221,7 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             }
 
             var fieldInfo = DataGeneratorFieldInfo.CreateFields(additionalFieldNames, additionalValues.GetValueTypes());
-        
+
             return new DataGeneratorAdditionalTupleField(fieldInfo, CreateValueGetter(keyFieldName, additionalValues));
         }
 
@@ -240,6 +284,30 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionary<TKey, TValue1, TValue2, TValue3>(
+            string keyFieldName,
+            string[] additionalFieldNames,
+            IDictionary<TKey, (TValue1?, TValue2?, TValue3?)> additionalValues
+            )
+            where TKey : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+        {
+            return WithNullableDictionary_Key1_Value3(keyFieldName, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <param name="keyFieldName">The key field name.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key1_Value3<TKey, TValue1, TValue2, TValue3>(
             string keyFieldName,
             string[] additionalFieldNames,
             IDictionary<TKey, (TValue1?, TValue2?, TValue3?)> additionalValues
@@ -333,6 +401,32 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionary<TKey, TValue1, TValue2, TValue3, TValue4>(
+            string keyFieldName,
+            string[] additionalFieldNames,
+            IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
+            )
+            where TKey : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+        {
+            return WithNullableDictionary_Key1_Value4(keyFieldName, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <param name="keyFieldName">The key field name.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key1_Value4<TKey, TValue1, TValue2, TValue3, TValue4>(
             string keyFieldName,
             string[] additionalFieldNames,
             IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
@@ -441,6 +535,34 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue4 : struct
             where TValue5 : struct
         {
+            return WithNullableDictionary_Key1_Value5(keyFieldName, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <param name="keyFieldName">The key field name.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key1_Value5<TKey, TValue1, TValue2, TValue3, TValue4, TValue5>(
+            string keyFieldName,
+            string[] additionalFieldNames,
+            IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues
+            )
+            where TKey : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string keyFieldName, IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -531,6 +653,36 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionary<TKey, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
+            string keyFieldName,
+            string[] additionalFieldNames,
+            IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
+            )
+            where TKey : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+        {
+            return WithNullableDictionary_Key1_Value6(keyFieldName, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <param name="keyFieldName">The key field name.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key1_Value6<TKey, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
             string keyFieldName,
             string[] additionalFieldNames,
             IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
@@ -649,6 +801,38 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue6 : struct
             where TValue7 : struct
         {
+            return WithNullableDictionary_Key1_Value7(keyFieldName, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <param name="keyFieldName">The key field name.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key1_Value7<TKey, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(
+            string keyFieldName,
+            string[] additionalFieldNames,
+            IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues
+            )
+            where TKey : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string keyFieldName, IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -745,6 +929,40 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionary<TKey, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
+            string keyFieldName,
+            string[] additionalFieldNames,
+            IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
+            )
+            where TKey : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+        {
+            return WithNullableDictionary_Key1_Value8(keyFieldName, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <param name="keyFieldName">The key field name.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key1_Value8<TKey, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
             string keyFieldName,
             string[] additionalFieldNames,
             IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
@@ -873,6 +1091,42 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue8 : struct
             where TValue9 : struct
         {
+            return WithNullableDictionary_Key1_Value9(keyFieldName, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <typeparam name="TValue9">The type of ninth value of the additional values.</typeparam>
+        /// <param name="keyFieldName">The key field name.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key1_Value9<TKey, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(
+            string keyFieldName,
+            string[] additionalFieldNames,
+            IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues
+            )
+            where TKey : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+            where TValue9 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string keyFieldName, IDictionary<TKey, (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -923,7 +1177,7 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
                 return (IDataGenerationRecord rec) =>
                 {
                     var key = GetKeyTuple(rec, keyFieldNames, additionalValues);
-                    
+
                     if (key.HasAllValues() && additionalValues.TryGetValue(key.ToValueOrDefault(), out var found))
                     {
                         return new object?[] { found };
@@ -951,6 +1205,28 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey2<TKey1, TKey2, TValue>(
+            string[] keyFieldNames,
+            string additionalFieldName,
+            IDictionary<(TKey1?, TKey2?), TValue?> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TValue : struct
+        {
+            return WithNullableDictionary_Key2_Value1(keyFieldNames, additionalFieldName, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TValue">The type of value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldName">the field name to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key2_Value1<TKey1, TKey2, TValue>(
             string[] keyFieldNames,
             string additionalFieldName,
             IDictionary<(TKey1?, TKey2?), TValue?> additionalValues
@@ -1040,6 +1316,30 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey2<TKey1, TKey2, TValue1, TValue2>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+        {
+            return WithNullableDictionary_Key2_Value2(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of first value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key2_Value2<TKey1, TKey2, TValue1, TValue2>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?)> additionalValues
@@ -1143,6 +1443,32 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue2 : struct
             where TValue3 : struct
         {
+            return WithNullableDictionary_Key2_Value3(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key2_Value3<TKey1, TKey2, TValue1, TValue2, TValue3>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -1230,6 +1556,34 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey2<TKey1, TKey2, TValue1, TValue2, TValue3, TValue4>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+        {
+            return WithNullableDictionary_Key2_Value4(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key2_Value4<TKey1, TKey2, TValue1, TValue2, TValue3, TValue4>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
@@ -1343,6 +1697,36 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue4 : struct
             where TValue5 : struct
         {
+            return WithNullableDictionary_Key2_Value5(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key2_Value5<TKey1, TKey2, TValue1, TValue2, TValue3, TValue4, TValue5>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -1436,6 +1820,38 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey2<TKey1, TKey2, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+        {
+            return WithNullableDictionary_Key2_Value6(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key2_Value6<TKey1, TKey2, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
@@ -1559,6 +1975,40 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue6 : struct
             where TValue7 : struct
         {
+            return WithNullableDictionary_Key2_Value7(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key2_Value7<TKey1, TKey2, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -1658,6 +2108,42 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey2<TKey1, TKey2, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+        {
+            return WithNullableDictionary_Key2_Value8(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key2_Value8<TKey1, TKey2, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
@@ -1791,6 +2277,44 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue8 : struct
             where TValue9 : struct
         {
+            return WithNullableDictionary_Key2_Value9(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <typeparam name="TValue9">The type of ninth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key2_Value9<TKey1, TKey2, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+            where TValue9 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -1872,6 +2396,30 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey3<TKey1, TKey2, TKey3, TValue>(
+            string[] keyFieldNames,
+            string additionalFieldName,
+            IDictionary<(TKey1?, TKey2?, TKey3?), TValue?> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TValue : struct
+        {
+            return WithNullableDictionary_Key3_Value1(keyFieldNames, additionalFieldName, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TValue">The type of value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldName">the field name to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key3_Value1<TKey1, TKey2, TKey3, TValue>(
             string[] keyFieldNames,
             string additionalFieldName,
             IDictionary<(TKey1?, TKey2?, TKey3?), TValue?> additionalValues
@@ -1965,6 +2513,32 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey3<TKey1, TKey2, TKey3, TValue1, TValue2>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+        {
+            return WithNullableDictionary_Key3_Value2(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of first value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key3_Value2<TKey1, TKey2, TKey3, TValue1, TValue2>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?)> additionalValues
@@ -2073,6 +2647,34 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue2 : struct
             where TValue3 : struct
         {
+            return WithNullableDictionary_Key3_Value3(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key3_Value3<TKey1, TKey2, TKey3, TValue1, TValue2, TValue3>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -2163,6 +2765,36 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey3<TKey1, TKey2, TKey3, TValue1, TValue2, TValue3, TValue4>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+        {
+            return WithNullableDictionary_Key3_Value4(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key3_Value4<TKey1, TKey2, TKey3, TValue1, TValue2, TValue3, TValue4>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
@@ -2281,6 +2913,38 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue4 : struct
             where TValue5 : struct
         {
+            return WithNullableDictionary_Key3_Value5(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key3_Value5<TKey1, TKey2, TKey3, TValue1, TValue2, TValue3, TValue4, TValue5>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -2377,6 +3041,40 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey3<TKey1, TKey2, TKey3, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+        {
+            return WithNullableDictionary_Key3_Value6(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+        
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key3_Value6<TKey1, TKey2, TKey3, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
@@ -2505,6 +3203,42 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue6 : struct
             where TValue7 : struct
         {
+            return WithNullableDictionary_Key3_Value7(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key3_Value7<TKey1, TKey2, TKey3, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -2607,6 +3341,44 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey3<TKey1, TKey2, TKey3, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+        {
+            return WithNullableDictionary_Key3_Value8(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key3_Value8<TKey1, TKey2, TKey3, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
@@ -2745,6 +3517,46 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue8 : struct
             where TValue9 : struct
         {
+            return WithNullableDictionary_Key3_Value9(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <typeparam name="TValue9">The type of ninth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key3_Value9<TKey1, TKey2, TKey3, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+            where TValue9 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -2829,6 +3641,32 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey4<TKey1, TKey2, TKey3, TKey4, TValue>(
+            string[] keyFieldNames,
+            string additionalFieldName,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), TValue?> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TValue : struct
+        {
+            return WithNullableDictionary_Key4_Value1(keyFieldNames, additionalFieldName, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TValue">The type of value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldName">the field name to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key4_Value1<TKey1, TKey2, TKey3, TKey4, TValue>(
             string[] keyFieldNames,
             string additionalFieldName,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), TValue?> additionalValues
@@ -2926,6 +3764,34 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey4<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+        {
+            return WithNullableDictionary_Key4_Value2(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of first value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key4_Value2<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?)> additionalValues
@@ -3039,6 +3905,36 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue2 : struct
             where TValue3 : struct
         {
+            return WithNullableDictionary_Key4_Value3(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key4_Value3<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2, TValue3>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -3132,6 +4028,38 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey4<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2, TValue3, TValue4>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+        {
+            return WithNullableDictionary_Key4_Value4(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key4_Value4<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2, TValue3, TValue4>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
@@ -3255,6 +4183,40 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue4 : struct
             where TValue5 : struct
         {
+            return WithNullableDictionary_Key4_Value5(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key4_Value5<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2, TValue3, TValue4, TValue5>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -3354,6 +4316,42 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey4<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+        {
+            return WithNullableDictionary_Key4_Value6(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key4_Value6<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
@@ -3487,6 +4485,44 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue6 : struct
             where TValue7 : struct
         {
+            return WithNullableDictionary_Key4_Value7(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key4_Value7<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -3592,6 +4628,46 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey4<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+        {
+            return WithNullableDictionary_Key4_Value8(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key4_Value8<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
@@ -3735,6 +4811,48 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue8 : struct
             where TValue9 : struct
         {
+            return WithNullableDictionary_Key4_Value9(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <typeparam name="TValue9">The type of ninth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key4_Value9<TKey1, TKey2, TKey3, TKey4, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+            where TValue9 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -3822,6 +4940,34 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey5<TKey1, TKey2, TKey3, TKey4, TKey5, TValue>(
+            string[] keyFieldNames,
+            string additionalFieldName,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), TValue?> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TValue : struct
+        {
+            return WithNullableDictionary_Key5_Value1(keyFieldNames, additionalFieldName, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TValue">The type of value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldName">the field name to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key5_Value1<TKey1, TKey2, TKey3, TKey4, TKey5, TValue>(
             string[] keyFieldNames,
             string additionalFieldName,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), TValue?> additionalValues
@@ -3923,6 +5069,36 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey5<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+        {
+            return WithNullableDictionary_Key5_Value2(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of first value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key5_Value2<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?)> additionalValues
@@ -4041,6 +5217,38 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue2 : struct
             where TValue3 : struct
         {
+            return WithNullableDictionary_Key5_Value3(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key5_Value3<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2, TValue3>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -4137,6 +5345,40 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey5<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2, TValue3, TValue4>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+        {
+            return WithNullableDictionary_Key5_Value4(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key5_Value4<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2, TValue3, TValue4>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
@@ -4265,6 +5507,42 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue4 : struct
             where TValue5 : struct
         {
+            return WithNullableDictionary_Key5_Value5(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key5_Value5<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2, TValue3, TValue4, TValue5>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -4367,6 +5645,44 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey5<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+        {
+            return WithNullableDictionary_Key5_Value6(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key5_Value6<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
@@ -4505,6 +5821,46 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue6 : struct
             where TValue7 : struct
         {
+            return WithNullableDictionary_Key5_Value7(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key5_Value7<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -4613,6 +5969,48 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey5<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+        {
+            return WithNullableDictionary_Key5_Value8(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key5_Value8<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
@@ -4761,6 +6159,50 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue8 : struct
             where TValue9 : struct
         {
+            return WithNullableDictionary_Key5_Value9(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <typeparam name="TValue9">The type of ninth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key5_Value9<TKey1, TKey2, TKey3, TKey4, TKey5, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+            where TValue9 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -4851,6 +6293,36 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey6<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue>(
+            string[] keyFieldNames,
+            string additionalFieldName,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), TValue?> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TValue : struct
+        {
+            return WithNullableDictionary_Key6_Value1(keyFieldNames, additionalFieldName, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TValue">The type of value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldName">the field name to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key6_Value1<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue>(
             string[] keyFieldNames,
             string additionalFieldName,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), TValue?> additionalValues
@@ -4956,6 +6428,38 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey6<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+        {
+            return WithNullableDictionary_Key6_Value2(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of first value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key6_Value2<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?)> additionalValues
@@ -5079,6 +6583,40 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue2 : struct
             where TValue3 : struct
         {
+            return WithNullableDictionary_Key6_Value3(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key6_Value3<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2, TValue3>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -5178,6 +6716,42 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey6<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2, TValue3, TValue4>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+        {
+            return WithNullableDictionary_Key6_Value4(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key6_Value4<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2, TValue3, TValue4>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
@@ -5311,6 +6885,44 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue4 : struct
             where TValue5 : struct
         {
+            return WithNullableDictionary_Key6_Value5(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key6_Value5<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2, TValue3, TValue4, TValue5>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -5416,6 +7028,46 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey6<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+        {
+            return WithNullableDictionary_Key6_Value6(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key6_Value6<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
@@ -5559,6 +7211,48 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue6 : struct
             where TValue7 : struct
         {
+            return WithNullableDictionary_Key6_Value7(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key6_Value7<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -5670,6 +7364,50 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey6<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+        {
+            return WithNullableDictionary_Key6_Value8(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key6_Value8<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
@@ -5823,6 +7561,52 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue8 : struct
             where TValue9 : struct
         {
+            return WithNullableDictionary_Key6_Value9(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <typeparam name="TValue9">The type of ninth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key6_Value9<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+            where TValue9 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -5916,6 +7700,38 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey7<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue>(
+            string[] keyFieldNames,
+            string additionalFieldName,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), TValue?> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TValue : struct
+        {
+            return WithNullableDictionary_Key7_Value1(keyFieldNames, additionalFieldName, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TValue">The type of value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldName">the field name to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key7_Value1<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue>(
             string[] keyFieldNames,
             string additionalFieldName,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), TValue?> additionalValues
@@ -6025,6 +7841,40 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey7<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+        {
+            return WithNullableDictionary_Key7_Value2(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of first value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key7_Value2<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?)> additionalValues
@@ -6153,6 +8003,42 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue2 : struct
             where TValue3 : struct
         {
+            return WithNullableDictionary_Key7_Value3(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key7_Value3<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2, TValue3>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -6255,6 +8141,44 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey7<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2, TValue3, TValue4>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+        {
+            return WithNullableDictionary_Key7_Value4(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key7_Value4<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2, TValue3, TValue4>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
@@ -6393,6 +8317,46 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue4 : struct
             where TValue5 : struct
         {
+            return WithNullableDictionary_Key7_Value5(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key7_Value5<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2, TValue3, TValue4, TValue5>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -6501,6 +8465,48 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey7<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+        {
+            return WithNullableDictionary_Key7_Value6(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key7_Value6<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
@@ -6649,6 +8655,50 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue6 : struct
             where TValue7 : struct
         {
+            return WithNullableDictionary_Key7_Value7(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key7_Value7<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -6763,6 +8813,52 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey7<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+        {
+            return WithNullableDictionary_Key7_Value8(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key7_Value8<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
@@ -6921,6 +9017,54 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue8 : struct
             where TValue9 : struct
         {
+            return WithNullableDictionary_Key7_Value9(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <typeparam name="TValue9">The type of ninth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key7_Value9<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+            where TValue9 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -7017,6 +9161,40 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey8<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue>(
+            string[] keyFieldNames,
+            string additionalFieldName,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), TValue?> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TValue : struct
+        {
+            return WithNullableDictionary_Key8_Value1(keyFieldNames, additionalFieldName, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TValue">The type of value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldName">the field name to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key8_Value1<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue>(
             string[] keyFieldNames,
             string additionalFieldName,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), TValue?> additionalValues
@@ -7130,6 +9308,42 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey8<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+        {
+            return WithNullableDictionary_Key8_Value2(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of first value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key8_Value2<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?)> additionalValues
@@ -7263,6 +9477,44 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue2 : struct
             where TValue3 : struct
         {
+            return WithNullableDictionary_Key8_Value3(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key8_Value3<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2, TValue3>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -7368,6 +9620,46 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey8<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2, TValue3, TValue4>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+        {
+            return WithNullableDictionary_Key8_Value4(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key8_Value4<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2, TValue3, TValue4>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
@@ -7511,6 +9803,48 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue4 : struct
             where TValue5 : struct
         {
+            return WithNullableDictionary_Key8_Value5(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key8_Value5<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2, TValue3, TValue4, TValue5>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -7622,6 +9956,50 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey8<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+        {
+            return WithNullableDictionary_Key8_Value6(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key8_Value6<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
@@ -7775,6 +10153,52 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue6 : struct
             where TValue7 : struct
         {
+            return WithNullableDictionary_Key8_Value7(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key8_Value7<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -7892,6 +10316,54 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey8<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+        {
+            return WithNullableDictionary_Key8_Value8(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key8_Value8<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
@@ -8055,6 +10527,56 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue8 : struct
             where TValue9 : struct
         {
+            return WithNullableDictionary_Key8_Value9(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <typeparam name="TValue9">The type of ninth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key8_Value9<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+            where TValue9 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -8154,6 +10676,42 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey9<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue>(
+            string[] keyFieldNames,
+            string additionalFieldName,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), TValue?> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TKey9 : struct
+            where TValue : struct
+        {
+            return WithNullableDictionary_Key9_Value1(keyFieldNames, additionalFieldName, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TKey9">The type of ninth key of the additional values.</typeparam>
+        /// <typeparam name="TValue">The type of value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldName">the field name to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key9_Value1<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue>(
             string[] keyFieldNames,
             string additionalFieldName,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), TValue?> additionalValues
@@ -8287,6 +10845,44 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue1 : struct
             where TValue2 : struct
         {
+            return WithNullableDictionary_Key9_Value2(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TKey9">The type of ninth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of first value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key9_Value2<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TKey9 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -8392,6 +10988,46 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey9<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TKey9 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+        {
+            return WithNullableDictionary_Key9_Value3(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TKey9">The type of ninth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key9_Value3<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?)> additionalValues
@@ -8535,6 +11171,48 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue3 : struct
             where TValue4 : struct
         {
+            return WithNullableDictionary_Key9_Value4(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TKey9">The type of ninth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key9_Value4<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3, TValue4>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TKey9 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -8646,6 +11324,50 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey9<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3, TValue4, TValue5>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TKey9 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+        {
+            return WithNullableDictionary_Key9_Value5(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TKey9">The type of ninth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key9_Value5<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3, TValue4, TValue5>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?)> additionalValues
@@ -8799,6 +11521,52 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue5 : struct
             where TValue6 : struct
         {
+            return WithNullableDictionary_Key9_Value6(keyFieldNames,additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TKey9">The type of ninth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key9_Value6<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TKey9 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -8916,6 +11684,54 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey9<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TKey9 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+        {
+            return WithNullableDictionary_Key9_Value7(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TKey9">The type of ninth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key9_Value7<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?)> additionalValues
@@ -9079,6 +11895,56 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
             where TValue7 : struct
             where TValue8 : struct
         {
+            return WithNullableDictionary_Key9_Value8(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TKey9">The type of ninth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key9_Value8<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TKey9 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+        {
             static Func<IDataGenerationRecord, object?[]> CreateValueGetter(string[] keyFieldNames, IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?)> additionalValues)
             {
                 return (IDataGenerationRecord rec) =>
@@ -9202,6 +12068,58 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         /// <param name="additionalValues">The values of the additional fields.</param>
         /// <returns></returns>
         public DataGeneratorAdditionalTupleField WithDictionaryKey9<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(
+            string[] keyFieldNames,
+            string[] additionalFieldNames,
+            IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues
+            )
+            where TKey1 : struct
+            where TKey2 : struct
+            where TKey3 : struct
+            where TKey4 : struct
+            where TKey5 : struct
+            where TKey6 : struct
+            where TKey7 : struct
+            where TKey8 : struct
+            where TKey9 : struct
+            where TValue1 : struct
+            where TValue2 : struct
+            where TValue3 : struct
+            where TValue4 : struct
+            where TValue5 : struct
+            where TValue6 : struct
+            where TValue7 : struct
+            where TValue8 : struct
+            where TValue9 : struct
+        {
+            return WithNullableDictionary_Key9_Value9(keyFieldNames, additionalFieldNames, additionalValues);
+        }
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified dictionary.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of first key of the additional values.</typeparam>
+        /// <typeparam name="TKey2">The type of second key of the additional values.</typeparam>
+        /// <typeparam name="TKey3">The type of third key of the additional values.</typeparam>
+        /// <typeparam name="TKey4">The type of fourth key of the additional values.</typeparam>
+        /// <typeparam name="TKey5">The type of fifth key of the additional values.</typeparam>
+        /// <typeparam name="TKey6">The type of sixth key of the additional values.</typeparam>
+        /// <typeparam name="TKey7">The type of seventh key of the additional values.</typeparam>
+        /// <typeparam name="TKey8">The type of eighth key of the additional values.</typeparam>
+        /// <typeparam name="TKey9">The type of ninth key of the additional values.</typeparam>
+        /// <typeparam name="TValue1">The type of first value of the additional values.</typeparam>
+        /// <typeparam name="TValue2">The type of second value of the additional values.</typeparam>
+        /// <typeparam name="TValue3">The type of third value of the additional values.</typeparam>
+        /// <typeparam name="TValue4">The type of fourth value of the additional values.</typeparam>
+        /// <typeparam name="TValue5">The type of fifth value of the additional values.</typeparam>
+        /// <typeparam name="TValue6">The type of sixth value of the additional values.</typeparam>
+        /// <typeparam name="TValue7">The type of seventh value of the additional values.</typeparam>
+        /// <typeparam name="TValue8">The type of eighth value of the additional values.</typeparam>
+        /// <typeparam name="TValue9">The type of ninth value of the additional values.</typeparam>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalFieldNames">the field names to add.</param>
+        /// <param name="additionalValues">The values of the additional fields.</param>
+        /// <returns></returns>
+        private DataGeneratorAdditionalTupleField WithNullableDictionary_Key9_Value9<TKey1, TKey2, TKey3, TKey4, TKey5, TKey6, TKey7, TKey8, TKey9, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(
             string[] keyFieldNames,
             string[] additionalFieldNames,
             IDictionary<(TKey1?, TKey2?, TKey3?, TKey4?, TKey5?, TKey6?, TKey7?, TKey8?, TKey9?), (TValue1?, TValue2?, TValue3?, TValue4?, TValue5?, TValue6?, TValue7?, TValue8?, TValue9?)> additionalValues
@@ -13884,6 +16802,196 @@ namespace mxProject.Devs.DataGeneration.AdditionalFields
         }
 
         #endregion
+
+
+
+        /// <summary>
+        /// Creates a field that returns the value stored in the specified data reader.
+        /// </summary>
+        /// <param name="keyFieldNames">The key field names.</param>
+        /// <param name="additionalKeyFieldNames">The key field names in the data reader.</param>
+        /// <param name="additionalValueFieldNames">The field names to add.</param>
+        /// <param name="additionalValues">The data reader.</param>
+        /// <returns></returns>
+        public DataGeneratorAdditionalTupleField WithDataReader(
+            string[] keyFieldNames,
+            string[] additionalKeyFieldNames,
+            string[] additionalValueFieldNames,
+            IDataReader additionalValues
+            )
+        {
+            static string GetMethodName(int keyFieldCount, int valueFieldCount)
+            {
+                static Exception CreateException(int keyFieldCount, int valueFieldCount)
+                {
+                    return new NotSupportedException("The specified number of additional fields is not supported.");
+                }
+
+                return keyFieldCount switch
+                {
+                    1 => valueFieldCount switch
+                    {
+                        1 => nameof(WithNullableDictionary_Key1_Value1),
+                        2 => nameof(WithNullableDictionary_Key1_Value2),
+                        3 => nameof(WithNullableDictionary_Key1_Value3),
+                        4 => nameof(WithNullableDictionary_Key1_Value4),
+                        5 => nameof(WithNullableDictionary_Key1_Value5),
+                        6 => nameof(WithNullableDictionary_Key1_Value6),
+                        7 => nameof(WithNullableDictionary_Key1_Value7),
+                        8 => nameof(WithNullableDictionary_Key1_Value8),
+                        9 => nameof(WithNullableDictionary_Key1_Value9),
+                        _ => throw CreateException(keyFieldCount, valueFieldCount)
+                    },
+                    2 => valueFieldCount switch
+                    {
+                        1 => nameof(WithNullableDictionary_Key2_Value1),
+                        2 => nameof(WithNullableDictionary_Key2_Value2),
+                        3 => nameof(WithNullableDictionary_Key2_Value3),
+                        4 => nameof(WithNullableDictionary_Key2_Value4),
+                        5 => nameof(WithNullableDictionary_Key2_Value5),
+                        6 => nameof(WithNullableDictionary_Key2_Value6),
+                        7 => nameof(WithNullableDictionary_Key2_Value7),
+                        8 => nameof(WithNullableDictionary_Key2_Value8),
+                        9 => nameof(WithNullableDictionary_Key2_Value9),
+                        _ => throw CreateException(keyFieldCount, valueFieldCount)
+                    },
+                    3 => valueFieldCount switch
+                    {
+                        1 => nameof(WithNullableDictionary_Key3_Value1),
+                        2 => nameof(WithNullableDictionary_Key3_Value2),
+                        3 => nameof(WithNullableDictionary_Key3_Value3),
+                        4 => nameof(WithNullableDictionary_Key3_Value4),
+                        5 => nameof(WithNullableDictionary_Key3_Value5),
+                        6 => nameof(WithNullableDictionary_Key3_Value6),
+                        7 => nameof(WithNullableDictionary_Key3_Value7),
+                        8 => nameof(WithNullableDictionary_Key3_Value8),
+                        9 => nameof(WithNullableDictionary_Key3_Value9),
+                        _ => throw CreateException(keyFieldCount, valueFieldCount)
+                    },
+                    4 => valueFieldCount switch
+                    {
+                        1 => nameof(WithNullableDictionary_Key4_Value1),
+                        2 => nameof(WithNullableDictionary_Key4_Value2),
+                        3 => nameof(WithNullableDictionary_Key4_Value3),
+                        4 => nameof(WithNullableDictionary_Key4_Value4),
+                        5 => nameof(WithNullableDictionary_Key4_Value5),
+                        6 => nameof(WithNullableDictionary_Key4_Value6),
+                        7 => nameof(WithNullableDictionary_Key4_Value7),
+                        8 => nameof(WithNullableDictionary_Key4_Value8),
+                        9 => nameof(WithNullableDictionary_Key4_Value9),
+                        _ => throw CreateException(keyFieldCount, valueFieldCount)
+                    },
+                    5 => valueFieldCount switch
+                    {
+                        1 => nameof(WithNullableDictionary_Key5_Value1),
+                        2 => nameof(WithNullableDictionary_Key5_Value2),
+                        3 => nameof(WithNullableDictionary_Key5_Value3),
+                        4 => nameof(WithNullableDictionary_Key5_Value4),
+                        5 => nameof(WithNullableDictionary_Key5_Value5),
+                        6 => nameof(WithNullableDictionary_Key5_Value6),
+                        7 => nameof(WithNullableDictionary_Key5_Value7),
+                        8 => nameof(WithNullableDictionary_Key5_Value8),
+                        9 => nameof(WithNullableDictionary_Key5_Value9),
+                        _ => throw CreateException(keyFieldCount, valueFieldCount)
+                    },
+                    6 => valueFieldCount switch
+                    {
+                        1 => nameof(WithNullableDictionary_Key6_Value1),
+                        2 => nameof(WithNullableDictionary_Key6_Value2),
+                        3 => nameof(WithNullableDictionary_Key6_Value3),
+                        4 => nameof(WithNullableDictionary_Key6_Value4),
+                        5 => nameof(WithNullableDictionary_Key6_Value5),
+                        6 => nameof(WithNullableDictionary_Key6_Value6),
+                        7 => nameof(WithNullableDictionary_Key6_Value7),
+                        8 => nameof(WithNullableDictionary_Key6_Value8),
+                        9 => nameof(WithNullableDictionary_Key6_Value9),
+                        _ => throw CreateException(keyFieldCount, valueFieldCount)
+                    },
+                    7 => valueFieldCount switch
+                    {
+                        1 => nameof(WithNullableDictionary_Key7_Value1),
+                        2 => nameof(WithNullableDictionary_Key7_Value2),
+                        3 => nameof(WithNullableDictionary_Key7_Value3),
+                        4 => nameof(WithNullableDictionary_Key7_Value4),
+                        5 => nameof(WithNullableDictionary_Key7_Value5),
+                        6 => nameof(WithNullableDictionary_Key7_Value6),
+                        7 => nameof(WithNullableDictionary_Key7_Value7),
+                        8 => nameof(WithNullableDictionary_Key7_Value8),
+                        9 => nameof(WithNullableDictionary_Key7_Value9),
+                        _ => throw CreateException(keyFieldCount, valueFieldCount)
+                    },
+                    8 => valueFieldCount switch
+                    {
+                        1 => nameof(WithNullableDictionary_Key8_Value1),
+                        2 => nameof(WithNullableDictionary_Key8_Value2),
+                        3 => nameof(WithNullableDictionary_Key8_Value3),
+                        4 => nameof(WithNullableDictionary_Key8_Value4),
+                        5 => nameof(WithNullableDictionary_Key8_Value5),
+                        6 => nameof(WithNullableDictionary_Key8_Value6),
+                        7 => nameof(WithNullableDictionary_Key8_Value7),
+                        8 => nameof(WithNullableDictionary_Key8_Value8),
+                        9 => nameof(WithNullableDictionary_Key8_Value9),
+                        _ => throw CreateException(keyFieldCount, valueFieldCount)
+                    },
+                    9 => valueFieldCount switch
+                    {
+                        1 => nameof(WithNullableDictionary_Key9_Value1),
+                        2 => nameof(WithNullableDictionary_Key9_Value2),
+                        3 => nameof(WithNullableDictionary_Key9_Value3),
+                        4 => nameof(WithNullableDictionary_Key9_Value4),
+                        5 => nameof(WithNullableDictionary_Key9_Value5),
+                        6 => nameof(WithNullableDictionary_Key9_Value6),
+                        7 => nameof(WithNullableDictionary_Key9_Value7),
+                        8 => nameof(WithNullableDictionary_Key9_Value8),
+                        9 => nameof(WithNullableDictionary_Key9_Value9),
+                        _ => throw CreateException(keyFieldCount, valueFieldCount)
+                    },
+                    _ => throw CreateException(keyFieldCount, valueFieldCount)
+                };
+            }
+
+            var keyTypes = additionalValues.GetValueTypes(additionalKeyFieldNames);
+            var valueTypes = additionalValues.GetValueTypes(additionalValueFieldNames);
+
+            Type[] genericTypes = new Type[keyTypes.Length + valueTypes.Length];
+            keyTypes.CopyTo(genericTypes, 0);
+            valueTypes.CopyTo(genericTypes, keyTypes.Length);
+
+            string methodName = GetMethodName(keyFieldNames.Length, additionalValueFieldNames.Length);
+
+            IDictionary dictionary = additionalValues.AsDataGenerationReader().ToDictionary(additionalKeyFieldNames, additionalValueFieldNames);
+
+            Type t = typeof(JoinFieldFactory);
+
+            if (additionalKeyFieldNames.Length == 1)
+            {
+                if (additionalValueFieldNames.Length == 1)
+                {
+                    var method = t.GetGenericMethod(methodName);
+                    return this.InvokeGenericMethod<DataGeneratorAdditionalTupleField>(method, genericTypes, keyFieldNames[0], additionalValueFieldNames[0], dictionary);
+                }
+                else if (additionalValueFieldNames.Length <= 9)
+                {
+                    var method = t.GetGenericMethod(methodName);
+                    return this.InvokeGenericMethod<DataGeneratorAdditionalTupleField>(method, genericTypes, keyFieldNames[0], additionalValueFieldNames, dictionary);
+                }
+            }
+            else if (additionalKeyFieldNames.Length <= 9)
+            {
+                if (additionalValueFieldNames.Length == 1)
+                {
+                    var method = t.GetGenericMethod(methodName);
+                    return this.InvokeGenericMethod<DataGeneratorAdditionalTupleField>(method, genericTypes, keyFieldNames, additionalValueFieldNames[0], dictionary);
+                }
+                else if (additionalValueFieldNames.Length <= 9)
+                {
+                    var method = t.GetGenericMethod(methodName);
+                    return this.InvokeGenericMethod<DataGeneratorAdditionalTupleField>(method, genericTypes, keyFieldNames, additionalValueFieldNames, dictionary);
+                }
+            }
+
+            throw new NotSupportedException("The specified number of additional fields is not supported.");
+        }
 
 
         #region GetKeyTuple

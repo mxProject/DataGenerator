@@ -16,7 +16,12 @@ namespace UnitTestProject1.SampleValues
         {
             AllValues = new Dictionary<Type, object>()
                 {
+                    { typeof(bool), BooleanValues },
+                    { typeof(byte), ByteValues },
+                    { typeof(short), Int16Values },
                     { typeof(int), Int32Values },
+                    { typeof(long), Int64Values },
+                    { typeof(float), SingleValues },
                     { typeof(double), DoubleValues },
                     { typeof(decimal), DecimalValues },
                     { typeof(DateTime), DateTimeValues },
@@ -29,7 +34,12 @@ namespace UnitTestProject1.SampleValues
                 };
         }
 
-        internal static readonly int?[] Int32Values = new int?[] { 1, 2, null };
+        internal static readonly bool?[] BooleanValues = new bool?[] { false, true, null };
+        internal static readonly byte?[] ByteValues = new byte?[] { 1, 2, null };
+        internal static readonly short?[] Int16Values = new short?[] { 10, 20, null };
+        internal static readonly int?[] Int32Values = new int?[] { 100, 200, null };
+        internal static readonly long?[] Int64Values = new long?[] { 1000, 2000, null };
+        internal static readonly float?[] SingleValues = new float?[] { 1.1f, 2.2f, null };
         internal static readonly double?[] DoubleValues = new double?[] { 1.11, 2.22, null };
         internal static readonly decimal?[] DecimalValues = new decimal?[] { 1.111M, 2.222M, null };
         internal static readonly DateTime?[] DateTimeValues = new DateTime?[] { DateTime.Now, DateTime.UtcNow.AddDays(1), null };
