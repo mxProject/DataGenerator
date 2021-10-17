@@ -59,6 +59,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Json
             var additionalTupleFieldSettingsbuilder = JsonSubtypesConverterBuilder.Of(typeof(DataGeneratorAdditionalTupleFieldSettings), "FieldType");
 
             return new DataGeneratorFieldTypeConverterBuilder(fieldSettingsbuilder, tupleFieldSettingsbuilder, additionalFieldSettingsbuilder, additionalTupleFieldSettingsbuilder)
+                .RegisterField<EachFieldSettings>("Each")
                 .RegisterField<EachFieldSettings<bool>>("EachBoolean")
                 .RegisterField<EachFieldSettings<byte>>("EachByte")
                 .RegisterField<EachFieldSettings<sbyte>>("EachSByte")
