@@ -81,6 +81,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Json
                 .RegisterField<EachStringFieldSettings>("EachString")
                 .RegisterField<EachEnumFieldSettings>("EachEnum")
 
+                .RegisterField<AnyFieldSettings>("Any")
                 .RegisterField<AnyFieldSettings<bool>>("AnyBoolean")
                 .RegisterField<AnyFieldSettings<byte>>("AnyByte")
                 .RegisterField<AnyFieldSettings<sbyte>>("AnySByte")
