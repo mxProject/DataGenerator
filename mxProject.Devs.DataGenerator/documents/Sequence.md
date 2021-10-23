@@ -191,6 +191,7 @@ The DataGeneratorSettings instance in the sample code above is serialized into a
 |DateTimeOffset|SequenceDateTimeOffsetFieldSettings|SequenceDateTimeOffset|
 |DateTimeOffset|SequenceDateMonthOffsetFieldSettings|SequenceDateMonthOffset|
 |TimeSpan|SequenceTimeSpanFieldSettings|SequenceTimeSpan|
+|(all types above)|SequenceFieldSettings|Sequence|
 
 
 ## Monthly sequence value
