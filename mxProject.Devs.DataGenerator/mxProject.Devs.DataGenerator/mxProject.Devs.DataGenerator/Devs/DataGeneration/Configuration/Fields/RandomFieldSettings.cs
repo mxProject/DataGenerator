@@ -166,7 +166,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
             }
             else
             {
-                throw new NotSupportedException();
+                throw new NotSupportedException($"The specified type is not supported. ValueTypeName: {ValueTypeName}");
             }
 
         }
