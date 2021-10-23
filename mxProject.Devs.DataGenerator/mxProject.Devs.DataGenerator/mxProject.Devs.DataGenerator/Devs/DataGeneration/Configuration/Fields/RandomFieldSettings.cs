@@ -63,7 +63,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
 
             if (NullProbability < 0 || 1 < NullProbability)
             {
-                throw new ArgumentOutOfRangeException("");
+                throw new ArgumentOutOfRangeException("The value of the NullProbability property is out of range.");
             }
         }
 
