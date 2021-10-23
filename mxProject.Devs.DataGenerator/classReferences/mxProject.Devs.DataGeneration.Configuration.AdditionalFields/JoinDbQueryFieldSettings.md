@@ -5,7 +5,7 @@
 
 
 
-
+A setting for a field that returns the values read from a database query.
 
 
 
@@ -24,11 +24,11 @@
 ## Constructors
 |Scope|Signature|Summary|
 |:--|:--|:--|
-| public | [.ctor](#ctor-constructor) |  |
+| public | [.ctor](#ctor-constructor) | Creates a new instance. |
 ---
 ### .ctor Constructor
 
-
+Creates a new instance.
 ```c#
 public JoinDbQueryFieldSettings()
 ```
@@ -41,10 +41,10 @@ public JoinDbQueryFieldSettings()
 |Scope|Name|Property Type|Summary|
 |:--|:--|:--|:--|
 | public | [AdditionalFields](#additionalfields-property) | DataGeneratorFieldInfo[] | Inherited from  [DataGeneratorAdditionalTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalTupleFieldSettings.md) . |
-| public | [AdditionalKeyFieldNames](#additionalkeyfieldnames-property) | string[] |  |
-| public | [AdditionalValueFieldNames](#additionalvaluefieldnames-property) | string[] |  |
-| public | [DbQuerySettings](#dbquerysettings-property) | DbQuerySettings |  |
-| public | [ReferenceKeyFieldNames](#referencekeyfieldnames-property) | string[] |  |
+| public | [AdditionalKeyFieldNames](#additionalkeyfieldnames-property) | string[] | Gets or sets the additional key field names. |
+| public | [AdditionalValueFieldNames](#additionalvaluefieldnames-property) | string[] | Gets or sets the additional value field names. |
+| public | [DbQuerySettings](#dbquerysettings-property) | [DbQuerySettings](../mxProject.Devs.DataGeneration.Configuration/DbQuerySettings.md) | Gets or sets the database query settings. |
+| public | [ReferenceKeyFieldNames](#referencekeyfieldnames-property) | string[] | Gets or sets the reference key field names. |
 ---
 ### AdditionalFields Property
 
@@ -58,7 +58,7 @@ public DataGeneratorFieldInfo[] AdditionalFields { get; set; }
 ---
 ### AdditionalKeyFieldNames Property
 
-
+Gets or sets the additional key field names.
 ```c#
 public string[] AdditionalKeyFieldNames { get; set; }
 ```
@@ -68,7 +68,7 @@ public string[] AdditionalKeyFieldNames { get; set; }
 ---
 ### AdditionalValueFieldNames Property
 
-
+Gets or sets the additional value field names.
 ```c#
 public string[] AdditionalValueFieldNames { get; set; }
 ```
@@ -78,7 +78,7 @@ public string[] AdditionalValueFieldNames { get; set; }
 ---
 ### DbQuerySettings Property
 
-
+Gets or sets the database query settings.
 ```c#
 public DbQuerySettings DbQuerySettings { get; set; }
 ```
@@ -88,7 +88,7 @@ public DbQuerySettings DbQuerySettings { get; set; }
 ---
 ### ReferenceKeyFieldNames Property
 
-
+Gets or sets the reference key field names.
 ```c#
 public string[] ReferenceKeyFieldNames { get; set; }
 ```
@@ -102,9 +102,9 @@ public string[] ReferenceKeyFieldNames { get; set; }
 ## Methods
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
-| protected | [Assert](#assert-method) | void |  |
+| protected | [Assert](#assert-method) | void | If the settings for this instance are invalid, an exception will be thrown.Inherited from  [JoinDbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.AdditionalFields/JoinDbQueryFieldSettings.md) . |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) | Inherited from  [DataGeneratorAdditionalTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalTupleFieldSettings.md) . |
-| protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) |  |
+| protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) | Creates an instance of [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) interface.Inherited from  [JoinDbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.AdditionalFields/JoinDbQueryFieldSettings.md) . |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
 | protected | [Finalize](#finalize-method) | void | Inherited from  System.Object . |
 | public | [GetAdditionalFieldNames](#getadditionalfieldnames-method) | string[] | Inherited from  [DataGeneratorAdditionalTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalTupleFieldSettings.md) . |
@@ -115,7 +115,7 @@ public string[] ReferenceKeyFieldNames { get; set; }
 ---
 ### Assert Method
 
-
+If the settings for this instance are invalid, an exception will be thrown.Inherited from  [JoinDbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.AdditionalFields/JoinDbQueryFieldSettings.md) .
 ```c#
 protected virtual void Assert()
 ```
@@ -144,7 +144,7 @@ public IDataGeneratorAdditionalTupleField CreateField
 ---
 ### CreateFieldCore(DataGeneratorContext) Method
 
-
+Creates an instance of [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) interface.Inherited from  [JoinDbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.AdditionalFields/JoinDbQueryFieldSettings.md) .
 ```c#
 protected virtual IDataGeneratorAdditionalTupleField CreateFieldCore
 (

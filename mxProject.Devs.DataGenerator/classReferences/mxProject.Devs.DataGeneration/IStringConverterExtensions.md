@@ -1,11 +1,11 @@
 ﻿
 
 
-# DbQuerySettings Class
+# IStringConverterExtensions Class
 
 
 
-Database query settings.
+Extension methods for [IStringConverter](../mxProject.Devs.DataGeneration/IStringConverter.md) .
 
 
 
@@ -15,62 +15,8 @@ Database query settings.
 ## Inheritance tree
 * object
 
-[Constructors](#Constructors)&nbsp;&nbsp;
-[Properties](#Properties)&nbsp;&nbsp;
 [Methods](#Methods)&nbsp;&nbsp;
 
----
-## Constructors
-|Scope|Signature|Summary|
-|:--|:--|:--|
-| public | [.ctor](#ctor-constructor) |  |
----
-### .ctor Constructor
-
-
-```c#
-public DbQuerySettings()
-```
-
-[Go to constructors](#Constructors)
-
-
----
-## Properties
-|Scope|Name|Property Type|Summary|
-|:--|:--|:--|:--|
-| public | [CommandText](#commandtext-property) | string | Gets or sets the command text. |
-| public | [ConnectionString](#connectionstring-property) | string | Gets or sets the connection string to the data source. |
-| public | [ConnectionTypeName](#connectiontypename-property) | string | Gets or sets the type name of the database provider. |
----
-### CommandText Property
-
-Gets or sets the command text.
-```c#
-public string CommandText { get; set; }
-```
-
-[Go to properties](#Properties)
-
----
-### ConnectionString Property
-
-Gets or sets the connection string to the data source.
-```c#
-public string ConnectionString { get; set; }
-```
-
-[Go to properties](#Properties)
-
----
-### ConnectionTypeName Property
-
-Gets or sets the type name of the database provider.
-```c#
-public string ConnectionTypeName { get; set; }
-```
-
-[Go to properties](#Properties)
 
 
 
@@ -85,6 +31,36 @@ public string ConnectionTypeName { get; set; }
 | public | [GetType](#gettype-method) | Type | Inherited from  System.Object . |
 | protected | [MemberwiseClone](#memberwiseclone-method) | object | Inherited from  System.Object . |
 | public | [ToString](#tostring-method) | string | Inherited from  System.Object . |
+## Static Methods
+|Scope|Signature|Return Type|Summary|
+|:--|:--|:--|:--|
+| public | [ConvertToOrNull&lt;T&gt;(IStringConverter, string)](#converttoornulltistringconverter-string-method) | T? | Converts the specified string value. |
+---
+### ConvertToOrNull&lt;T&gt;(IStringConverter, string) Method
+
+Converts the specified string value.
+```c#
+public static T? ConvertToOrNull<T>
+(
+	this IStringConverter converter
+	, string value
+)
+where T : struct
+```
+## Generic Parameters
+|Name|Description|Constraints|
+|:--|:--|:--|
+| T | The type of converted value. | struct |
+#### Parameters
+|Name|Parameter Type|I/O|Description|
+|:--|:--|:-:|:--|
+| converter | [IStringConverter](../mxProject.Devs.DataGeneration/IStringConverter.md) |  |  |
+| value | string |  | The value. |
+#### Return type
+A converted value.
+
+[Go to methods](#Methods)
+
 ---
 ### Equals(object) Method
 

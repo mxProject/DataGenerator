@@ -5,12 +5,12 @@
     <RootNamespace>mxProject</RootNamespace>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
-    <Version>0.6.0</Version>
+    <Version>0.7.0</Version>
     <Authors>mxProject</Authors>
     <Description>The library for generating test data in data record format.</Description>
     <Copyright>(c) 2021 mxProject.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Added fields that returns the result of the specified database query. ( see DbQuery, JoinDbQuery )</PackageReleaseNotes>
+    <PackageReleaseNotes>Added non-generic configuration types. ( see AnyFieldSettings, EachFieldSettings, RandomFieldSettings, SequenceFieldSettings )</PackageReleaseNotes>
     <PackageTags>UnitTest, DataGeneration</PackageTags>
     <NeutralLanguage></NeutralLanguage>
     <PackageProjectUrl>https://github.com/mxProject/DataGenerator</PackageProjectUrl>

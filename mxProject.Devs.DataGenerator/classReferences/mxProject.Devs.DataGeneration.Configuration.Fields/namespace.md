@@ -9,14 +9,16 @@
 |:--|:--|
 | [AnyEnumFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyEnumFieldSettings.md) | Settings for a field that enumerates one of the specified enum values. |
 | [AnyEnumFieldSettings&lt;TEnum&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyEnumFieldSettings`1.md) | Setting a field that enumerates one of the specified enum values. |
+| [AnyFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyFieldSettings.md) | Settings for a field that enumerates one of the specified values. |
 | [AnyFieldSettings&lt;TValue&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyFieldSettings`1.md) | Settings for a field that enumerates one of the specified values. |
 | [AnyFieldSettingsBase&lt;TValue&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyFieldSettingsBase`1.md) | Basic implementation of settings for a field that enumerates one of the specified values. |
 | [AnyStringFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyStringFieldSettings.md) | Settings for a field that enumerates one of the specified string values. |
-| DbQueryFieldSettings |  |
-| DbQueryFieldsSettings |  |
+| [DbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DbQueryFieldSettings.md) | Settings for a field that lists ths values read from the specified database query. |
+| [DbQueryFieldsSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DbQueryFieldsSettings.md) | Settings for a tuple field that lists ths values read from the specified database query. |
 | [DirectProductFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DirectProductFieldSettings.md) | Settings for a field that enumerates the direct product. |
 | [EachEnumFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/EachEnumFieldSettings.md) | Settings for a field that enumerates the enum values. |
 | [EachEnumFieldSettings&lt;TEnum&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/EachEnumFieldSettings`1.md) | Settings for a field to enumerate the specified enum values. |
+| [EachFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/EachFieldSettings.md) | Settings for a field that lists the specified values in order. |
 | [EachFieldSettings&lt;TValue&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/EachFieldSettings`1.md) | Settings for a field that lists the specified values in order. |
 | [EachFieldSettingsBase&lt;TValue&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/EachFieldSettingsBase`1.md) | Basic implementation of settings for a field that lists the specified values in order. |
 | [EachStringFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/EachStringFieldSettings.md) | Settings for a field that enumerates the specified values. |
@@ -27,6 +29,7 @@
 | [RandomDateTimeOffsetFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomDateTimeOffsetFieldSettings.md) | Settings for a field that enumerates the random System.DateTimeOffset values. |
 | [RandomDecimalFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomDecimalFieldSettings.md) | Settings for a field that enumerates the random System.Decimal values. |
 | [RandomDoubleFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomDoubleFieldSettings.md) | Settings for a field that enumerates the random System.Double values. |
+| [RandomFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomFieldSettings.md) | Settings for a field that enumerates the random values. |
 | [RandomFieldSettingsBase&lt;TValue&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomFieldSettingsBase`1.md) | Basic implementation of settings for a field that lists the random values. |
 | [RandomGuidFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomGuidFieldSettings.md) | Settings for a field that enumerates the random System.Guid values. |
 | [RandomInt16FieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomInt16FieldSettings.md) | Settings for a field that enumerates the random System.Int16 values. |
@@ -44,6 +47,7 @@
 | [SequenceDateMonthOffsetFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/SequenceDateMonthOffsetFieldSettings.md) | Settings for a field that enumerates the sequential System.DateTime values at monthly intervals. |
 | [SequenceDateTimeFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/SequenceDateTimeFieldSettings.md) | Settings for a field that enumerates the sequential System.DateTime values. |
 | [SequenceDateTimeOffsetFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/SequenceDateTimeOffsetFieldSettings.md) | Settings for a field that enumerates the sequential System.DateTimeOffset values. |
+| [SequenceFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/SequenceFieldSettings.md) | Settings for a field that enumerates the sequential values. |
 | [SequenceFieldSettingsBase&lt;TValue, TIncrement&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/SequenceFieldSettingsBase`2.md) | Basic implementation of settings for a field that lists the seaquencial values. |
 | [SequenceInt16FieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/SequenceInt16FieldSettings.md) | Settings for a field that enumerates the sequential System.Int16 values. |
 | [SequenceInt32FieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/SequenceInt32FieldSettings.md) | Settings for a field that enumerates the sequential System.Int32 values. |
