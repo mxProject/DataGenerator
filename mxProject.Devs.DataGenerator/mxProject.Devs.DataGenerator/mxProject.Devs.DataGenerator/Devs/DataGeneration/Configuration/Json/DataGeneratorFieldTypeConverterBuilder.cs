@@ -103,6 +103,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Json
                 .RegisterField<AnyStringFieldSettings>("AnyString")
                 .RegisterField<AnyEnumFieldSettings>("AnyEnum")
 
+                .RegisterField<RandomFieldSettings>("Random")
                 .RegisterField<RandomBooleanFieldSettings>("RandomBoolean")
                 .RegisterField<RandomByteFieldSettings>("RandomByte")
                 .RegisterField<RandomSByteFieldSettings>("RandomSByte")
