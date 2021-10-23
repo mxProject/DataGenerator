@@ -121,6 +121,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Json
                 .RegisterField<RandomTimeSpanFieldSettings>("RandomTimeSpan")
                 .RegisterField<RandomGuidFieldSettings>("RandomGuid")
 
+                .RegisterField<SequenceFieldSettings>("Sequence")
                 .RegisterField<SequenceByteFieldSettings>("SequenceByte")
                 .RegisterField<SequenceSByteFieldSettings>("SequenceSByte")
                 .RegisterField<SequenceInt16FieldSettings>("SequenceInt16")
