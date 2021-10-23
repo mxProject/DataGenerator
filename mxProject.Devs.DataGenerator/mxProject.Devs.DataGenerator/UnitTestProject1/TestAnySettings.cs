@@ -34,6 +34,15 @@ namespace UnitTestProject1
             await AnyStruct(generateCount, values).ConfigureAwait(false);
         }
 
+        [TestMethod]
+        public async Task AnyBoolean_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new bool?[] { true, false, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region byte
@@ -45,6 +54,15 @@ namespace UnitTestProject1
             var values = new byte?[] { 1, 2, 3, 4, null };
 
             await AnyStruct(generateCount, values).ConfigureAwait(false);
+        }
+
+        [TestMethod]
+        public async Task AnyByte_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new byte?[] { 1, 2, 3, 4, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
         #endregion
@@ -60,6 +78,15 @@ namespace UnitTestProject1
             await AnyStruct(generateCount, values).ConfigureAwait(false);
         }
 
+        [TestMethod]
+        public async Task AnySByte_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new sbyte?[] { 1, 2, 3, 4, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region short
@@ -71,6 +98,15 @@ namespace UnitTestProject1
             var values = new short?[] { 1, 2, 3, 4, null };
 
             await AnyStruct(generateCount, values).ConfigureAwait(false);
+        }
+
+        [TestMethod]
+        public async Task AnyInt16_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new short?[] { 1, 2, 3, 4, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
         #endregion
@@ -86,6 +122,15 @@ namespace UnitTestProject1
             await AnyStruct(generateCount, values).ConfigureAwait(false);
         }
 
+        [TestMethod]
+        public async Task AnyUInt16_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new ushort?[] { 1, 2, 3, 4, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region int
@@ -97,6 +142,15 @@ namespace UnitTestProject1
             var values = new int?[] { 1, 2, 3, 4, null };
 
             await AnyStruct(generateCount, values).ConfigureAwait(false);
+        }
+
+        [TestMethod]
+        public async Task AnyInt32_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new int?[] { 1, 2, 3, 4, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
         #endregion
@@ -112,6 +166,15 @@ namespace UnitTestProject1
             await AnyStruct(generateCount, values).ConfigureAwait(false);
         }
 
+        [TestMethod]
+        public async Task AnyUInt32_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new uint?[] { 1, 2, 3, 4, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region long
@@ -123,6 +186,15 @@ namespace UnitTestProject1
             var values = new long?[] { 1, 2, 3, 4, null };
 
             await AnyStruct(generateCount, values).ConfigureAwait(false);
+        }
+
+        [TestMethod]
+        public async Task AnyInt64_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new long?[] { 1, 2, 3, 4, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
         #endregion
@@ -138,6 +210,15 @@ namespace UnitTestProject1
             await AnyStruct(generateCount, values).ConfigureAwait(false);
         }
 
+        [TestMethod]
+        public async Task AnyUInt64_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new ulong?[] { 1, 2, 3, 4, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region float
@@ -149,6 +230,15 @@ namespace UnitTestProject1
             var values = new float?[] { 1.1f, 2.2f, 3.3f, 4.4f, null };
 
             await AnyStruct(generateCount, values).ConfigureAwait(false);
+        }
+
+        [TestMethod]
+        public async Task AnySingle_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new float?[] { 1.1f, 2.2f, 3.3f, 4.4f, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
         #endregion
@@ -164,6 +254,15 @@ namespace UnitTestProject1
             await AnyStruct(generateCount, values).ConfigureAwait(false);
         }
 
+        [TestMethod]
+        public async Task AnyDouble_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new double?[] { 1.1, 2.2, 3.3, 4.4, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region decimal
@@ -175,6 +274,15 @@ namespace UnitTestProject1
             var values = new decimal?[] { 1.1m, 2.2m, 3.3m, 4.4m, null };
 
             await AnyStruct(generateCount, values).ConfigureAwait(false);
+        }
+
+        [TestMethod]
+        public async Task AnyDecimal_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new decimal?[] { 1.1m, 2.2m, 3.3m, 4.4m, null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
         #endregion
@@ -190,6 +298,20 @@ namespace UnitTestProject1
             await AnyStruct(generateCount, values).ConfigureAwait(false);
         }
 
+        [TestMethod]
+        public async Task AnyDateTime_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new DateTime?[] 
+            {
+                new DateTime(2021, 1, 2, 3, 4, 5, DateTimeKind.Unspecified),
+                new DateTime(2021, 1, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                null
+            };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region DateTimeOffset
@@ -201,6 +323,20 @@ namespace UnitTestProject1
             var values = new DateTimeOffset?[] { DateTime.Now, DateTime.UtcNow, DateTime.Today, null };
 
             await AnyStruct(generateCount, values).ConfigureAwait(false);
+        }
+
+        [TestMethod]
+        public async Task AnyDateTimeOffset_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new DateTimeOffset?[]
+            {
+                new DateTime(2021, 1, 2, 3, 4, 5, DateTimeKind.Unspecified),
+                new DateTime(2021, 1, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                null
+            };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
         #endregion
@@ -216,6 +352,15 @@ namespace UnitTestProject1
             await AnyStruct(generateCount, values).ConfigureAwait(false);
         }
 
+        [TestMethod]
+        public async Task AnyTimeSpan_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new TimeSpan?[] { TimeSpan.FromDays(1), TimeSpan.FromHours(2), TimeSpan.FromMinutes(3), null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region char
@@ -229,6 +374,15 @@ namespace UnitTestProject1
             await AnyStruct(generateCount, values).ConfigureAwait(false);
         }
 
+        [TestMethod]
+        public async Task AnyChar_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new char?[] { 'a', 'b', 'c', 'd', null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region StringValue
@@ -240,6 +394,15 @@ namespace UnitTestProject1
             var values = new StringValue?[] { "a", "b", "c", "d", "", null };
 
             await AnyStruct(generateCount, values).ConfigureAwait(false);
+        }
+
+        [TestMethod]
+        public async Task AnyStringValue_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new StringValue?[] { "a", "b", "c", "d", "", null };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
         #endregion
@@ -281,6 +444,15 @@ namespace UnitTestProject1
             using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
 
             EnumerateValues(reader, generateCount, values);
+        }
+
+        [TestMethod]
+        public async Task AnyString_NonGenetic()
+        {
+            int generateCount = 100;
+            var values = new string?[] { "a", "b", "c", "d", "", null };
+
+            await Any_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
         #endregion
@@ -338,6 +510,22 @@ namespace UnitTestProject1
             using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
 
             EnumerateValues(reader, generateCount, values);
+        }
+
+        [TestMethod]
+        public async Task AnyEnum_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new DayOfWeek?[] {
+                DayOfWeek.Monday,
+                DayOfWeek.Thursday,
+                DayOfWeek.Wednesday,
+                DayOfWeek.Thursday,
+                DayOfWeek.Friday,
+                null
+            };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
         #endregion
@@ -445,6 +633,102 @@ namespace UnitTestProject1
             }
 
             return false;
+        }
+
+
+        private async Task AnyStruct_NonGeneric<T>(int generateCount, T?[] values)
+             where T : struct
+        {
+            static string?[] ToString(T?[] values)
+            {
+                string?[] converted = new string?[values.Length];
+
+                for (int i = 0; i < values.Length; ++i)
+                {
+                    converted[i] = values[i]?.ToString();
+                }
+
+                return converted;
+            }
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new AnyFieldSettings()
+                    {
+                        ValueTypeName = typeof(T).FullName,
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        Values = ToString(values)
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, values);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, values);
+
+        }
+
+        private async Task Any_NonGeneric<T>(int generateCount, T?[] values)
+        {
+            static string?[] ToString(T?[] values)
+            {
+                string?[] converted = new string?[values.Length];
+
+                for (int i = 0; i < values.Length; ++i)
+                {
+                    converted[i] = values[i]?.ToString();
+                }
+
+                return converted;
+            }
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new AnyFieldSettings()
+                    {
+                        ValueTypeName = typeof(T).FullName,
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        Values = ToString(values)
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, values);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, values);
+
         }
 
     }

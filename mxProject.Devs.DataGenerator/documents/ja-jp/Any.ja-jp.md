@@ -161,6 +161,7 @@ Any は次の型をサポートしています。
 |StringValue|AnyFieldSettings&lt;StringValue&gt;|AnyStringValue|
 |Guid|AnyFieldSettings&lt;Guid&gt;|AnyGuid|
 |Enum|AnyEnumFieldSettings|AnyEnum|
+|(any struct)|AnyFieldSettings|Any|
 
 * StringValue は文字列値を格納する構造体です。このライブラリは Nullable&lt;T&gt; を用いて任意の型の値を生成するように実装されています。string 型はジェネリック制約を満たすことができないため、StringValue 構造体を定義しています。
 
