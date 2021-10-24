@@ -59,6 +59,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Json
             var additionalTupleFieldSettingsbuilder = JsonSubtypesConverterBuilder.Of(typeof(DataGeneratorAdditionalTupleFieldSettings), "FieldType");
 
             return new DataGeneratorFieldTypeConverterBuilder(fieldSettingsbuilder, tupleFieldSettingsbuilder, additionalFieldSettingsbuilder, additionalTupleFieldSettingsbuilder)
+                .RegisterField<EachFieldSettings>("Each")
                 .RegisterField<EachFieldSettings<bool>>("EachBoolean")
                 .RegisterField<EachFieldSettings<byte>>("EachByte")
                 .RegisterField<EachFieldSettings<sbyte>>("EachSByte")
@@ -80,6 +81,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Json
                 .RegisterField<EachStringFieldSettings>("EachString")
                 .RegisterField<EachEnumFieldSettings>("EachEnum")
 
+                .RegisterField<AnyFieldSettings>("Any")
                 .RegisterField<AnyFieldSettings<bool>>("AnyBoolean")
                 .RegisterField<AnyFieldSettings<byte>>("AnyByte")
                 .RegisterField<AnyFieldSettings<sbyte>>("AnySByte")
@@ -101,6 +103,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Json
                 .RegisterField<AnyStringFieldSettings>("AnyString")
                 .RegisterField<AnyEnumFieldSettings>("AnyEnum")
 
+                .RegisterField<RandomFieldSettings>("Random")
                 .RegisterField<RandomBooleanFieldSettings>("RandomBoolean")
                 .RegisterField<RandomByteFieldSettings>("RandomByte")
                 .RegisterField<RandomSByteFieldSettings>("RandomSByte")
@@ -118,6 +121,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Json
                 .RegisterField<RandomTimeSpanFieldSettings>("RandomTimeSpan")
                 .RegisterField<RandomGuidFieldSettings>("RandomGuid")
 
+                .RegisterField<SequenceFieldSettings>("Sequence")
                 .RegisterField<SequenceByteFieldSettings>("SequenceByte")
                 .RegisterField<SequenceSByteFieldSettings>("SequenceSByte")
                 .RegisterField<SequenceInt16FieldSettings>("SequenceInt16")

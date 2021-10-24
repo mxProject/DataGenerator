@@ -162,6 +162,7 @@ Random は次の型をサポートしています。
 |DateTimeOffset|RandomDateTimeOffsetFieldSettings|RandomDateTimeOffset|
 |TimeSpan|RandomTimeSpanFieldSettings|RandomTimeSpan|
 |Guid|RandomGuidFieldSettings|RandomGuid|
+|(all types above)|RandomFieldSettings|Random|
 
 
 ## ランダム値の生成アルゴリズム

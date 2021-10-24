@@ -80,6 +80,62 @@ namespace UnitTestProject1
             EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
         }
 
+        [TestMethod]
+        public async Task SequenceByte_NonGeneric()
+        {
+            int generateCount = 100;
+            byte minValue = 50;
+            byte maxValue = 100;
+            byte increment = 3;
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.Byte",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            byte GetNext(byte current)
+            {
+                var next = (byte)(current + increment);
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
         #endregion
 
         #region sbyte
@@ -103,6 +159,62 @@ namespace UnitTestProject1
                         InitialValue = minValue,
                         MaximumValue = maxValue,
                         Increment = increment
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            sbyte GetNext(sbyte current)
+            {
+                var next = (sbyte)(current + increment);
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
+        [TestMethod]
+        public async Task SequenceSByte_NonGeneric()
+        {
+            int generateCount = 100;
+            sbyte minValue = -50;
+            sbyte maxValue = 100;
+            sbyte increment = 3;
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.SByte",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
                     }
                 }
             };
@@ -198,6 +310,62 @@ namespace UnitTestProject1
             EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
         }
 
+        [TestMethod]
+        public async Task SequenceInt16_NonGeneric()
+        {
+            int generateCount = 100;
+            short minValue = -50;
+            short maxValue = 100;
+            short increment = 3;
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.Int16",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            short GetNext(short current)
+            {
+                var next = (short)(current + increment);
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
         #endregion
 
         #region ushort
@@ -221,6 +389,62 @@ namespace UnitTestProject1
                         InitialValue = minValue,
                         MaximumValue = maxValue,
                         Increment = increment
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            ushort GetNext(ushort current)
+            {
+                var next = (ushort)(current + increment);
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
+        [TestMethod]
+        public async Task SequenceUInt16_NonGeneric()
+        {
+            int generateCount = 100;
+            ushort minValue = 50;
+            ushort maxValue = 100;
+            ushort increment = 3;
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.UInt16",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
                     }
                 }
             };
@@ -316,6 +540,62 @@ namespace UnitTestProject1
             EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
         }
 
+        [TestMethod]
+        public async Task SequenceInt32_NonGeneric()
+        {
+            int generateCount = 100;
+            int minValue = -50;
+            int maxValue = 100;
+            int increment = 3;
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.Int32",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            int GetNext(int current)
+            {
+                var next = current + increment;
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
         #endregion
 
         #region uint
@@ -339,6 +619,62 @@ namespace UnitTestProject1
                         InitialValue = minValue,
                         MaximumValue = maxValue,
                         Increment = increment
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            uint GetNext(uint current)
+            {
+                var next = current + increment;
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
+        [TestMethod]
+        public async Task SequenceUInt32_NonGeneric()
+        {
+            int generateCount = 100;
+            uint minValue = 50;
+            uint maxValue = 100;
+            uint increment = 3;
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.UInt32",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
                     }
                 }
             };
@@ -434,6 +770,62 @@ namespace UnitTestProject1
             EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
         }
 
+        [TestMethod]
+        public async Task SequenceInt64_NonGeneric()
+        {
+            int generateCount = 100;
+            long minValue = -50;
+            long maxValue = 100;
+            long increment = 3;
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.Int64",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            long GetNext(long current)
+            {
+                var next = current + increment;
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
         #endregion
 
         #region ulong
@@ -457,6 +849,62 @@ namespace UnitTestProject1
                         InitialValue = minValue,
                         MaximumValue = maxValue,
                         Increment = increment
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            ulong GetNext(ulong current)
+            {
+                var next = current + increment;
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
+        [TestMethod]
+        public async Task SequenceUInt64_NonGenric()
+        {
+            int generateCount = 100;
+            ulong minValue = 50;
+            ulong maxValue = 100;
+            ulong increment = 3;
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.UInt64",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
                     }
                 }
             };
@@ -607,6 +1055,118 @@ namespace UnitTestProject1
             EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
         }
 
+        [TestMethod]
+        public async Task SequenceDateTime_NonGeneric()
+        {
+            int generateCount = 100;
+            DateTime minValue = DateTime.Today;
+            DateTime maxValue = DateTime.Today.AddMonths(1);
+            TimeSpan increment = TimeSpan.FromHours(20);
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.DateTime",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            DateTime GetNext(DateTime current)
+            {
+                var next = current + increment;
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
+        [TestMethod]
+        public async Task SequenceDateMonth_NonGeneric()
+        {
+            int generateCount = 100;
+            DateTime minValue = DateTime.Today;
+            DateTime maxValue = DateTime.Today.AddMonths(12);
+            int increment = 3;
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.DateTime",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            DateTime GetNext(DateTime current)
+            {
+                var next = current.AddMonths(increment);
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
         #endregion
 
         #region DateTimeOffset
@@ -721,6 +1281,118 @@ namespace UnitTestProject1
             EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
         }
 
+        [TestMethod]
+        public async Task SequenceDateTimeOffset_NonGeneric()
+        {
+            int generateCount = 100;
+            DateTimeOffset minValue = DateTime.Today;
+            DateTimeOffset maxValue = DateTime.Today.AddMonths(1);
+            TimeSpan increment = TimeSpan.FromHours(20);
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.DateTimeOffset",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            DateTimeOffset GetNext(DateTimeOffset current)
+            {
+                var next = current + increment;
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
+        [TestMethod]
+        public async Task SequenceDateMonthOffset_NonGeneric()
+        {
+            int generateCount = 100;
+            DateTimeOffset minValue = DateTime.Today;
+            DateTimeOffset maxValue = DateTime.Today.AddMonths(12);
+            int increment = 3;
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.DateTimeOffset",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            DateTimeOffset GetNext(DateTimeOffset current)
+            {
+                var next = current.AddMonths(increment);
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
         #endregion
 
         #region TimeSpan
@@ -744,6 +1416,62 @@ namespace UnitTestProject1
                         InitialValue = minValue,
                         MaximumValue = maxValue,
                         Increment = increment
+                    }
+                }
+            };
+
+            TestUtility.AssertJsonSerialize(ref settings);
+
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            TimeSpan GetNext(TimeSpan current)
+            {
+                var next = current + increment;
+
+                if (next <= maxValue)
+                {
+                    return next;
+                }
+                else
+                {
+                    return minValue;
+                }
+            }
+
+            var builder = settings.CreateBuilder(context);
+
+            // dataGenerator
+            using (var generator = await builder.BuildAsync(generateCount).ConfigureAwait(false))
+            {
+                EnumerateValues(generator, generateCount, minValue, maxValue, GetNext);
+            }
+
+            // dataReader
+            using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
+
+            EnumerateValues(reader, generateCount, minValue, maxValue, GetNext);
+        }
+
+        [TestMethod]
+        public async Task SequenceTimeSpan_NonGeneric()
+        {
+            int generateCount = 100;
+            TimeSpan minValue = new TimeSpan(1, 2, 3, 4, 5);
+            TimeSpan maxValue = new TimeSpan(10, 0, 0, 0, 0);
+            TimeSpan increment = new TimeSpan(1, 2, 3, 4, 5);
+
+            DataGeneratorSettings settings = new()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new SequenceFieldSettings()
+                    {
+                        ValueTypeName = "System.TimeSpan",
+                        FieldName = "field1",
+                        NullProbability = 0.1,
+                        InitialValue = minValue.ToString(),
+                        MaximumValue = maxValue.ToString(),
+                        Increment = increment.ToString()
                     }
                 }
             };

@@ -162,6 +162,7 @@ The DataGeneratorSettings instance in the sample code above is serialized into a
 |StringValue|EachFieldSettings&lt;StringValue&gt;|EachStringValue|
 |Guid|EachFieldSettings&lt;Guid&gt;|EachGuid|
 |Enum|EachEnumFieldSettings|EachEnum|
+|(any struct)|EachFieldSettings|Each|
 
 * StringValue is a structure that stores string values. This library is implemented to generate values of any type using Nullable&lt;T&gt;. System.String type cannot meet the generic constraint. Therefore, I have defined StringValue structure as the value type that stores the string.
 

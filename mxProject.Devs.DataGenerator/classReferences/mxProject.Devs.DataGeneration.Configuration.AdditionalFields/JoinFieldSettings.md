@@ -5,7 +5,7 @@
 
 
 
-A setting for a field that returns the value of an expression.
+A setting for a field that returns the values stored in a dictionary.
 
 
 

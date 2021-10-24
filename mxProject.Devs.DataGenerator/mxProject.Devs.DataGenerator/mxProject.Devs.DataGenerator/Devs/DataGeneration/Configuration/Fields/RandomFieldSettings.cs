@@ -2,219 +2,186 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using mxProject.Devs.DataGeneration.Fields;
 using Newtonsoft.Json;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace mxProject.Devs.DataGeneration.Configuration.Fields
 {
-
     /// <summary>
-    /// Settings for a field that enumerates the random <see cref="bool"/> values.
+    /// Settings for a field that enumerates the random values.
     /// </summary>
-    public sealed class RandomBooleanFieldSettings : RandomFieldSettingsBase<bool>
+    public class RandomFieldSettings : DataGeneratorFieldSettings
     {
-        /// <summary>
-        /// Gets or sets probability of returning true. (between 0 and 1.0)
-        /// </summary>
-        [JsonProperty("TrueProb", Order = 203)]
-        public double TrueProbability { get; set; }
 
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
+        /// <summary>
+        /// Create a new instance.
+        /// </summary>
+        public RandomFieldSettings()
         {
-            return context.FieldFactory.RandomBoolean(FieldName!, TrueProbability, NullProbability);
         }
+
+        /// <summary>
+        /// Gets or sets the value type name.
+        /// </summary>
+        [JsonProperty("ValueType", Order = 11)]
+        public string? ValueTypeName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum value.
+        /// </summary>
+        [JsonProperty("Min", Order = 12)]
+        public string? MinimumValue { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum value.
+        /// </summary>
+        [JsonProperty("Max", Order = 13)]
+        public string? MaximumValue { get; set; }
+
+        /// <summary>
+        /// Gets or sets probability of returning null. (between 0 and 1.0)
+        /// </summary>
+        [JsonProperty("NullProb", Order = 14)]
+        public double NullProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the expression text of the selector. ex) "x => System.Round(x, 1)"
+        /// </summary>
+        [JsonProperty("Selector", Order = 15)]
+        public string? SelectorExpression { get; set; }
 
         /// <inheritdoc/>
         protected override void Assert()
         {
             base.Assert();
 
-            if (TrueProbability < 0 || 1 < TrueProbability)
+            if (ValueTypeName == null)
             {
-                throw new ArgumentOutOfRangeException("The value of the TrueProbability property is out of range. ");
+                throw new NullReferenceException("The value of the ValueTypeName property is null.");
+            }
+
+            if (NullProbability < 0 || 1 < NullProbability)
+            {
+                throw new ArgumentOutOfRangeException("The value of the NullProbability property is out of range.");
             }
         }
-    }
 
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="byte"/> values.
-    /// </summary>
-    public sealed class RandomByteFieldSettings : RandomNumericFieldSettingsBase<byte>
-    {
         /// <inheritdoc/>
         protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
         {
-            return context.FieldFactory.RandomByte(FieldName!, MinimumValue ?? byte.MinValue, MaximumValue ?? byte.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
+            var type = DataGeneratorUtility.GetFieldValueType(Type.GetType(ValueTypeName));
 
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="sbyte"/> values.
-    /// </summary>
-    public sealed class RandomSByteFieldSettings : RandomNumericFieldSettingsBase<sbyte>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomSByte(FieldName!, MinimumValue ?? sbyte.MinValue, MaximumValue ?? sbyte.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
+            if (type == typeof(bool))
+            {
+                return context.FieldFactory.RandomBoolean(FieldName!, 0.5, NullProbability);
+            }
+            else if (type == typeof(byte))
+            {
+                var min = context.StringConverter.ConvertToOrNull<byte>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<byte>(MaximumValue);
+                return context.FieldFactory.RandomByte(FieldName!, min ?? byte.MinValue, max ?? byte.MaxValue, CreateSelectorAsync<byte>(context), NullProbability);
+            }
+            else if (type == typeof(sbyte))
+            {
+                var min = context.StringConverter.ConvertToOrNull<sbyte>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<sbyte>(MaximumValue);
+                return context.FieldFactory.RandomSByte(FieldName!, min ?? sbyte.MinValue, max ?? sbyte.MaxValue, CreateSelectorAsync<sbyte>(context), NullProbability);
+            }
+            else if (type == typeof(short))
+            {
+                var min = context.StringConverter.ConvertToOrNull<short>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<short>(MaximumValue);
+                return context.FieldFactory.RandomInt16(FieldName!, min ?? short.MinValue, max ?? short.MaxValue, CreateSelectorAsync<short>(context), NullProbability);
+            }
+            else if (type == typeof(ushort))
+            {
+                var min = context.StringConverter.ConvertToOrNull<ushort>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<ushort>(MaximumValue);
+                return context.FieldFactory.RandomUInt16(FieldName!, min ?? ushort.MinValue, max ?? ushort.MaxValue, CreateSelectorAsync<ushort>(context), NullProbability);
+            }
+            else if (type == typeof(int))
+            {
+                var min = context.StringConverter.ConvertToOrNull<short>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<short>(MaximumValue);
+                return context.FieldFactory.RandomInt32(FieldName!, min ?? int.MinValue, max ?? int.MaxValue, CreateSelectorAsync<int>(context), NullProbability);
+            }
+            else if (type == typeof(uint))
+            {
+                var min = context.StringConverter.ConvertToOrNull<uint>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<uint>(MaximumValue);
+                return context.FieldFactory.RandomUInt32(FieldName!, min ?? uint.MinValue, max ?? uint.MaxValue, CreateSelectorAsync<uint>(context), NullProbability);
+            }
+            else if (type == typeof(long))
+            {
+                var min = context.StringConverter.ConvertToOrNull<long>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<long>(MaximumValue);
+                return context.FieldFactory.RandomInt64(FieldName!, min ?? long.MinValue, max ?? long.MaxValue, CreateSelectorAsync<long>(context), NullProbability);
+            }
+            else if (type == typeof(ulong))
+            {
+                var min = context.StringConverter.ConvertToOrNull<ulong>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<ulong>(MaximumValue);
+                return context.FieldFactory.RandomUInt64(FieldName!, min ?? ulong.MinValue, max ?? ulong.MaxValue, CreateSelectorAsync<ulong>(context), NullProbability);
+            }
+            else if (type == typeof(float))
+            {
+                var min = context.StringConverter.ConvertToOrNull<float>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<float>(MaximumValue);
+                return context.FieldFactory.RandomSingle(FieldName!, min ?? float.MinValue, max ?? float.MaxValue, CreateSelectorAsync<float>(context), NullProbability);
+            }
+            else if (type == typeof(double))
+            {
+                var min = context.StringConverter.ConvertToOrNull<double>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<double>(MaximumValue);
+                return context.FieldFactory.RandomDouble(FieldName!, min ?? double.MinValue, max ?? double.MaxValue, CreateSelectorAsync<double>(context), NullProbability);
+            }
+            else if (type == typeof(decimal))
+            {
+                var min = context.StringConverter.ConvertToOrNull<decimal>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<decimal>(MaximumValue);
+                return context.FieldFactory.RandomDecimal(FieldName!, min ?? decimal.MinValue, max ?? decimal.MaxValue, CreateSelectorAsync<decimal>(context), NullProbability);
+            }
+            else if (type == typeof(DateTime))
+            {
+                var min = context.StringConverter.ConvertToOrNull<DateTime>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<DateTime>(MaximumValue);
+                return context.FieldFactory.RandomDateTime(FieldName!, min ?? DateTime.MinValue, max ?? DateTime.MaxValue, CreateSelectorAsync<DateTime>(context), NullProbability);
+            }
+            else if (type == typeof(DateTimeOffset))
+            {
+                var min = context.StringConverter.ConvertToOrNull<DateTimeOffset>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<DateTimeOffset>(MaximumValue);
+                return context.FieldFactory.RandomDateTimeOffset(FieldName!, min ?? DateTimeOffset.MinValue, max ?? DateTimeOffset.MaxValue, CreateSelectorAsync<DateTimeOffset>(context), NullProbability);
+            }
+            else if (type == typeof(TimeSpan))
+            {
+                var min = context.StringConverter.ConvertToOrNull<TimeSpan>(MinimumValue);
+                var max = context.StringConverter.ConvertToOrNull<TimeSpan>(MaximumValue);
+                return context.FieldFactory.RandomTimeSpan(FieldName!, min ?? TimeSpan.MinValue, max ?? TimeSpan.MaxValue, CreateSelectorAsync<TimeSpan>(context), NullProbability);
+            }
+            else if (type == typeof(Guid))
+            {
+                return context.FieldFactory.RandomGuid(FieldName!, NullProbability);
+            }
+            else
+            {
+                throw new NotSupportedException($"The specified type is not supported. ValueTypeName: {ValueTypeName}");
+            }
 
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="short"/> values.
-    /// </summary>
-    public sealed class RandomInt16FieldSettings : RandomNumericFieldSettingsBase<short>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomInt16(FieldName!, MinimumValue ?? short.MinValue, MaximumValue ?? short.MaxValue, CreateSelectorAsync(context), NullProbability);
         }
-    }
 
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="ushort"/> values.
-    /// </summary>
-    public sealed class RandomUInt16FieldSettings : RandomNumericFieldSettingsBase<ushort>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
+        /// <summary>
+        /// Creates a selector from the expression text set in <see cref="SelectorExpression"/> property.
+        /// </summary>
+        /// <returns>A selector.</returns>
+        private Task<Func<TValue, TValue>?> CreateSelectorAsync<TValue>(DataGeneratorContext context)
         {
-            return context.FieldFactory.RandomUInt16(FieldName!, MinimumValue ?? ushort.MinValue, MaximumValue ?? ushort.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
+            if (string.IsNullOrWhiteSpace(SelectorExpression)) { return Task.FromResult((Func<TValue, TValue>?)null); }
 
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="int"/> values.
-    /// </summary>
-    public sealed class RandomInt32FieldSettings : RandomNumericFieldSettingsBase<int>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomInt32(FieldName!, MinimumValue ?? int.MinValue, MaximumValue ?? int.MaxValue, CreateSelectorAsync(context), NullProbability);
+            return CSharpScriptUtility.CreateFuncAsync<Func<TValue, TValue>?>(SelectorExpression!, context);
         }
-    }
 
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="uint"/> values.
-    /// </summary>
-    public sealed class RandomUInt32FieldSettings : RandomNumericFieldSettingsBase<uint>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomUInt32(FieldName!, MinimumValue ?? uint.MinValue, MaximumValue ?? uint.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
-
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="long"/> values.
-    /// </summary>
-    public sealed class RandomInt64FieldSettings : RandomNumericFieldSettingsBase<long>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomInt64(FieldName!, MinimumValue ?? long.MinValue, MaximumValue ?? long.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
-
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="ulong"/> values.
-    /// </summary>
-    public sealed class RandomUInt64FieldSettings : RandomNumericFieldSettingsBase<ulong>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomUInt64(FieldName!, MinimumValue ?? ulong.MinValue, MaximumValue ?? ulong.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
-
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="float"/> values.
-    /// </summary>
-    public sealed class RandomSingleFieldSettings : RandomNumericFieldSettingsBase<float>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomSingle(FieldName!, MinimumValue ?? float.MinValue, MaximumValue ?? float.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
-
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="double"/> values.
-    /// </summary>
-    public sealed class RandomDoubleFieldSettings : RandomNumericFieldSettingsBase<double>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomDouble(FieldName!, MinimumValue ?? double.MinValue, MaximumValue ?? double.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
-
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="decimal"/> values.
-    /// </summary>
-    public sealed class RandomDecimalFieldSettings : RandomNumericFieldSettingsBase<decimal>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomDecimal(FieldName!, MinimumValue ?? decimal.MinValue, MaximumValue ?? decimal.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
-
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="DateTime"/> values.
-    /// </summary>
-    public sealed class RandomDateTimeFieldSettings : RandomNumericFieldSettingsBase<DateTime>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomDateTime(FieldName!, MinimumValue ?? DateTime.MinValue, MaximumValue ?? DateTime.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
-
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="DateTimeOffset"/> values.
-    /// </summary>
-    public sealed class RandomDateTimeOffsetFieldSettings : RandomNumericFieldSettingsBase<DateTimeOffset>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomDateTimeOffset(FieldName!, MinimumValue ?? DateTimeOffset.MinValue, MaximumValue ?? DateTimeOffset.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
-
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="TimeSpan"/> values.
-    /// </summary>
-    public sealed class RandomTimeSpanFieldSettings : RandomNumericFieldSettingsBase<TimeSpan>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomTimeSpan(FieldName!, MinimumValue ?? TimeSpan.MinValue, MaximumValue ?? TimeSpan.MaxValue, CreateSelectorAsync(context), NullProbability);
-        }
-    }
-
-    /// <summary>
-    /// Settings for a field that enumerates the random <see cref="Guid"/> values.
-    /// </summary>
-    public sealed class RandomGuidFieldSettings : RandomFieldSettingsBase<Guid>
-    {
-        /// <inheritdoc/>
-        protected override IDataGeneratorField CreateFieldCore(DataGeneratorContext context)
-        {
-            return context.FieldFactory.RandomGuid(FieldName!, NullProbability);
-        }
     }
 
 }

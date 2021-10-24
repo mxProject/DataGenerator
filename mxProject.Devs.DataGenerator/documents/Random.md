@@ -162,6 +162,7 @@ The DataGeneratorSettings instance in the sample code above is serialized into a
 |DateTimeOffset|RandomDateTimeOffsetFieldSettings|RandomDateTimeOffset|
 |TimeSpan|RandomTimeSpanFieldSettings|RandomTimeSpan|
 |Guid|RandomGuidFieldSettings|RandomGuid|
+|(all types above)|RandomFieldSettings|Random|
 
 
 ## Random value generation algorithm

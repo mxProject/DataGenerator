@@ -191,6 +191,7 @@ Sequence は次の型をサポートしています。
 |DateTimeOffset|SequenceDateTimeOffsetFieldSettings|SequenceDateTimeOffset|
 |DateTimeOffset|SequenceDateMonthOffsetFieldSettings|SequenceDateMonthOffset|
 |TimeSpan|SequenceTimeSpanFieldSettings|SequenceTimeSpan|
+|(all types above)|SequenceFieldSettings|Sequence|
 
 
 ## 月単位のシーケンス値

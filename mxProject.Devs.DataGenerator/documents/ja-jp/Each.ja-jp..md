@@ -160,5 +160,6 @@ Enum は次の型をサポートしています。
 |StringValue|EachFieldSettings&lt;StringValue&gt;|EachStringValue|
 |Guid|EachFieldSettings&lt;Guid&gt;|EachGuid|
 |Enum|EachEnumFieldSettings|EachEnum|
+|(any struct)|EachFieldSettings|Each|
 
 * StringValue は文字列値を格納する構造体です。このライブラリはジェネリックを用いて任意の値型の値を生成するように実装されています。string 型のままではその制約を満たすことができないため、StringValue 構造体を定義しています。
