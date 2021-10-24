@@ -5,7 +5,7 @@
 
 
 
-
+Default DbProvider. Use System.Data.OleDb.
 
 
 
@@ -15,7 +15,7 @@
 ## Inheritance tree
 * object
 ## Implemented interfaces
-* mxProject.Devs.DataGeneration.IDbProvider
+* [mxProject.Devs.DataGeneration.IDbProvider](../mxProject.Devs.DataGeneration/IDbProvider.md)
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Methods](#Methods)&nbsp;&nbsp;
@@ -43,7 +43,7 @@ public DefaultDbProvider()
 ## Methods
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
-| public | [CreateConnection(string, string)](#createconnectionstring-string-method) | IDbConnection |  |
+| public | [CreateConnection(string, string)](#createconnectionstring-string-method) | IDbConnection | Inherited from  [DefaultDbProvider](../mxProject.Devs.DataGeneration/DefaultDbProvider.md) . |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
 | protected | [Finalize](#finalize-method) | void | Inherited from  System.Object . |
 | public | [GetHashCode](#gethashcode-method) | int | Inherited from  System.Object . |
@@ -53,7 +53,7 @@ public DefaultDbProvider()
 ---
 ### CreateConnection(string, string) Method
 
-
+Inherited from  [DefaultDbProvider](../mxProject.Devs.DataGeneration/DefaultDbProvider.md) .
 ```c#
 public virtual IDbConnection CreateConnection
 (

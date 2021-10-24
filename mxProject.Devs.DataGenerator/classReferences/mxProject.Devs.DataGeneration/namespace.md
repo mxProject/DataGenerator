@@ -17,13 +17,14 @@
 | [DataGeneratorFieldException](../mxProject.Devs.DataGeneration/DataGeneratorFieldException.md) | Exception indicating that the field definition is incorrect. |
 | [DataGeneratorFieldFactory](../mxProject.Devs.DataGeneration/DataGeneratorFieldFactory.md) | Generate fields for DataGenerator. |
 | [DataGeneratorFieldInfo](../mxProject.Devs.DataGeneration/DataGeneratorFieldInfo.md) | Field information. |
-| DefaultDbProvider |  |
+| [DefaultDbProvider](../mxProject.Devs.DataGeneration/DefaultDbProvider.md) | Default DbProvider. Use System.Data.OleDb. |
 | [DefaultRandomGenerator](../mxProject.Devs.DataGeneration/DefaultRandomGenerator.md) | Random value generation logic. |
 | [DefaultStringConverter](../mxProject.Devs.DataGeneration/DefaultStringConverter.md) | Default string converter. |
 | [EnumerableExtensions](../mxProject.Devs.DataGeneration/EnumerableExtensions.md) | Entension methods for System.Collections.Generic.IEnumerable`1 . |
 | [EnumerableFactory](../mxProject.Devs.DataGeneration/EnumerableFactory.md) | Enumeration Factory. |
 | [FieldValueConverter](../mxProject.Devs.DataGeneration/FieldValueConverter.md) | Field value converter. |
 | [IDataRecordExtensions](../mxProject.Devs.DataGeneration/IDataRecordExtensions.md) | Extension methods for System.Data.IDataRecord . |
+| [IStringConverterExtensions](../mxProject.Devs.DataGeneration/IStringConverterExtensions.md) | Extension methods for [IStringConverter](../mxProject.Devs.DataGeneration/IStringConverter.md) . |
 | [MathEx](../mxProject.Devs.DataGeneration/MathEx.md) | Mathematical methods. |
 | [StringDictionaryExtensions](../mxProject.Devs.DataGeneration/StringDictionaryExtensions.md) | Extension methods for System.Collections.Generic.IDictionary`2 . |
 | [StringEnumerableExtensions](../mxProject.Devs.DataGeneration/StringEnumerableExtensions.md) | Extension methods for System.Collections.Generic.IEnumerable`1 . |
@@ -66,7 +67,7 @@
 | [IDataGeneratorTupleFieldEnumeration&lt;T1, T2, T3, T4, T5, T6, T7&gt;](../mxProject.Devs.DataGeneration/IDataGeneratorTupleFieldEnumeration`7.md) | Provides the functionality needed for fields that generate tuples of multiple values. |
 | [IDataGeneratorTupleFieldEnumeration&lt;T1, T2, T3, T4, T5, T6, T7, T8&gt;](../mxProject.Devs.DataGeneration/IDataGeneratorTupleFieldEnumeration`8.md) | Provides the functionality needed for fields that generate tuples of multiple values. |
 | [IDataGeneratorTupleFieldEnumeration&lt;T1, T2, T3, T4, T5, T6, T7, T8, T9&gt;](../mxProject.Devs.DataGeneration/IDataGeneratorTupleFieldEnumeration`9.md) | Provides the functionality needed for fields that generate tuples of multiple values. |
-| IDbProvider |  |
+| [IDbProvider](../mxProject.Devs.DataGeneration/IDbProvider.md) | Provides the functionality needed to activate database objects. |
 | [IRandomGenerator](../mxProject.Devs.DataGeneration/IRandomGenerator.md) | Provides the functionality needed to generate random values. |
 | [IStringConverter](../mxProject.Devs.DataGeneration/IStringConverter.md) | Provides the functionality needed to convert string values. |
 

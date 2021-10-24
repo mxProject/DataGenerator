@@ -47,7 +47,7 @@ public JoinFieldFactory()
 | public | [GetType](#gettype-method) | Type | Inherited from  System.Object . |
 | protected | [MemberwiseClone](#memberwiseclone-method) | object | Inherited from  System.Object . |
 | public | [ToString](#tostring-method) | string | Inherited from  System.Object . |
-| public | [WithDataReader(string[], string[], string[], IDataReader)](#withdatareaderstring-string-string-idatareader-method) | [DataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration.AdditionalFields/DataGeneratorAdditionalTupleField.md) |  |
+| public | [WithDataReader(string[], string[], string[], IDataReader)](#withdatareaderstring-string-string-idatareader-method) | [DataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration.AdditionalFields/DataGeneratorAdditionalTupleField.md) | Creates a field that returns the value stored in the specified data reader. |
 | public | [WithDictionary&lt;TKey, TValue&gt;(string, string, IDictionary&lt;TKey, TValue?&gt;)](#withdictionarytkey-tvaluestring-string-idictionarytkey-tvalue-method) | [DataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration.AdditionalFields/DataGeneratorAdditionalTupleField.md) | Creates a field that returns the value stored in the specified dictionary. |
 | public | [WithDictionary&lt;TKey, TValue&gt;(string, string, IDictionary&lt;TKey, TValue&gt;)](#withdictionarytkey-tvaluestring-string-idictionarytkey-tvalue-method) | [DataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration.AdditionalFields/DataGeneratorAdditionalTupleField.md) | Creates a field that returns the value stored in the specified dictionary. |
 | public | [WithDictionary&lt;TKey, TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9&gt;(string, string[], IDictionary&lt;TKey, (TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, (TValue8, TValue9))&gt;)](#withdictionarytkey-tvalue1-tvalue2-tvalue3-tvalue4-tvalue5-tvalue6-tvalue7-tvalue8-tvalue9string-string-idictionarytkey-tvalue1-tvalue2-tvalue3-tvalue4-tvalue5-tvalue6-tvalue7-tvalue8-tvalue9-method) | [DataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration.AdditionalFields/DataGeneratorAdditionalTupleField.md) | Creates a field that returns the value stored in the specified dictionary. |
@@ -371,7 +371,7 @@ public virtual string ToString()
 ---
 ### WithDataReader(string[], string[], string[], IDataReader) Method
 
-
+Creates a field that returns the value stored in the specified data reader.
 ```c#
 public DataGeneratorAdditionalTupleField WithDataReader
 (
@@ -384,10 +384,10 @@ public DataGeneratorAdditionalTupleField WithDataReader
 #### Parameters
 |Name|Parameter Type|I/O|Description|
 |:--|:--|:-:|:--|
-| keyFieldNames | string[] |  |  |
-| additionalKeyFieldNames | string[] |  |  |
-| additionalValueFieldNames | string[] |  |  |
-| additionalValues | IDataReader |  |  |
+| keyFieldNames | string[] |  | The key field names. |
+| additionalKeyFieldNames | string[] |  | The key field names in the data reader. |
+| additionalValueFieldNames | string[] |  | The field names to add. |
+| additionalValues | IDataReader |  | The data reader. |
 #### Return type
 
 

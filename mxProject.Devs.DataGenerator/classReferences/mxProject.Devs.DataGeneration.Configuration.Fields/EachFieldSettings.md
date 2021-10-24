@@ -1,11 +1,11 @@
 ﻿
 
 
-# DbQueryFieldSettings Class
+# EachFieldSettings Class
 
 
 
-Settings for a field that lists ths values read from the specified database query.
+Settings for a field that lists the specified values in order.
 
 
 
@@ -30,7 +30,7 @@ Settings for a field that lists ths values read from the specified database quer
 
 Create a new instance.
 ```c#
-public DbQueryFieldSettings()
+public EachFieldSettings()
 ```
 
 [Go to constructors](#Constructors)
@@ -40,24 +40,46 @@ public DbQueryFieldSettings()
 ## Properties
 |Scope|Name|Property Type|Summary|
 |:--|:--|:--|:--|
-| public | [DbQuerySettings](#dbquerysettings-property) | [DbQuerySettings](../mxProject.Devs.DataGeneration.Configuration/DbQuerySettings.md) | Gets or sets the database query settings. |
 | public | [FieldName](#fieldname-property) | string | Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) . |
----
-### DbQuerySettings Property
-
-Gets or sets the database query settings.
-```c#
-public DbQuerySettings DbQuerySettings { get; set; }
-```
-
-[Go to properties](#Properties)
-
+| public | [NullProbability](#nullprobability-property) | double | Gets or sets probability of returning null. (between 0 and 1.0) |
+| public | [Values](#values-property) | string[] | Gets or sets the values. |
+| public | [ValueTypeName](#valuetypename-property) | string | Gets or sets the value type name. |
 ---
 ### FieldName Property
 
 Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) .
 ```c#
 public string FieldName { get; set; }
+```
+
+[Go to properties](#Properties)
+
+---
+### NullProbability Property
+
+Gets or sets probability of returning null. (between 0 and 1.0)
+```c#
+public double NullProbability { get; set; }
+```
+
+[Go to properties](#Properties)
+
+---
+### Values Property
+
+Gets or sets the values.
+```c#
+public string[] Values { get; set; }
+```
+
+[Go to properties](#Properties)
+
+---
+### ValueTypeName Property
+
+Gets or sets the value type name.
+```c#
+public string ValueTypeName { get; set; }
 ```
 
 [Go to properties](#Properties)
@@ -69,9 +91,9 @@ public string FieldName { get; set; }
 ## Methods
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
-| protected | [Assert](#assert-method) | void | If the settings for this instance are invalid, an exception will be thrown.Inherited from  [DbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DbQueryFieldSettings.md) . |
+| protected | [Assert](#assert-method) | void | If the settings for this instance are invalid, an exception will be thrown.Inherited from  [EachFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/EachFieldSettings.md) . |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) . |
-| protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Creates an instance of [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) interface.Inherited from  [DbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DbQueryFieldSettings.md) . |
+| protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Creates an instance of [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) interface. |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
 | protected | [Finalize](#finalize-method) | void | Inherited from  System.Object . |
 | public | [GetHashCode](#gethashcode-method) | int | Inherited from  System.Object . |
@@ -81,14 +103,10 @@ public string FieldName { get; set; }
 ---
 ### Assert Method
 
-If the settings for this instance are invalid, an exception will be thrown.Inherited from  [DbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DbQueryFieldSettings.md) .
+If the settings for this instance are invalid, an exception will be thrown.Inherited from  [EachFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/EachFieldSettings.md) .
 ```c#
 protected virtual void Assert()
 ```
-#### Exceptions
-|Exception Type|Message|
-|:--|:--|
-| NullReferenceException | The value of Fields property is null. The value of Values property is null. The value of FieldInfo.FieldName property is null. The value of FieldInfo.ValueType property is null. |
 
 [Go to methods](#Methods)
 
@@ -114,7 +132,7 @@ public IDataGeneratorField CreateField
 ---
 ### CreateFieldCore(DataGeneratorContext) Method
 
-Creates an instance of [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) interface.Inherited from  [DbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DbQueryFieldSettings.md) .
+Creates an instance of [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) interface.
 ```c#
 protected virtual IDataGeneratorField CreateFieldCore
 (
