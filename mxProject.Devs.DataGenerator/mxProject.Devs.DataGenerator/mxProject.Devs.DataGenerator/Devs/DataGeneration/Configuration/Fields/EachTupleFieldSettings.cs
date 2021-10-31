@@ -23,6 +23,8 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         {
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets the fields information.
         /// </summary>
@@ -40,6 +42,23 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         /// </summary>
         [JsonProperty("NullProb", Order = 11)]
         public double NullProbability { get; set; }
+
+        #endregion
+
+        #region clone
+
+        /// <inheritdoc/>
+        public override object Clone()
+        {
+            var clone = (EachTupleFieldSettings)base.Clone();
+
+            clone.Fields = DataGeneratorUtility.DeepCloneArray(Fields);
+            clone.Values = DataGeneratorUtility.DeepCloneArray(Values);
+
+            return clone;
+        }
+
+        #endregion
 
         /// <inheritdoc/>
         public override int GetFieldCount()
@@ -998,6 +1017,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         //private void OnDeserialized(System.Runtime.Serialization.StreamingContext context)
         //{
         //}
+
     }
 
 }

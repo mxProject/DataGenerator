@@ -9,7 +9,7 @@ namespace mxProject.Devs.DataGeneration
     /// <summary>
     /// Field information.
     /// </summary>
-    public sealed class DataGeneratorFieldInfo : IDataGeneratorFieldInfo
+    public sealed class DataGeneratorFieldInfo : IDataGeneratorFieldInfo, ICloneable
     {
 
         /// <summary>
@@ -59,6 +59,8 @@ namespace mxProject.Devs.DataGeneration
             ValueType = valueType.FullName;
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets the field name.
         /// </summary>
@@ -70,6 +72,21 @@ namespace mxProject.Devs.DataGeneration
         /// </summary>
         [JsonProperty("ValueType", Order = 2)]
         public string? ValueType { get; set; }
+
+        #endregion
+
+        #region clone
+
+        /// <summary>
+        /// Creates a new object that is a copy of the current instance.
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        #endregion
 
         /// <summary>
         /// Gets the value type.
@@ -103,6 +120,7 @@ namespace mxProject.Devs.DataGeneration
                 return GetFieldValueType()!;
             }
         }
+
     }
 
 }

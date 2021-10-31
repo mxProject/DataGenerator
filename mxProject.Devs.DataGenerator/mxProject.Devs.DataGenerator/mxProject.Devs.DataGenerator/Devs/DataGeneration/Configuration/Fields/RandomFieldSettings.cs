@@ -21,6 +21,8 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         {
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets the value type name.
         /// </summary>
@@ -50,6 +52,8 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         /// </summary>
         [JsonProperty("Selector", Order = 15)]
         public string? SelectorExpression { get; set; }
+
+        #endregion
 
         /// <inheritdoc/>
         protected override void Assert()

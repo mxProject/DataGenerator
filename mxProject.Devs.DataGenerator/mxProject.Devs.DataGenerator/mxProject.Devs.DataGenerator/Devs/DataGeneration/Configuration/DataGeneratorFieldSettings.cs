@@ -11,7 +11,7 @@ namespace mxProject.Devs.DataGeneration.Configuration
     /// <summary>
     /// Basic implementation of DataGeneratorField settings.
     /// </summary>
-    public abstract class DataGeneratorFieldSettings
+    public abstract class DataGeneratorFieldSettings : ICloneable
     {
 
         /// <summary>
@@ -21,11 +21,28 @@ namespace mxProject.Devs.DataGeneration.Configuration
         {
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets the field name.
         /// </summary>
         [JsonProperty("Name", Order = 1)]
         public string? FieldName { get; set; }
+
+        #endregion
+
+        #region clone
+
+        /// <summary>
+        /// Creates a new object that is a copy of the current instance.
+        /// </summary>
+        /// <returns></returns>
+        public virtual object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        #endregion
 
         /// <summary>
         /// Creates an instance of <see cref="IDataGeneratorField"/> interface.

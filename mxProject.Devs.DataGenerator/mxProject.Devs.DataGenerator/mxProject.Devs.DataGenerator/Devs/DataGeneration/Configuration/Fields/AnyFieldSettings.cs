@@ -20,6 +20,8 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         {
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets the value type name.
         /// </summary>
@@ -37,6 +39,22 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         /// </summary>
         [JsonProperty("Values", Order = 13)]
         public string?[]? Values { get; set; }
+
+        #endregion
+
+        #region clone
+
+        /// <inheritdoc/>
+        public override object Clone()
+        {
+            var clone = (AnyFieldSettings)base.Clone();
+
+            clone.Values = DataGeneratorUtility.CloneArray(Values);
+
+            return clone;
+        }
+
+        #endregion
 
         /// <inheritdoc/>
         protected override void Assert()
@@ -92,6 +110,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
 
             return context.FieldFactory.AnyOne(FieldName!, values, NullProbability);
         }
+
     }
 
 }

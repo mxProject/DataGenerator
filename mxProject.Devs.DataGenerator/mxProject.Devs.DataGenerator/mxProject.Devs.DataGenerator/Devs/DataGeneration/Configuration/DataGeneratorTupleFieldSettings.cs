@@ -11,7 +11,7 @@ namespace mxProject.Devs.DataGeneration.Configuration
     /// <summary>
     /// Basic implementation of DataGeneratorTupleField settings.
     /// </summary>
-    public abstract class DataGeneratorTupleFieldSettings
+    public abstract class DataGeneratorTupleFieldSettings : ICloneable
     {
 
         /// <summary>
@@ -20,6 +20,19 @@ namespace mxProject.Devs.DataGeneration.Configuration
         protected DataGeneratorTupleFieldSettings()
         {
         }
+
+        #region clone
+
+        /// <summary>
+        /// Creates a new object that is a copy of the current instance.
+        /// </summary>
+        /// <returns></returns>
+        public virtual object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        #endregion
 
         /// <summary>
         /// Gets the number of tuple fields.

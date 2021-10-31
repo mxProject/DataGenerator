@@ -10,8 +10,10 @@ namespace mxProject.Devs.DataGeneration.Configuration
     /// <summary>
     /// Database query settings.
     /// </summary>
-    public sealed class DbQuerySettings
+    public sealed class DbQuerySettings : ICloneable
     {
+
+        #region properties
 
         /// <summary>
         /// Gets or sets the command text.
@@ -31,6 +33,20 @@ namespace mxProject.Devs.DataGeneration.Configuration
         [JsonProperty("ConnectionType", Order = 3)]
         public string? ConnectionTypeName { get; set; }
 
+        #endregion
+
+        #region clone
+
+        /// <summary>
+        /// Creates a new object that is a copy of the current instance.
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        #endregion
 
         /// <summary>
         /// If the settings for this instance are invalid, an exception will be thrown.

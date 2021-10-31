@@ -9,7 +9,7 @@ namespace mxProject.Devs.DataGeneration.Configuration
     /// <summary>
     /// Basic implementation of additional field settings.
     /// </summary>
-    public abstract class DataGeneratorAdditionalFieldSettings
+    public abstract class DataGeneratorAdditionalFieldSettings : ICloneable
     {
 
         /// <summary>
@@ -18,6 +18,8 @@ namespace mxProject.Devs.DataGeneration.Configuration
         protected DataGeneratorAdditionalFieldSettings()
         {
         }
+
+        #region properties
 
         /// <summary>
         /// Gets or sets the additional field name.
@@ -30,6 +32,21 @@ namespace mxProject.Devs.DataGeneration.Configuration
         /// </summary>
         [JsonProperty("ValueType", Order = 2)]
         public string? ValueType { get; set; }
+
+        #endregion
+
+        #region clone
+
+        /// <summary>
+        /// Creates a new object that is a copy of the current instance.
+        /// </summary>
+        /// <returns></returns>
+        public virtual object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        #endregion
 
         /// <summary>
         /// Gets the type of the additional field.

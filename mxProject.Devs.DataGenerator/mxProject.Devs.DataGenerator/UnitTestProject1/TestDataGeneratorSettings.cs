@@ -13,6 +13,7 @@ using System.Linq;
 using mxProject.Devs.DataGeneration;
 using mxProject.Devs.DataGeneration.Configuration;
 using mxProject.Devs.DataGeneration.Configuration.Fields;
+using mxProject.Devs.DataGeneration.Configuration.AdditionalFields;
 using mxProject.Devs.DataGeneration.Configuration.Json;
 
 using UnitTestProject1.Extensions;
@@ -338,6 +339,189 @@ namespace UnitTestProject1
 
         }
 
+        [TestMethod]
+        public void Clone()
+        {
+            AnyFieldSettings any = new AnyFieldSettings() { FieldName = "any", ValueTypeName = "System.Int32", NullProbability = 0.1, Values = new string?[] { "1", "2" } };
+            AnyFieldSettings<int> anyInt32 = new AnyFieldSettings<int>() { FieldName = "any_int32", NullProbability = 0.1, Values = new int?[] { 1, 2 } };
+            AnyEnumFieldSettings anyEnum = new AnyEnumFieldSettings() { FieldName = "any_enum", EnumTypeName = "System.DayOfWeek", NullProbability = 0.1, Values = new string?[] { nameof(DayOfWeek.Monday), nameof(DayOfWeek.Sunday) } };
+            AnyStringFieldSettings anyString = new AnyStringFieldSettings() { FieldName = "any_string", NullProbability = 0.1, Values = new string?[] { "a", "b" } };
+
+            EachFieldSettings each = new EachFieldSettings() { FieldName = "any", ValueTypeName = "System.Int32", NullProbability = 0.1, Values = new string?[] { "1", "2" } };
+            EachFieldSettings<int> eachInt32 = new EachFieldSettings<int>() { FieldName = "any_int32", NullProbability = 0.1, Values = new int?[] { 1, 2 } };
+            EachEnumFieldSettings eachEnum = new EachEnumFieldSettings() { FieldName = "any_enum", EnumTypeName = "System.DayOfWeek", NullProbability = 0.1, Values = new string?[] { nameof(DayOfWeek.Monday), nameof(DayOfWeek.Sunday) } };
+            EachStringFieldSettings eachString = new EachStringFieldSettings() { FieldName = "any_string", NullProbability = 0.1, Values = new string?[] { "a", "b" } };
+
+            RandomInt32FieldSettings randomInt32 = new RandomInt32FieldSettings() { FieldName = "random_int32", MinimumValue = 1, MaximumValue = 100, NullProbability = 0.1, SelectorExpression = "x => x * 100" };
+            SequenceInt32FieldSettings sequenceInt32 = new SequenceInt32FieldSettings() { FieldName = "sequence_int32", InitialValue = 1, MaximumValue = 100, NullProbability = 0.1, Increment = 2 };
+
+            EachTupleFieldSettings eachTuple = new EachTupleFieldSettings()
+            {
+                Fields = new DataGeneratorFieldInfo[]
+                {
+                    new DataGeneratorFieldInfo() { FieldName = "tuple1", ValueType = "System.Int32" },
+                    new DataGeneratorFieldInfo() { FieldName = "tuple2", ValueType = "System.String" }
+                },
+                NullProbability = 0.1,
+                Values = new string?[][]
+                {
+                    new string?[]{ "1", "a" },
+                    new string?[]{ "2", "b" },
+                }
+            };
+
+            DirectProductFieldSettings directProduct = new DirectProductFieldSettings()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    new EachFieldSettings() { FieldName = "directproduct1", ValueTypeName = "System.Int32", NullProbability = 0.1, Values = new string?[] { "1", "2" } },
+                    new EachFieldSettings() { FieldName = "directproduct2", ValueTypeName = "System.String", NullProbability = 0.1, Values = new string?[] { "a", "b", "c" } }
+                }
+            };
+
+            DbQueryFieldSettings dbQuery = new DbQueryFieldSettings() { FieldName = "dbquery", DbQuerySettings = new DbQuerySettings() { ConnectionTypeName = "OleDb", ConnectionString = "(connectionString)", CommandText = "select * from sample" } };
+            DbQueryFieldsSettings dbQuerys = new DbQueryFieldsSettings() { FieldNames = new string[] { "dbquerys1", "dbquerys2" }, DbQuerySettings = new DbQuerySettings() { ConnectionTypeName = "OleDb", ConnectionString = "(connectionString)", CommandText = "select * from sample" } };
+
+            JoinDbQueryFieldSettings joinDbQuery = new JoinDbQueryFieldSettings()
+            {
+                ReferenceKeyFieldNames = new string[] { "joindb_ref1", "joindb_ref2" },
+                AdditionalKeyFieldNames = new string[] { "joindb_key1", "joindb_key2" },
+                AdditionalValueFieldNames = new string[] { "joindb_add1", "joindb_add2" },
+                DbQuerySettings = new DbQuerySettings() { ConnectionTypeName = "OleDb", ConnectionString = "(connectionString)", CommandText = "select * from sample" }
+            };
+
+            JoinFieldSettings join = new JoinFieldSettings()
+            {
+                KeyFields = new DataGeneratorFieldInfo[]
+                {
+                    new DataGeneratorFieldInfo(){ FieldName = "join_key1", ValueType = "System.Int32" },
+                    new DataGeneratorFieldInfo(){ FieldName = "join_key2", ValueType = "System.String" }
+                },
+                AdditionalFields = new DataGeneratorFieldInfo[]
+                {
+                    new DataGeneratorFieldInfo(){ FieldName = "join_add1", ValueType = "System.Boolean" },
+                    new DataGeneratorFieldInfo(){ FieldName = "join_add2", ValueType = "System.DateTime" }
+                },
+                AdditionalValues = new Dictionary<string?[], string?[]>()
+                {
+                    { new string?[]{ "1", "a" }, new string?[]{ "false", "2021/01/01" } },
+                    { new string?[]{ "1", "b" }, new string?[]{ "true", "2021/01/02" } },
+                }
+            };
+
+            ExpressionFieldSettings expression = new ExpressionFieldSettings() { FieldName = "expression", ValueType = "System.String", Expression = "rec => rec.GetString(0)" };
+
+            DataGeneratorSettings generatorSettings = new DataGeneratorSettings()
+            {
+                Fields = new DataGeneratorFieldSettings[]
+                {
+                    any,
+                    anyInt32,
+                    anyEnum,
+                    anyString,
+                    each,
+                    eachInt32,
+                    eachEnum,
+                    eachString,
+                    randomInt32,
+                    sequenceInt32,
+                    dbQuery
+                },
+                TupleFields = new DataGeneratorTupleFieldSettings[]
+                {
+                    eachTuple,
+                    directProduct,
+                    dbQuerys
+                },
+                AdditionalFields = new DataGeneratorAdditionalFieldSettings[]
+                {
+                    expression
+                },
+                AdditionalTupleFields = new DataGeneratorAdditionalTupleFieldSettings[]
+                {
+                    join,
+                    joinDbQuery
+                }
+            };
+
+            DataGeneratorSettings cloneSettings = (DataGeneratorSettings)generatorSettings.Clone();
+
+            for (int i = 0; i < generatorSettings.Fields.Length; ++i)
+            {
+                AssertClone($"Fields[{i}]", generatorSettings.Fields[i], cloneSettings.Fields![i]);
+            }
+            for (int i = 0; i < generatorSettings.TupleFields.Length; ++i)
+            {
+                AssertClone($"TupleFields[{i}]", generatorSettings.TupleFields[i], cloneSettings.TupleFields![i]);
+            }
+            for (int i = 0; i < generatorSettings.AdditionalFields.Length; ++i)
+            {
+                AssertClone($"AdditionalFields[{i}]", generatorSettings.AdditionalFields[i], cloneSettings.AdditionalFields![i]);
+            }
+            for (int i = 0; i < generatorSettings.AdditionalTupleFields.Length; ++i)
+            {
+                AssertClone($"AdditionalTupleFields[{i}]", generatorSettings.AdditionalTupleFields[i], cloneSettings.AdditionalTupleFields![i]);
+            }
+
+
+            var jsonSettings = TestUtility.CreateJsonSerializerSettings();
+
+            var json = JsonConvert.SerializeObject(generatorSettings, jsonSettings);
+            var cloneJson = JsonConvert.SerializeObject(cloneSettings, jsonSettings);
+
+            Assert.AreEqual(json, cloneJson);
+        }
+
+        static void AssertClone(string target, object? original, object? clone)
+        {
+            System.Diagnostics.Debug.WriteLine($"target = {target}, type = {original?.GetType()}");
+
+            Assert.AreEqual(original is null, clone is null);
+
+            if (original == null && clone == null) { return; }
+
+            Assert.AreEqual(original!.GetType(), clone!.GetType());
+            Assert.AreNotSame(original, clone);
+
+            if (original.GetType().IsArray)
+            {
+                Array originalArray = (Array)original;
+                Array cloneArray = (Array)clone;
+
+                for (int i = 0; i < originalArray.Length; ++i)
+                {
+                    Type? elementType = originalArray.GetType().GetElementType();
+
+                    if (elementType != null && s_ShouldAssertTypes.Contains(elementType))
+                    {
+                        AssertClone($"{target}[{i}]", originalArray.GetValue(i), cloneArray.GetValue(i));
+                    }
+                }
+            }
+
+            foreach (var prop in original.GetType().GetProperties())
+            {
+                if (s_ShouldAssertTypes.Contains(prop.PropertyType) && prop.GetIndexParameters().Length == 0)
+                {
+                    AssertClone($"{target}.{prop.Name}", prop.GetValue(original), prop.GetValue(clone));
+                }
+            }
+        }
+
+        private static HashSet<Type> s_ShouldAssertTypes = new HashSet<Type>(new Type[] 
+        {
+            typeof(int?[]),
+            typeof(string[]),
+            typeof(string[][]),
+            typeof(Dictionary<string[], string[]>),
+            typeof(DataGeneratorFieldInfo),
+            typeof(DataGeneratorFieldInfo[]),
+            typeof(DataGeneratorFieldSettings),
+            typeof(DataGeneratorFieldSettings[]),
+            typeof(DbQuerySettings),
+            typeof(EachFieldSettings),
+        }
+        );
 
     }
 

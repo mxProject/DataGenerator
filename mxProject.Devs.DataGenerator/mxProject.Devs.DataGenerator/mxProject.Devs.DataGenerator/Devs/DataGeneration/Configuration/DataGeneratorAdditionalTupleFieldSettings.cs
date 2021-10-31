@@ -9,7 +9,7 @@ namespace mxProject.Devs.DataGeneration.Configuration
     /// <summary>
     /// Basic implementation of additional field settings.
     /// </summary>
-    public abstract class DataGeneratorAdditionalTupleFieldSettings
+    public abstract class DataGeneratorAdditionalTupleFieldSettings : ICloneable
     {
 
         /// <summary>
@@ -19,12 +19,33 @@ namespace mxProject.Devs.DataGeneration.Configuration
         {
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets the additional field information.
         /// </summary>
         [JsonProperty("AdditionalFields", Order = 1)]
         public DataGeneratorFieldInfo[]? AdditionalFields { get; set; }
 
+        #endregion
+
+        #region clone
+
+        /// <summary>
+        /// Creates a new object that is a copy of the current instance.
+        /// </summary>
+        /// <returns></returns>
+        public virtual object Clone()
+        {
+            var clone = (DataGeneratorAdditionalTupleFieldSettings)MemberwiseClone();
+
+            clone.AdditionalFields = DataGeneratorUtility.DeepCloneArray(AdditionalFields);
+
+            return clone;
+        }
+
+        #endregion
+        
         /// <summary>
         /// Gets the additional field names;
         /// </summary>
