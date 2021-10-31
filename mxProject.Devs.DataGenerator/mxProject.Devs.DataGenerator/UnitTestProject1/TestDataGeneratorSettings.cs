@@ -508,7 +508,7 @@ namespace UnitTestProject1
             }
         }
 
-        private static HashSet<Type> s_ShouldAssertTypes = new HashSet<Type>(new Type[] 
+        private readonly static HashSet<Type> s_ShouldAssertTypes = new HashSet<Type>(new Type[] 
         {
             typeof(int?[]),
             typeof(string[]),
