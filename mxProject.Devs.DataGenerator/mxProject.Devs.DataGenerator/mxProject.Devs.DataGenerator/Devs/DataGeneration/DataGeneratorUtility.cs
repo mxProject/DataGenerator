@@ -7,6 +7,50 @@ namespace mxProject.Devs.DataGeneration
     internal static class DataGeneratorUtility
     {
 
+        internal static T[]? DeepCloneArray<T>(T[]? array) where T : ICloneable
+        {
+            if (array == null) { return null; }
+
+            T[] clones = new T[array.Length];
+
+            for (int i = 0; i < array.Length; ++i)
+            {
+                clones[i] = (T)array[i]?.Clone()!;
+            }
+
+            return clones;
+        }
+
+        internal static T[]? CloneArray<T>(T[]? array)
+        {
+            if (array == null) { return null; }
+
+            return (T[])array.Clone();
+        }
+
+        internal static Dictionary<TKey, TValue>? CloneDictionary<TKey, TValue>(Dictionary<TKey, TValue>? dic)
+            where TKey : ICloneable
+            where TValue : ICloneable
+        {
+            if (dic == null) { return null; }
+
+            var clone = new Dictionary<TKey, TValue>(dic.Count);
+
+            foreach (var entry in dic)
+            {
+                clone.Add((TKey)entry.Key.Clone(), (TValue)entry.Value.Clone());
+            }
+
+            return clone;
+        }
+
+        internal static T? Clone<T>(T? obj) where T : ICloneable
+        {
+            if (obj == null) { return default; }
+
+            return (T)obj.Clone();
+        }
+
         internal static object[] ToObjectArray<T>(T[] values)
         {
             if (values == null) { return null!; }

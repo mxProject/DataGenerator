@@ -21,6 +21,8 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         {
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets probability of returning null. (between 0 and 1.0)
         /// </summary>
@@ -32,6 +34,22 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         /// </summary>
         [JsonProperty("Values", Order = 12)]
         public TValue?[]? Values { get; set; }
+
+        #endregion
+
+        #region clone
+
+        /// <inheritdoc/>
+        public override object Clone()
+        {
+            var clone = (EachFieldSettingsBase<TValue>)base.Clone();
+
+            clone.Values = DataGeneratorUtility.CloneArray(Values);
+
+            return clone;
+        }
+
+        #endregion
 
         /// <inheritdoc/>
         protected override void Assert()
@@ -57,6 +75,7 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         {
             return Values?.Length ?? 0;
         }
+
     }
 
 }

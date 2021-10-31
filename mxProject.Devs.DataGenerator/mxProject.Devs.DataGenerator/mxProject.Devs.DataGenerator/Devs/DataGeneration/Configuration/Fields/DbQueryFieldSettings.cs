@@ -23,11 +23,29 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         {
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets the database query settings.
         /// </summary>
         [JsonProperty("DbQuery", Order = 2)]
         public DbQuerySettings? DbQuerySettings { get; set; }
+
+        #endregion
+
+        #region clone
+
+        /// <inheritdoc/>
+        public override object Clone()
+        {
+            var clone = (DbQueryFieldSettings)base.Clone();
+
+            clone.DbQuerySettings = DataGeneratorUtility.Clone(DbQuerySettings);
+
+            return clone;
+        }
+
+        #endregion
 
         /// <inheritdoc/>
         /// <exception cref="NullReferenceException">

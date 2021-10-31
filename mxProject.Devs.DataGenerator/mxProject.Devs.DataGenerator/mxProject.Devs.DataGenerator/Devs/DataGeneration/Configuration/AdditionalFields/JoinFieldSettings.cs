@@ -21,6 +21,8 @@ namespace mxProject.Devs.DataGeneration.Configuration.AdditionalFields
         {
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets the key field information."
         /// </summary>
@@ -35,6 +37,23 @@ namespace mxProject.Devs.DataGeneration.Configuration.AdditionalFields
 
         [JsonProperty("AdditionalValues", Order = 12)]
         private KeyValuePair<string?[], string?[]>[]? _AdditionalValues;
+
+        #endregion
+
+        #region clone
+
+        /// <inheritdoc/>
+        public override object Clone()
+        {
+            var clone = (JoinFieldSettings)base.Clone();
+
+            clone.KeyFields = DataGeneratorUtility.DeepCloneArray(KeyFields);
+            clone.AdditionalValues = DataGeneratorUtility.CloneDictionary(AdditionalValues);
+
+            return clone;
+        }
+
+        #endregion
 
         /// <inheritdoc/>
         protected override IDataGeneratorAdditionalTupleField CreateFieldCore(DataGeneratorContext context)

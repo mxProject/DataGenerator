@@ -23,6 +23,8 @@ namespace mxProject.Devs.DataGeneration.Configuration.AdditionalFields
             AdditionalFields = new DataGeneratorFieldInfo[] { };
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets the reference key field names.
         /// </summary>
@@ -46,6 +48,25 @@ namespace mxProject.Devs.DataGeneration.Configuration.AdditionalFields
         /// </summary>
         [JsonProperty("DbQuery", Order = 14)]
         public DbQuerySettings? DbQuerySettings { get; set; }
+
+        #endregion
+
+        #region clone
+
+        /// <inheritdoc/>
+        public override object Clone()
+        {
+            var clone = (JoinDbQueryFieldSettings)base.Clone();
+
+            clone.ReferenceKeyFieldNames = DataGeneratorUtility.CloneArray(ReferenceKeyFieldNames);
+            clone.AdditionalKeyFieldNames = DataGeneratorUtility.CloneArray(AdditionalKeyFieldNames);
+            clone.AdditionalValueFieldNames = DataGeneratorUtility.CloneArray(AdditionalValueFieldNames);
+            clone.DbQuerySettings = DataGeneratorUtility.Clone(DbQuerySettings);
+
+            return clone;
+        }
+
+        #endregion
 
         /// <inheritdoc/>
         protected override IDataGeneratorAdditionalTupleField CreateFieldCore(DataGeneratorContext context)

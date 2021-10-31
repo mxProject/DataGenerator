@@ -22,11 +22,29 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
         {
         }
 
+        #region properties
+
         /// <summary>
         /// Gets or sets the field settings.
         /// </summary>
         [JsonProperty("Fields", Order = 1)]
         public DataGeneratorFieldSettings[]? Fields { get; set; }
+
+        #endregion
+
+        #region clone
+
+        /// <inheritdoc/>
+        public override object Clone()
+        {
+            var clone = (DirectProductFieldSettings)base.Clone();
+
+            clone.Fields = DataGeneratorUtility.DeepCloneArray(Fields);
+
+            return clone;
+        }
+
+        #endregion
 
         /// <inheritdoc/>
         public override int GetFieldCount()
