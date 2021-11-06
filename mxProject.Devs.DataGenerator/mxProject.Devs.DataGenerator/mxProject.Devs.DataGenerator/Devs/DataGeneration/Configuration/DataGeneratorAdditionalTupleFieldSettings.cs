@@ -50,7 +50,7 @@ namespace mxProject.Devs.DataGeneration.Configuration
         /// Gets the additional field names;
         /// </summary>
         /// <returns></returns>
-        public string?[] GetAdditionalFieldNames()
+        public virtual string?[] GetAdditionalFieldNames()
         {
             if (AdditionalFields == null) { return new string[] { }; }
 
