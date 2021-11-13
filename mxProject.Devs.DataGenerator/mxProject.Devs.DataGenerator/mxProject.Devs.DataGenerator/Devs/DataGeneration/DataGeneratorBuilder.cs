@@ -306,7 +306,7 @@ namespace mxProject.Devs.DataGeneration
                 await field.InitializeAsync(generateCount).ConfigureAwait(false);
             }
 
-            var generator = new DataGenerator(m_AllFields);
+            var generator = new DataGenerator(new List<IDataGeneratorFieldAccessor>(m_AllFields));
 
             foreach (var field in m_AdditionalFields)
             {
