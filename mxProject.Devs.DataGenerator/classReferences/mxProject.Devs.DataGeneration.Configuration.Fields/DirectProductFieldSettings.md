@@ -15,6 +15,8 @@ Settings for a field that enumerates the direct product.
 ## Inheritance tree
 * [mxProject.Devs.DataGeneration.Configuration.DataGeneratorTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorTupleFieldSettings.md)
 * object
+## Implemented interfaces
+* System.ICloneable
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Properties](#Properties)&nbsp;&nbsp;
@@ -59,6 +61,7 @@ public DataGeneratorFieldSettings[] Fields { get; set; }
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
 | protected | [Assert](#assert-method) | void | If the settings for this instance are invalid, an exception will be thrown.Inherited from  [DirectProductFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DirectProductFieldSettings.md) . |
+| public | [Clone](#clone-method) | object |  |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorTupleField.md) | Inherited from  [DataGeneratorTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorTupleFieldSettings.md) . |
 | protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorTupleField.md) | Creates an instance of [IDataGeneratorTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorTupleField.md) interface.Inherited from  [DirectProductFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DirectProductFieldSettings.md) . |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
@@ -80,6 +83,18 @@ protected virtual void Assert()
 |Exception Type|Message|
 |:--|:--|
 | NullReferenceException | The value of Fields property is null. |
+
+[Go to methods](#Methods)
+
+---
+### Clone Method
+
+
+```c#
+public virtual object Clone()
+```
+#### Return type
+
 
 [Go to methods](#Methods)
 

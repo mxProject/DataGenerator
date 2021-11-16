@@ -14,6 +14,8 @@ Basic implementation of DataGeneratorField settings.
 
 ## Inheritance tree
 * object
+## Implemented interfaces
+* System.ICloneable
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Properties](#Properties)&nbsp;&nbsp;
@@ -58,6 +60,7 @@ public string FieldName { get; set; }
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
 | protected | [Assert](#assert-method) | void | If the settings for this instance are invalid, an exception will be thrown. |
+| public | [Clone](#clone-method) | object |  |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Creates an instance of [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) interface. |
 | protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Creates an instance of [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) interface. |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
@@ -73,6 +76,18 @@ If the settings for this instance are invalid, an exception will be thrown.
 ```c#
 protected virtual void Assert()
 ```
+
+[Go to methods](#Methods)
+
+---
+### Clone Method
+
+
+```c#
+public virtual object Clone()
+```
+#### Return type
+
 
 [Go to methods](#Methods)
 

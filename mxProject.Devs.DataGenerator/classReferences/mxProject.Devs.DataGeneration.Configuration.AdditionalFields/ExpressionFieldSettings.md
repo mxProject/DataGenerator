@@ -15,6 +15,8 @@ A setting for a field that returns the value of an expression.
 ## Inheritance tree
 * [mxProject.Devs.DataGeneration.Configuration.DataGeneratorAdditionalFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalFieldSettings.md)
 * object
+## Implemented interfaces
+* System.ICloneable
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Properties](#Properties)&nbsp;&nbsp;
@@ -81,6 +83,7 @@ public string ValueType { get; set; }
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
 | protected | [Assert](#assert-method) | void | If the settings for this instance are invalid, an exception will be thrown.Inherited from  [ExpressionFieldSettings](../mxProject.Devs.DataGeneration.Configuration.AdditionalFields/ExpressionFieldSettings.md) . |
+| public | [Clone](#clone-method) | object | Inherited from  [DataGeneratorAdditionalFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalFieldSettings.md) . |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorAdditionalField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalField.md) | Inherited from  [DataGeneratorAdditionalFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalFieldSettings.md) . |
 | protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorAdditionalField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalField.md) | Creates an instance of [IDataGeneratorAdditionalField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalField.md) interface.Inherited from  [ExpressionFieldSettings](../mxProject.Devs.DataGeneration.Configuration.AdditionalFields/ExpressionFieldSettings.md) . |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
@@ -96,6 +99,18 @@ If the settings for this instance are invalid, an exception will be thrown.Inher
 ```c#
 protected virtual void Assert()
 ```
+
+[Go to methods](#Methods)
+
+---
+### Clone Method
+
+Inherited from  [DataGeneratorAdditionalFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalFieldSettings.md) .
+```c#
+public virtual object Clone()
+```
+#### Return type
+
 
 [Go to methods](#Methods)
 

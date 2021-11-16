@@ -14,6 +14,8 @@ Database query settings.
 
 ## Inheritance tree
 * object
+## Implemented interfaces
+* System.ICloneable
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Properties](#Properties)&nbsp;&nbsp;
@@ -79,12 +81,25 @@ public string ConnectionTypeName { get; set; }
 ## Methods
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
+| public | [Clone](#clone-method) | object |  |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
 | protected | [Finalize](#finalize-method) | void | Inherited from  System.Object . |
 | public | [GetHashCode](#gethashcode-method) | int | Inherited from  System.Object . |
 | public | [GetType](#gettype-method) | Type | Inherited from  System.Object . |
 | protected | [MemberwiseClone](#memberwiseclone-method) | object | Inherited from  System.Object . |
 | public | [ToString](#tostring-method) | string | Inherited from  System.Object . |
+---
+### Clone Method
+
+
+```c#
+public virtual object Clone()
+```
+#### Return type
+
+
+[Go to methods](#Methods)
+
 ---
 ### Equals(object) Method
 

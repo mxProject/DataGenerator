@@ -16,6 +16,8 @@ Settings for a field that enumerates the enum values.
 * mxProject.Devs.DataGeneration.Configuration.Fields.EachFieldSettingsBase&lt;string&gt;
 * [mxProject.Devs.DataGeneration.Configuration.DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md)
 * object
+## Implemented interfaces
+* System.ICloneable
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Properties](#Properties)&nbsp;&nbsp;
@@ -93,6 +95,7 @@ public string[] Values { get; set; }
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
 | protected | [Assert](#assert-method) | void | Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.EachFieldSettingsBase{System.String} . |
+| public | [Clone](#clone-method) | object | Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.EachFieldSettingsBase{System.String} . |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) . |
 | protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Creates an instance of [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) interface.Inherited from  [EachEnumFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/EachEnumFieldSettings.md) . |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
@@ -109,6 +112,18 @@ Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.EachFieldSett
 ```c#
 protected virtual void Assert()
 ```
+
+[Go to methods](#Methods)
+
+---
+### Clone Method
+
+Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.EachFieldSettingsBase{System.String} .
+```c#
+public virtual object Clone()
+```
+#### Return type
+
 
 [Go to methods](#Methods)
 

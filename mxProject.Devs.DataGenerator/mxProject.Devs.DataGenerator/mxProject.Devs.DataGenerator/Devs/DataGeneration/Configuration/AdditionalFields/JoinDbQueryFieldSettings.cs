@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Linq;
 using Newtonsoft.Json;
 using mxProject.Devs.DataGeneration.AdditionalFields;
 
@@ -50,6 +51,14 @@ namespace mxProject.Devs.DataGeneration.Configuration.AdditionalFields
         public DbQuerySettings? DbQuerySettings { get; set; }
 
         #endregion
+
+        /// <inheritdoc/>
+        public override string?[] GetAdditionalFieldNames()
+        {
+            if (AdditionalValueFieldNames == null) { return Array.Empty<string>(); }
+
+            return AdditionalValueFieldNames.Select(x => x ?? "").ToArray();
+        }
 
         #region clone
 
