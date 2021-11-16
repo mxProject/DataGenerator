@@ -5,12 +5,14 @@
     <RootNamespace>mxProject</RootNamespace>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
-    <Version>0.8.0</Version>
+    <Version>0.8.1</Version>
     <Authors>mxProject</Authors>
     <Description>The library for generating test data in data record format.</Description>
     <Copyright>(c) 2021 mxProject.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Implemented ICloneable interface in the configuration classes.</PackageReleaseNotes>
+    <PackageReleaseNotes>* Allowed DataGeneratorAdditionalTupleFieldSettings.GetAdditionalFieldNames method to be overridden. #6
+* Added IDataGeneratorContextActivator.
+* Fixed #7.</PackageReleaseNotes>
     <PackageTags>UnitTest, DataGeneration</PackageTags>
     <NeutralLanguage></NeutralLanguage>
     <PackageProjectUrl>https://github.com/mxProject/DataGenerator</PackageProjectUrl>

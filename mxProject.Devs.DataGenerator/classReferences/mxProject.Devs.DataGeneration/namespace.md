@@ -44,6 +44,7 @@
 | [IDataGenerationRecord](../mxProject.Devs.DataGeneration/IDataGenerationRecord.md) | Provides the functionality needed for a DataRecord to read the generated values. |
 | [IDataGeneratorAdditionalField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalField.md) | Provides the required functionality for an additional field. |
 | [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) | Provides the required functionality for an additional tuple field. |
+| IDataGeneratorContextActivator |  |
 | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Provides the required functionality for a data generator field. |
 | [IDataGeneratorField&lt;T&gt;](../mxProject.Devs.DataGeneration/IDataGeneratorField`1.md) | Provides the required functionality for a data generator field. |
 | [IDataGeneratorFieldEnumeration](../mxProject.Devs.DataGeneration/IDataGeneratorFieldEnumeration.md) | Provides the required functionality for a data generator field. |

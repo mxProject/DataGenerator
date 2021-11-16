@@ -15,6 +15,8 @@ A setting for a field that returns the values read from a database query.
 ## Inheritance tree
 * [mxProject.Devs.DataGeneration.Configuration.DataGeneratorAdditionalTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalTupleFieldSettings.md)
 * object
+## Implemented interfaces
+* System.ICloneable
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Properties](#Properties)&nbsp;&nbsp;
@@ -103,11 +105,12 @@ public string[] ReferenceKeyFieldNames { get; set; }
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
 | protected | [Assert](#assert-method) | void | If the settings for this instance are invalid, an exception will be thrown.Inherited from  [JoinDbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.AdditionalFields/JoinDbQueryFieldSettings.md) . |
+| public | [Clone](#clone-method) | object |  |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) | Inherited from  [DataGeneratorAdditionalTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalTupleFieldSettings.md) . |
 | protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) | Creates an instance of [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) interface.Inherited from  [JoinDbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.AdditionalFields/JoinDbQueryFieldSettings.md) . |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
 | protected | [Finalize](#finalize-method) | void | Inherited from  System.Object . |
-| public | [GetAdditionalFieldNames](#getadditionalfieldnames-method) | string[] | Inherited from  [DataGeneratorAdditionalTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalTupleFieldSettings.md) . |
+| public | [GetAdditionalFieldNames](#getadditionalfieldnames-method) | string[] |  |
 | public | [GetHashCode](#gethashcode-method) | int | Inherited from  System.Object . |
 | public | [GetType](#gettype-method) | Type | Inherited from  System.Object . |
 | protected | [MemberwiseClone](#memberwiseclone-method) | object | Inherited from  System.Object . |
@@ -119,6 +122,18 @@ If the settings for this instance are invalid, an exception will be thrown.Inher
 ```c#
 protected virtual void Assert()
 ```
+
+[Go to methods](#Methods)
+
+---
+### Clone Method
+
+
+```c#
+public virtual object Clone()
+```
+#### Return type
+
 
 [Go to methods](#Methods)
 
@@ -192,9 +207,9 @@ protected virtual void Finalize()
 ---
 ### GetAdditionalFieldNames Method
 
-Inherited from  [DataGeneratorAdditionalTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorAdditionalTupleFieldSettings.md) .
+
 ```c#
-public string[] GetAdditionalFieldNames()
+public virtual string[] GetAdditionalFieldNames()
 ```
 #### Return type
 
