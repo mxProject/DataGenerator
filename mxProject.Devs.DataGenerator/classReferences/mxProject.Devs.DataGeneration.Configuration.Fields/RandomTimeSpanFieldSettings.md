@@ -17,6 +17,8 @@ Settings for a field that enumerates the random System.TimeSpan values.
 * mxProject.Devs.DataGeneration.Configuration.Fields.RandomFieldSettingsBase&lt;System.TimeSpan&gt;
 * [mxProject.Devs.DataGeneration.Configuration.DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md)
 * object
+## Implemented interfaces
+* System.ICloneable
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Properties](#Properties)&nbsp;&nbsp;
@@ -105,6 +107,7 @@ public string SelectorExpression { get; set; }
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
 | protected | [Assert](#assert-method) | void | Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.RandomFieldSettingsBase{System.TimeSpan} . |
+| public | [Clone](#clone-method) | object | Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) . |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) . |
 | protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Creates an instance of [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) interface.Inherited from  [RandomTimeSpanFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomTimeSpanFieldSettings.md) . |
 | protected | [CreateSelectorAsync(DataGeneratorContext)](#createselectorasyncdatageneratorcontext-method) | Task&lt;Func&lt;TimeSpan, TimeSpan&gt;&gt; | Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.RandomNumericFieldSettingsBase{System.TimeSpan} . |
@@ -121,6 +124,18 @@ Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.RandomFieldSe
 ```c#
 protected virtual void Assert()
 ```
+
+[Go to methods](#Methods)
+
+---
+### Clone Method
+
+Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) .
+```c#
+public virtual object Clone()
+```
+#### Return type
+
 
 [Go to methods](#Methods)
 

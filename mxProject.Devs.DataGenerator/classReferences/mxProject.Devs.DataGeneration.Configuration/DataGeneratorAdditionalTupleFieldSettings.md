@@ -14,6 +14,8 @@ Basic implementation of additional field settings.
 
 ## Inheritance tree
 * object
+## Implemented interfaces
+* System.ICloneable
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Properties](#Properties)&nbsp;&nbsp;
@@ -58,6 +60,7 @@ public DataGeneratorFieldInfo[] AdditionalFields { get; set; }
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
 | protected | [Assert](#assert-method) | void | If the settings for this instance are invalid, an exception will be thrown. |
+| public | [Clone](#clone-method) | object |  |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) | Creates an instance of [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) interface. |
 | protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) | Creates an instance of [IDataGeneratorAdditionalTupleField](../mxProject.Devs.DataGeneration/IDataGeneratorAdditionalTupleField.md) interface. |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
@@ -74,6 +77,18 @@ If the settings for this instance are invalid, an exception will be thrown.
 ```c#
 protected virtual void Assert()
 ```
+
+[Go to methods](#Methods)
+
+---
+### Clone Method
+
+
+```c#
+public virtual object Clone()
+```
+#### Return type
+
 
 [Go to methods](#Methods)
 
@@ -153,7 +168,7 @@ protected virtual void Finalize()
 
 Gets the additional field names;
 ```c#
-public string[] GetAdditionalFieldNames()
+public virtual string[] GetAdditionalFieldNames()
 ```
 #### Return type
 

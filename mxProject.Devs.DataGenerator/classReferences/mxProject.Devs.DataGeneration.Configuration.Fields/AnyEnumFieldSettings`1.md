@@ -20,6 +20,8 @@ Setting a field that enumerates one of the specified enum values.
 * mxProject.Devs.DataGeneration.Configuration.Fields.AnyFieldSettingsBase&lt;TEnum&gt;
 * [mxProject.Devs.DataGeneration.Configuration.DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md)
 * object
+## Implemented interfaces
+* System.ICloneable
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Properties](#Properties)&nbsp;&nbsp;
@@ -86,6 +88,7 @@ public TEnum[] Values { get; set; }
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
 | protected | [Assert](#assert-method) | void | Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.AnyFieldSettingsBase{`0} . |
+| public | [Clone](#clone-method) | object | Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.AnyFieldSettingsBase{`0} . |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) . |
 | protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Creates an instance of [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) interface.Inherited from  [AnyEnumFieldSettings&lt;TEnum&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyEnumFieldSettings`1.md) . |
 | public | [Equals(object)](#equalsobject-method) | bool | Inherited from  System.Object . |
@@ -102,6 +105,18 @@ Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.AnyFieldSetti
 ```c#
 protected virtual void Assert()
 ```
+
+[Go to methods](#Methods)
+
+---
+### Clone Method
+
+Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.AnyFieldSettingsBase{`0} .
+```c#
+public virtual object Clone()
+```
+#### Return type
+
 
 [Go to methods](#Methods)
 

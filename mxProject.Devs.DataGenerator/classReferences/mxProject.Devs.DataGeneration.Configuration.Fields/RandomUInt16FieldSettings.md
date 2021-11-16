@@ -17,6 +17,8 @@ Settings for a field that enumerates the random System.UInt16 values.
 * mxProject.Devs.DataGeneration.Configuration.Fields.RandomFieldSettingsBase&lt;ushort&gt;
 * [mxProject.Devs.DataGeneration.Configuration.DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md)
 * object
+## Implemented interfaces
+* System.ICloneable
 
 [Constructors](#Constructors)&nbsp;&nbsp;
 [Properties](#Properties)&nbsp;&nbsp;
@@ -105,6 +107,7 @@ public string SelectorExpression { get; set; }
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
 | protected | [Assert](#assert-method) | void | Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.RandomFieldSettingsBase{System.UInt16} . |
+| public | [Clone](#clone-method) | object | Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) . |
 | public | [CreateField(DataGeneratorContext)](#createfielddatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) . |
 | protected | [CreateFieldCore(DataGeneratorContext)](#createfieldcoredatageneratorcontext-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) | Creates an instance of [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) interface.Inherited from  [RandomUInt16FieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomUInt16FieldSettings.md) . |
 | protected | [CreateSelectorAsync(DataGeneratorContext)](#createselectorasyncdatageneratorcontext-method) | Task&lt;Func&lt;ushort, ushort&gt;&gt; | Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.RandomNumericFieldSettingsBase{System.UInt16} . |
@@ -121,6 +124,18 @@ Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.RandomFieldSe
 ```c#
 protected virtual void Assert()
 ```
+
+[Go to methods](#Methods)
+
+---
+### Clone Method
+
+Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) .
+```c#
+public virtual object Clone()
+```
+#### Return type
+
 
 [Go to methods](#Methods)
 
