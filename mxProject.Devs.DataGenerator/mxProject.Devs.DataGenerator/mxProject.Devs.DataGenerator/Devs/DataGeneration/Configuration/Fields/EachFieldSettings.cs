@@ -71,7 +71,9 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
                 throw new ArgumentOutOfRangeException("The value of the NullProbability property is out of range.");
             }
 
-            if (GetValuesCount() == 0)
+            Type valueType = Type.GetType(ValueTypeName);
+
+            if (!valueType.IsEnum && GetValuesCount() == 0)
             {
                 throw new NullReferenceException("No value has been set for the Values property.");
             }
@@ -98,13 +100,22 @@ namespace mxProject.Devs.DataGeneration.Configuration.Fields
 
         private IDataGeneratorField CreateField<T>(DataGeneratorContext context) where T : struct
         {
-            T?[] values = new T?[Values!.Length];
+            T?[] values;
 
-            for (int i = 0; i < values.Length; ++i)
+            if (typeof(T).IsEnum)
             {
-                if (!string.IsNullOrEmpty(Values[i]))
+                values = DataGeneratorUtility.ToEnumArrayOrAllValues<T>(Values);
+            }
+            else
+            {
+                values = new T?[Values!.Length];
+
+                for (int i = 0; i < values.Length; ++i)
                 {
-                    values[i] = context.StringConverter.ConvertTo<T>(Values[i]);
+                    if (!string.IsNullOrEmpty(Values[i]))
+                    {
+                        values[i] = context.StringConverter.ConvertTo<T>(Values[i]);
+                    }
                 }
             }
 
