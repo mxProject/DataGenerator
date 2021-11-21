@@ -184,7 +184,7 @@ namespace mxProject.Devs.DataGeneration
             }
         }
 
-        internal static T ToEnum<T>(string value) where T : struct, Enum
+        internal static T ToEnum<T>(string value) where T : struct
         {
             if (string.IsNullOrWhiteSpace(value))
             {
@@ -251,11 +251,11 @@ namespace mxProject.Devs.DataGeneration
             return enums;
         }
 
-        internal static T?[] ToEnumArrayOrAllValues<T>(string?[]? values) where T : struct, Enum
+        internal static T?[] ToEnumArrayOrAllValues<T>(string?[]? values) where T : struct
         {
             T?[]? enumValues;
 
-            if (values != null)
+            if (values != null && values.Length > 0)
             {
                 enumValues = new T?[values.Length];
 

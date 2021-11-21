@@ -528,6 +528,15 @@ namespace UnitTestProject1
             await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
         }
 
+        [TestMethod]
+        public async Task AnyAllEnum_NonGeneric()
+        {
+            int generateCount = 100;
+            var values = new DayOfWeek?[] { };
+
+            await AnyStruct_NonGeneric(generateCount, values).ConfigureAwait(false);
+        }
+
         #endregion
 
 
@@ -666,6 +675,15 @@ namespace UnitTestProject1
             };
 
             TestUtility.AssertJsonSerialize(ref settings);
+
+            // If the list of values is not explicitly specified, get all the defined values.
+            if (typeof(T).IsEnum)
+            {
+                if (values == null || values.Length == 0)
+                {
+                    values = Enum.GetValues(typeof(T)).Cast<T?>().ToArray();
+                }
+            }
 
             DataGeneratorContext context = new DataGeneratorContext();
 
