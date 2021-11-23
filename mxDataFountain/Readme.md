@@ -1,6 +1,6 @@
 # mxDataFountain
 
-[Japanese Document](Readne.ja-jp.md)
+[Japanese Document](Readme.ja-jp.md)
 
 ## Overview
 

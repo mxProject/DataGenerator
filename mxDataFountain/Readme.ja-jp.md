@@ -1,6 +1,6 @@
 # mxDataFountain
 
-[English Document](Readne.md)
+[English Document](Readme.md)
 
 ## 概要
 
