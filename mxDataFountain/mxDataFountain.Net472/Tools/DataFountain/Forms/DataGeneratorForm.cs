@@ -579,6 +579,14 @@ namespace mxProject.Tools.DataFountain.Forms
                     foreach (var field in settings.Fields)
                     {
                         AddFieldNode(field);
+
+                        if (field is CompositeFieldSettingsState composite)
+                        {
+                            foreach (var innerField in composite.CreateInnerFields())
+                            {
+                                AddCompositeInnerFieldNode(innerField);
+                            }
+                        }
                     }
 
                     foreach (var field in settings.TupleFields)
@@ -642,6 +650,10 @@ namespace mxProject.Tools.DataFountain.Forms
                 {
                     node.ContextMenuStrip = AddDisposableObject(CreateDirectProductFieldNodeMenu(directProduct));
                 }
+                else if (settings is CompositeFieldSettingsState composite)
+                {
+                    node.ContextMenuStrip = AddDisposableObject(CreateCompositeFieldNodeMenu(composite));
+                }
 
                 return node;
             }
@@ -679,6 +691,50 @@ namespace mxProject.Tools.DataFountain.Forms
                     foreach (FieldNode node in FindFieldNode(AdditionalTupleFieldNode, additionalTupleField))
                     {
                         node.Remove();
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Adds the node associated with the specified Composite inner field.
+            /// </summary>
+            /// <param name="settings"></param>
+            /// <returns></returns>
+            internal FieldNode? AddCompositeInnerFieldNode(CompositeInnerFieldSettingsState settings)
+            {
+                foreach (FieldNode node in FieldNode.FieldNodes)
+                {
+                    if (node.FieldSettings == settings.Owner)
+                    {
+                        var innerNode = new FieldNode(settings);
+
+                        node.Nodes.Add(innerNode);
+
+                        return innerNode;
+                    }
+                }
+
+                return null;
+            }
+
+            /// <summary>
+            /// Removes the node associated with the specified Composite inner field.
+            /// </summary>
+            /// <param name="settings"></param>
+            /// <returns></returns>
+            internal void RemoveCompositeInnerFieldNode(CompositeInnerFieldSettingsState settings)
+            {
+                foreach (FieldNode node in FieldNode.FieldNodes)
+                {
+                    if (node.FieldSettings == settings.Owner)
+                    {
+                        foreach (FieldNode innerNode in node.FieldNodes)
+                        {
+                            if (innerNode.FieldSettings == settings)
+                            {
+                                innerNode.Remove();
+                            }
+                        }
                     }
                 }
             }
@@ -764,6 +820,18 @@ namespace mxProject.Tools.DataFountain.Forms
             }
 
             /// <summary>
+            /// Updates the state of the node associated with the specified Composite inner field settings.
+            /// </summary>
+            /// <param name="settings"></param>
+            internal void RefreshCompositeInnerFieldNode(CompositeInnerFieldSettingsState settings)
+            {
+                foreach (FieldNode node in FindFieldNode(FieldNode, settings))
+                {
+                    node.Refresh();
+                }
+            }
+
+            /// <summary>
             /// Updates the state of the node associated with the specified DirectProduct inner field settings.
             /// </summary>
             /// <param name="settings"></param>
@@ -810,6 +878,30 @@ namespace mxProject.Tools.DataFountain.Forms
                 menu.Items.Add("New Field", GetAddIcon(), (sender, e) =>
                 {
                     m_Context.FieldEventPublisher.Publish(DataGeneratorFieldEvent.StartEdit, new DataGeneratorFieldSettingsState());
+                }
+                );
+
+                menu.Items.Add("New CompositeField", GetAddIcon(), (sender, e) =>
+                {
+                    m_Context.FieldEventPublisher.Publish(DataGeneratorFieldEvent.StartEdit, new CompositeFieldSettingsState());
+                }
+                );
+
+                return menu;
+            }
+
+            /// <summary>
+            /// Create a context menu for the composite field node.
+            /// </summary>
+            /// <param name="composite"></param>
+            /// <returns></returns>
+            private ContextMenuStrip CreateCompositeFieldNodeMenu(CompositeFieldSettingsState composite)
+            {
+                var menu = new ContextMenuStrip();
+
+                menu.Items.Add("New Argument", GetAddIcon(), (sender, e) =>
+                {
+                    m_Context.FieldEventPublisher.Publish(DataGeneratorFieldEvent.StartEdit, new CompositeInnerFieldSettingsState(composite));
                 }
                 );
 
@@ -1040,6 +1132,24 @@ namespace mxProject.Tools.DataFountain.Forms
         }
 
         /// <summary>
+        /// Shows the specified field settings in the editor.
+        /// </summary>
+        /// <param name="field"></param>
+        private void ShowCompositeFieldEditor(CompositeFieldSettingsState field)
+        {
+            if (FieldEditor is not CompositeFieldEditor editor)
+            {
+                editor = new CompositeFieldEditor(m_Context)
+                {
+                    Dock = DockStyle.Fill
+                };
+                FieldEditor = editor;
+            }
+
+            editor.SetFieldSettings(field);
+        }
+
+        /// <summary>
         /// Shows the specified tuple field settings in the editor.
         /// </summary>
         /// <param name="field"></param>
@@ -1183,7 +1293,11 @@ namespace mxProject.Tools.DataFountain.Forms
 
             var selectedField = m_Context.FieldEventSubscriber.Subscribe(DataGeneratorFieldEvent.Selected, field =>
             {
-                if (field is DataGeneratorFieldSettingsState singleField)
+                if (field is CompositeFieldSettingsState compositeField)
+                {
+                    ShowCompositeFieldEditor(compositeField);
+                }
+                else if (field is DataGeneratorFieldSettingsState singleField)
                 {
                     ShowFieldEditor(singleField);
                 }
@@ -1211,7 +1325,11 @@ namespace mxProject.Tools.DataFountain.Forms
 
             var startEdit = m_Context.FieldEventSubscriber.Subscribe(DataGeneratorFieldEvent.StartEdit, field =>
             {
-                if (field is DataGeneratorFieldSettingsState singleField)
+                if (field is CompositeFieldSettingsState compositeField)
+                {
+                    ShowCompositeFieldEditor(compositeField);
+                }
+                else if (field is DataGeneratorFieldSettingsState singleField)
                 {
                     ShowFieldEditor(singleField);
                 }
@@ -1242,13 +1360,25 @@ namespace mxProject.Tools.DataFountain.Forms
                 if (CurrentDataGeneratorSettings == null) { return; }
                 if (field == null) { return; }
 
-                if (field is DirectProductInnerFieldSettingsState innerField)
+                if (field is DirectProductInnerFieldSettingsState directProductinnerField)
                 {
-                    innerField.ApplyToOwner();
+                    directProductinnerField.ApplyToOwner();
 
-                    m_FieldTree.RefreshFieldNode(innerField.Owner);
+                    m_FieldTree.RefreshFieldNode(directProductinnerField.Owner);
 
-                    var node = m_FieldTree.AddDirectProductInnerFieldNode(innerField);
+                    var node = m_FieldTree.AddDirectProductInnerFieldNode(directProductinnerField);
+
+                    if (node != null)
+                    {
+                        treeFields.SelectedNode = node;
+                        node.EnsureVisible();
+                    }
+                }
+                else if (field is CompositeInnerFieldSettingsState compositeInnerField)
+                {
+                    compositeInnerField.ApplyToOwner();
+
+                    var node = m_FieldTree.AddCompositeInnerFieldNode(compositeInnerField);
 
                     if (node != null)
                     {
@@ -1275,13 +1405,19 @@ namespace mxProject.Tools.DataFountain.Forms
                 if (CurrentDataGeneratorSettings == null) { return; }
                 if (field == null) { return; }
 
-                if (field is DirectProductInnerFieldSettingsState innerField)
+                if (field is DirectProductInnerFieldSettingsState directProductInnerField)
                 {
-                    innerField.ApplyToOwner();
+                    directProductInnerField.ApplyToOwner();
 
-                    m_FieldTree.RefreshFieldNode(innerField.Owner);
+                    m_FieldTree.RefreshFieldNode(directProductInnerField.Owner);
 
-                    m_FieldTree.RefreshDirectProductInnerFieldNode(innerField);
+                    m_FieldTree.RefreshDirectProductInnerFieldNode(directProductInnerField);
+                }
+                else if (field is CompositeInnerFieldSettingsState compositeInnerField)
+                {
+                    compositeInnerField.ApplyToOwner();
+
+                    m_FieldTree.RefreshCompositeInnerFieldNode(compositeInnerField);
                 }
 
                 m_FieldTree.RefreshFieldNode(field);
@@ -1292,13 +1428,19 @@ namespace mxProject.Tools.DataFountain.Forms
                 if (CurrentDataGeneratorSettings == null) { return; }
                 if (field == null) { return; }
 
-                if (field is DirectProductInnerFieldSettingsState innerField)
+                if (field is DirectProductInnerFieldSettingsState directProductInnerField)
                 {
-                    innerField.RemoveFromOwner();
+                    directProductInnerField.RemoveFromOwner();
 
-                    m_FieldTree.RemoveDirectProductInnerFieldNode(innerField);
+                    m_FieldTree.RemoveDirectProductInnerFieldNode(directProductInnerField);
 
-                    m_FieldTree.RefreshFieldNode(innerField.Owner);
+                    m_FieldTree.RefreshFieldNode(directProductInnerField.Owner);
+                }
+                else if (field is CompositeInnerFieldSettingsState compositeInnerField)
+                {
+                    compositeInnerField.RemoveFromOwner();
+
+                    m_FieldTree.RemoveCompositeInnerFieldNode(compositeInnerField);
                 }
                 else
                 {
