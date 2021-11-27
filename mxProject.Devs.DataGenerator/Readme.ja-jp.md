@@ -345,8 +345,10 @@ Debug.WriteLine(json);
 |Field Type|Summary|
 |:--|:--|
 |[Any](documents/ja-jp/Any.ja-jp.md)|指定された値の中から何れかの値を返します。|
+|[Computing](documents/ja-jp/Computing.ja-jp.md)|指定された式の実行結果を列挙します。|
 |[DbQuery](documents/ja-jp/DbQuery.ja-jp.md)|指定されたデータリーダーからフィールドの値を読み取って列挙します。|
 |[Each](documents/ja-jp/Each.ja-jp.md)|指定された値を順番に返します。|
+|[FormattedString](documents/ja-jp/FormattedString.ja-jp.md)|指定された書式文字列によってフォーマットされた文字列値を列挙します。|
 |[Random](documents/ja-jp/Random.ja-jp.md)|指定された範囲内のランダムな値を生成します。|
 |[Sequence](documents/ja-jp/Sequence.ja-jp.md)|指定された範囲内のシーケンシャルな値を生成します。|
 

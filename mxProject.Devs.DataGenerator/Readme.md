@@ -345,8 +345,10 @@ The DataGeneratorSettings instance in the sample code above is serialized into a
 |Field Type|Summary|
 |:--|:--|
 |[Any](documents/Any.md)|Returns one of the specified values.|
+|[Computing](documents/Computing.md)|Enumerates the result of the specified expression text.|
 |[DbQuery](documents/DbQuery.md)|Reads and enumerates the values from the specified data reader. |
 |[Each](documents/Each.md)|Returns the specified values in order.|
+|[FormattedString](documents/FormattedString.md)|Enumerates string values formatted with the specified format string.|
 |[Random](documents/Random.md)|Generates a random value within the specified range.|
 |[Sequence](documents/Sequence.md)|Generates sequential values within the specified range.|
 
