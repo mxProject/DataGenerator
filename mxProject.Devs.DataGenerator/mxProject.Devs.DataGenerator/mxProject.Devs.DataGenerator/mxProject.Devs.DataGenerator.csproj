@@ -5,12 +5,12 @@
     <RootNamespace>mxProject</RootNamespace>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
-    <Version>0.9.0</Version>
+    <Version>0.9.1</Version>
     <Authors>mxProject</Authors>
     <Description>The library for generating test data in data record format.</Description>
     <Copyright>(c) 2021 mxProject.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>* Added ComputingField and FormattedStringField. #9</PackageReleaseNotes>
+    <PackageReleaseNotes>* Fixed #10. Added ComputingField.ValueTypeName property.</PackageReleaseNotes>
     <PackageTags>UnitTest, DataGeneration</PackageTags>
     <NeutralLanguage></NeutralLanguage>
     <PackageProjectUrl>https://github.com/mxProject/DataGenerator</PackageProjectUrl>
