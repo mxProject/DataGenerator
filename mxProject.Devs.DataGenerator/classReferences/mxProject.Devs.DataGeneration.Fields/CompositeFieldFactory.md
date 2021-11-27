@@ -34,16 +34,17 @@
 ## Static Methods
 |Scope|Signature|Return Type|Summary|
 |:--|:--|:--|:--|
-| public | [CreateComputingField(string, string, IEnumerable&lt;IDataGeneratorField&gt;, DataGeneratorContext, double)](#createcomputingfieldstring-string-ienumerableidatageneratorfield-datageneratorcontext-double-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) |  |
+| public | [CreateComputingField(string, Type, string, IEnumerable&lt;IDataGeneratorField&gt;, DataGeneratorContext, double)](#createcomputingfieldstring-type-string-ienumerableidatageneratorfield-datageneratorcontext-double-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) |  |
 | public | [CreateFormattedStringField(string, string, IEnumerable&lt;IDataGeneratorField&gt;, DataGeneratorContext, double)](#createformattedstringfieldstring-string-ienumerableidatageneratorfield-datageneratorcontext-double-method) | [IDataGeneratorField](../mxProject.Devs.DataGeneration/IDataGeneratorField.md) |  |
 ---
-### CreateComputingField(string, string, IEnumerable&lt;IDataGeneratorField&gt;, DataGeneratorContext, double) Method
+### CreateComputingField(string, Type, string, IEnumerable&lt;IDataGeneratorField&gt;, DataGeneratorContext, double) Method
 
 
 ```c#
 public static IDataGeneratorField CreateComputingField
 (
 	string fieldName
+	, Type valueType
 	, string expression
 	, IEnumerable<IDataGeneratorField> argumentFields
 	, DataGeneratorContext context
@@ -54,6 +55,7 @@ public static IDataGeneratorField CreateComputingField
 |Name|Parameter Type|I/O|Description|
 |:--|:--|:-:|:--|
 | fieldName | string |  |  |
+| valueType | Type |  |  |
 | expression | string |  |  |
 | argumentFields | IEnumerable&lt;IDataGeneratorField&gt; |  |  |
 | context | [DataGeneratorContext](../mxProject.Devs.DataGeneration/DataGeneratorContext.md) |  |  |

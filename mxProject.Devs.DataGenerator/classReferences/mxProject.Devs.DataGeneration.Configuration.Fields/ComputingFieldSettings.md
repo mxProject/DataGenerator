@@ -47,6 +47,7 @@ public ComputingFieldSettings()
 | public | [Expression](#expression-property) | string |  |
 | public | [FieldName](#fieldname-property) | string | Inherited from  [DataGeneratorFieldSettings](../mxProject.Devs.DataGeneration.Configuration/DataGeneratorFieldSettings.md) . |
 | public | [NullProbability](#nullprobability-property) | double | Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.CompositeFieldSettingsBase . |
+| public | [ValueTypeName](#valuetypename-property) | string |  |
 ---
 ### ArgumentFields Property
 
@@ -83,6 +84,16 @@ public string FieldName { get; set; }
 Inherited from  mxProject.Devs.DataGeneration.Configuration.Fields.CompositeFieldSettingsBase .
 ```c#
 public double NullProbability { get; set; }
+```
+
+[Go to properties](#Properties)
+
+---
+### ValueTypeName Property
+
+
+```c#
+public string ValueTypeName { get; set; }
 ```
 
 [Go to properties](#Properties)
