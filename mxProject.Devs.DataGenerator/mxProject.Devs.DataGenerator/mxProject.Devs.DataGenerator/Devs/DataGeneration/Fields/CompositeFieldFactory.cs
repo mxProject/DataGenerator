@@ -134,6 +134,11 @@ namespace mxProject.Devs.DataGeneration.Fields
 
         private static Type MakeFuncType(params Type[] argumentTypes)
         {
+            if (argumentTypes.Length > 9)
+            {
+                throw new NotSupportedException("The specified number of fields is not supported.");
+            }
+
             var t = typeof(CompositeFieldFactory);
             var method = t.GetGenericMethod(nameof(MakeFuncTypeCore));
 
