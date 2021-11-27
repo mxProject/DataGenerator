@@ -71,14 +71,34 @@ namespace mxProject.Devs.DataGeneration.Fields
         /// Creates a field that enumerates string values formatted with the specified format string.
         /// </summary>
         /// <param name="fieldName">The field name.</param>
+        /// <param name="valueType">The type of the field value.</param>
         /// <param name="expression">The expression text. ex) "(x, y) => x * y"</param>
         /// <param name="argumentFields">The fields that generates the value of the argument applied to the expression text.</param>
         /// <param name="context">The context.</param>
         /// <param name="nullProbability">A value that indicates probability of returning null. (between 0 and 1.0)</param>
         /// <returns></returns>
-        public static IDataGeneratorField CreateComputingField(string fieldName, string expression, IEnumerable<IDataGeneratorField> argumentFields, DataGeneratorContext context, double nullProbability = 0)
+        public static IDataGeneratorField CreateComputingField(string fieldName, Type valueType, string expression, IEnumerable<IDataGeneratorField> argumentFields, DataGeneratorContext context, double nullProbability = 0)
         {
-            async ValueTask<IEnumerable<object?>> EnumerationCreator(int generateCount)
+            var t = typeof(CompositeFieldFactory);
+            var method = t.GetGenericMethod(nameof(CreateComputingFieldCore));
+
+            return (IDataGeneratorField)t.InvokeStaticGenericMethod(method, new[] { DataGeneratorUtility.GetFieldValueType(valueType) }, fieldName, expression, argumentFields, context, nullProbability)!;
+        }
+
+        /// <summary>
+        /// Creates a field that enumerates string values formatted with the specified format string.
+        /// </summary>
+        /// <typeparam name="TValue">The type of the field value.</typeparam>
+        /// <param name="fieldName">The field name.</param>
+        /// <param name="expression">The expression text. ex) "(x, y) => x * y"</param>
+        /// <param name="argumentFields">The fields that generates the value of the argument applied to the expression text.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="nullProbability">A value that indicates probability of returning null. (between 0 and 1.0)</param>
+        /// <returns></returns>
+        private static IDataGeneratorField CreateComputingFieldCore<TValue>(string fieldName, string expression, IEnumerable<IDataGeneratorField> argumentFields, DataGeneratorContext context, double nullProbability = 0)
+            where TValue : struct
+        {
+            async ValueTask<IEnumerable<TValue?>> EnumerationCreator(int generateCount)
             {
                 DataGeneratorBuilder builder = new DataGeneratorBuilder(context.FieldFactory);
                 List<Type> valueTypes = new();
@@ -91,24 +111,26 @@ namespace mxProject.Devs.DataGeneration.Fields
 
                 using var reader = await builder.BuildAsDataReaderAsync(generateCount).ConfigureAwait(false);
 
-                return await GetValuesAsync(MakeFuncType(valueTypes.ToArray()), reader, expression, nullProbability, context).ConfigureAwait(false);
+                return await GetValuesAsync<TValue>(MakeFuncType<TValue>(valueTypes.ToArray()), reader, expression, nullProbability, context).ConfigureAwait(false);
             }
 
-            return new DataGeneratorField(fieldName, typeof(StringValue), null, false, EnumerationCreator);
+            return new DataGeneratorField<TValue>(fieldName, null, false, EnumerationCreator);
         }
 
-        private static ValueTask<IEnumerable<object?>> GetValuesAsync(Type funcType, System.Data.IDataReader reader, string expression, double nullProbability, DataGeneratorContext context)
+        private static ValueTask<IEnumerable<TValue?>> GetValuesAsync<TValue>(Type funcType, System.Data.IDataReader reader, string expression, double nullProbability, DataGeneratorContext context)
+            where TValue : struct
         {
             var t = typeof(CompositeFieldFactory);
             var method = t.GetGenericMethod(nameof(GetValuesAsyncCore));
 
-            return (ValueTask<IEnumerable<object?>>)t.InvokeStaticGenericMethod(method, new[] { funcType }, reader, expression, nullProbability, context)!;
+            return (ValueTask<IEnumerable<TValue?>>)t.InvokeStaticGenericMethod(method, new[] { funcType, typeof(TValue) }, reader, expression, nullProbability, context)!;
         }
 
-        private async static ValueTask<IEnumerable<object?>> GetValuesAsyncCore<TFunc>(System.Data.IDataReader reader, string expression, double nullProbability, DataGeneratorContext context)
-             where TFunc : Delegate
+        private async static ValueTask<IEnumerable<TValue?>> GetValuesAsyncCore<TFunc, TValue>(System.Data.IDataReader reader, string expression, double nullProbability, DataGeneratorContext context)
+            where TFunc : Delegate
+            where TValue : struct
         {
-            static IEnumerable<object?> GetValues(System.Data.IDataReader reader, TFunc func, double nullProbability, DataGeneratorContext context)
+            static IEnumerable<TValue?> GetValues(System.Data.IDataReader reader, TFunc func, double nullProbability, DataGeneratorContext context)
             {
                 object?[] values = new object?[reader.FieldCount];
 
@@ -122,7 +144,7 @@ namespace mxProject.Devs.DataGeneration.Fields
                     }
                     else
                     {
-                        yield return func.DynamicInvoke(values);
+                        yield return (TValue)func.DynamicInvoke(values);
                     }
                 }
             }
@@ -132,9 +154,11 @@ namespace mxProject.Devs.DataGeneration.Fields
             return GetValues(reader, func, nullProbability, context);
         }
 
-        private static Type MakeFuncType(params Type[] argumentTypes)
+        private static Type MakeFuncType<TValue>(params Type[] argumentTypes)
         {
-            if (argumentTypes.Length > 9)
+            const int maxArgumentCount = 9;
+
+            if (argumentTypes.Length > maxArgumentCount)
             {
                 throw new NotSupportedException("The specified number of fields is not supported.");
             }
@@ -142,39 +166,33 @@ namespace mxProject.Devs.DataGeneration.Fields
             var t = typeof(CompositeFieldFactory);
             var method = t.GetGenericMethod(nameof(MakeFuncTypeCore));
 
-            Type[] types;
+            Type[] types = new Type[maxArgumentCount + 1];
 
-            if (argumentTypes.Length == 9)
+            argumentTypes.CopyTo(types, 0);
+
+            for (int i = argumentTypes.Length; i < types.Length - 1; ++i)
             {
-                types = argumentTypes;
+                types[i] = typeof(MissingType);
             }
-            else
-            {
-                types = new Type[9];
 
-                argumentTypes.CopyTo(types, 0);
-
-                for (int i = argumentTypes.Length; i < types.Length; ++i)
-                {
-                    types[i] = typeof(MissingType);
-                }
-            }
+            types[types.Length - 1] = typeof(TValue);
 
             return (Type)t.InvokeStaticGenericMethod(method, types)!;
         }
 
-        private static Type MakeFuncTypeCore<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>()
+        private static Type MakeFuncTypeCore<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TValue>()
+            where TValue : struct
         {
-            if (typeof(TArg1) == typeof(MissingType)) { return typeof(Func<object?>); }
-            if (typeof(TArg2) == typeof(MissingType)) { return typeof(Func<TArg1, object?>); }
-            if (typeof(TArg3) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, object?>); }
-            if (typeof(TArg4) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, object?>); }
-            if (typeof(TArg5) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TArg4, object?>); }
-            if (typeof(TArg6) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TArg4, TArg5, object?>); }
-            if (typeof(TArg7) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, object?>); }
-            if (typeof(TArg8) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, object?>); }
-            if (typeof(TArg9) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, object?>); }
-            return typeof(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, object?>);
+            if (typeof(TArg1) == typeof(MissingType)) { return typeof(Func<TValue?>); }
+            if (typeof(TArg2) == typeof(MissingType)) { return typeof(Func<TArg1, TValue?>); }
+            if (typeof(TArg3) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TValue?>); }
+            if (typeof(TArg4) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TValue?>); }
+            if (typeof(TArg5) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TArg4, TValue?>); }
+            if (typeof(TArg6) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TValue?>); }
+            if (typeof(TArg7) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TValue?>); }
+            if (typeof(TArg8) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TValue?>); }
+            if (typeof(TArg9) == typeof(MissingType)) { return typeof(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TValue?>); }
+            return typeof(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TValue?>);
         }
 
         private struct MissingType

@@ -729,7 +729,9 @@ namespace UnitTestProject1
             builder
                 .AddField(factory => CompositeFieldFactory.CreateComputingField(
                     "Code",
-                    // Specifies the exprettion text.
+                    // Specifies the value type.
+                    typeof(string),
+                    // Specifies the expression text.
                     @"(x, y, z) => $""{x.ToUpper()}-{y:d4}-{z:d4}""",
                     // Specifies the argument fields.
                     new IDataGeneratorField[]
@@ -738,6 +740,25 @@ namespace UnitTestProject1
                         context.FieldFactory.Each("arg2", new int[]{ 1234, 5678, 9012, 3456, 7890 }),
                         context.FieldFactory.RandomInt16("arg3", 0, 9999)
                     },
+                    context,
+                    // Specifies the probability of returning null.
+                    0.1
+                    ))
+
+                .AddField(factory => CompositeFieldFactory.CreateComputingField(
+                    "Date",
+                    // Specifies the value type.
+                    typeof(DateTime),
+                    // Specifies the expression text.
+                    @"(y, m, d) => new System.DateTime(y, m, 1).AddDays(d-1)",
+                    // Specifies the argument fields.
+                    new IDataGeneratorField[]
+                    {
+                        context.FieldFactory.AnyOne("year", new int[]{ 2021, 2022, 2023 }),
+                        context.FieldFactory.RandomByte("month", 1, 12),
+                        context.FieldFactory.RandomByte("day", 1, 31)
+                    },
+
                     context,
                     // Specifies the probability of returning null.
                     0.1
@@ -762,6 +783,8 @@ namespace UnitTestProject1
                 new ComputingFieldSettings()
                 {
                     FieldName = "Code",
+                    // Specifies the value type.
+                    ValueTypeName = "System.String",
                     // Specifies the expression text.
                     Expression = @"(x, y, z) => $""{x.ToUpper()}-{y:d4}-{z:d4}""",
                     // Specifies the argument fields.
@@ -794,6 +817,42 @@ namespace UnitTestProject1
                             FieldName = "arg3",
                             MinimumValue = 0,
                             MaximumValue = 9999,
+                        }
+                    },
+                    // Specifies the probability of returning null.
+                    NullProbability = 0.1
+                },
+
+                new ComputingFieldSettings()
+                {
+                    FieldName = "Date",
+                    // Specifies the value type.
+                    ValueTypeName = "System.DateTime",
+                    // Specifies the expression text.
+                    Expression = @"(y, m, d) => new System.DateTime(y, m, 1).AddDays(d-1)",
+                    ArgumentFields = new DataGeneratorFieldSettings[]
+                    {
+                        new AnyFieldSettings<int>()
+                        {
+                            FieldName = "year",
+                            Values = new int?[]
+                            {
+                                2021,
+                                2022,
+                                2023
+                            }
+                        },
+                        new RandomByteFieldSettings()
+                        {
+                            FieldName = "month",
+                            MinimumValue = 1,
+                            MaximumValue = 12
+                        },
+                        new RandomInt16FieldSettings()
+                        {
+                            FieldName = "day",
+                            MinimumValue = 1,
+                            MaximumValue = 31,
                         }
                     },
                     // Specifies the probability of returning null.
