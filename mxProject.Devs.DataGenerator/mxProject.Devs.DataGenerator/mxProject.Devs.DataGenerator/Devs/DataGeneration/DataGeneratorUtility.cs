@@ -139,6 +139,18 @@ namespace mxProject.Devs.DataGeneration
             }
         }
 
+        internal static Type GetClrValueType(Type valueType)
+        {
+            if (valueType == typeof(StringValue))
+            {
+                return typeof(string);
+            }
+            else
+            {
+                return valueType;
+            }
+        }
+
         internal static object? ConvertFromRawValue(object? value)
         {
             if (value is StringValue stringValue)

@@ -608,6 +608,218 @@ namespace UnitTestProject1
 
         #endregion
 
+        #region FormattedString
+
+        [TestMethod]
+        public async Task FormattedString()
+        {
+            // Creates a context.
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            // Creates a builder.
+            DataGeneratorBuilder builder = new DataGeneratorBuilder();
+
+            // Adds fields.
+            builder
+                .AddField(factory => CompositeFieldFactory.CreateFormattedStringField(
+                    "TelephoneNumber",
+                    // Specifies the format string.
+                    "{0:d3}-{1:d4}-{2:d4}",
+                    // Specifies the argument fields.
+                    new IDataGeneratorField[]
+                    {
+                        context.FieldFactory.AnyOne("arg1", new int[]{ 90, 80, 70 }),
+                        context.FieldFactory.Each("arg2", new int[]{ 1234, 5678, 9012, 3456, 7890 }),
+                        context.FieldFactory.RandomInt32("arg3", 0, 9999)
+                    },
+                    context,
+                    // Specifies the probability of returning null.
+                    0.1
+                    ))
+                ;
+
+            // Creates a generator that generates 10 records and returns it as a DataReader.
+            using IDataReader reader = await builder.BuildAsDataReaderAsync(10);
+
+            Dump(reader);
+        }
+
+        [TestMethod]
+        public async Task FormattedStringSettings()
+        {
+            // Creates a generator settings.
+            DataGeneratorSettings generatorSetting = new DataGeneratorSettings() { };
+
+            // Adds fields.
+            generatorSetting.Fields = new DataGeneratorFieldSettings[]
+            {
+                new FormattedStringFieldSettings()
+                {
+                    FieldName = "TelephoneNumber",
+                    // Specifies the format string.
+                    FormatString = "{0:d3}-{1:d4}-{2:d4}",
+                    // Specifies the argument fields.
+                    ArgumentFields = new DataGeneratorFieldSettings[]
+                    {
+                        new AnyFieldSettings<int>()
+                        {
+                            FieldName = "arg1",
+                            Values=new int?[]
+                            {
+                                090,
+                                080,
+                                070
+                            }
+                        },
+                        new EachFieldSettings<int>()
+                        {
+                            FieldName = "arg2",
+                            Values=new int?[]
+                            {
+                                1234,
+                                5678,
+                                9012,
+                                3456,
+                                7890
+                            }
+                        },
+                        new RandomInt32FieldSettings()
+                        {
+                            FieldName = "arg3",
+                            MinimumValue = 0,
+                            MaximumValue = 9999,
+                        }
+                    },
+                    // Specifies the probability of returning null.
+                    NullProbability = 0.1
+                }
+            };
+
+            // Create a context that controls the behavior of the generator.
+            // You can replace random number generation algorithms, string converters, etc. with your own implementation.
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            // Creates a builder.
+            DataGeneratorBuilder builder = generatorSetting.CreateBuilder(context);
+
+            // Creates a generator that generates 10 records and returns it as a DataReader.
+            using IDataReader reader = await builder.BuildAsDataReaderAsync(10);
+
+            Dump(reader);
+
+            string json = JsonConvert.SerializeObject(generatorSetting, s_JsonSerializerSettings);
+
+            System.Diagnostics.Debug.WriteLine(json);
+        }
+
+        #endregion
+
+        #region Computing
+
+        [TestMethod]
+        public async Task Computing()
+        {
+            // Creates a context.
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            // Creates a builder.
+            DataGeneratorBuilder builder = new DataGeneratorBuilder();
+
+            // Adds fields.
+            builder
+                .AddField(factory => CompositeFieldFactory.CreateComputingField(
+                    "Code",
+                    // Specifies the exprettion text.
+                    @"(x, y, z) => $""{x.ToUpper()}-{y:d4}-{z:d4}""",
+                    // Specifies the argument fields.
+                    new IDataGeneratorField[]
+                    {
+                        context.FieldFactory.AnyOne("arg1", new string[]{ "a", "B", "c" }),
+                        context.FieldFactory.Each("arg2", new int[]{ 1234, 5678, 9012, 3456, 7890 }),
+                        context.FieldFactory.RandomInt16("arg3", 0, 9999)
+                    },
+                    context,
+                    // Specifies the probability of returning null.
+                    0.1
+                    ))
+                ;
+
+            // Creates a generator that generates 10 records and returns it as a DataReader.
+            using IDataReader reader = await builder.BuildAsDataReaderAsync(10);
+
+            Dump(reader);
+        }
+
+        [TestMethod]
+        public async Task ComputingSettings()
+        {
+            // Creates a generator settings.
+            DataGeneratorSettings generatorSetting = new DataGeneratorSettings() { };
+
+            // Adds fields.
+            generatorSetting.Fields = new DataGeneratorFieldSettings[]
+            {
+                new ComputingFieldSettings()
+                {
+                    FieldName = "Code",
+                    // Specifies the expression text.
+                    Expression = @"(x, y, z) => $""{x.ToUpper()}-{y:d4}-{z:d4}""",
+                    // Specifies the argument fields.
+                    ArgumentFields = new DataGeneratorFieldSettings[]
+                    {
+                        new AnyStringFieldSettings()
+                        {
+                            FieldName = "arg1",
+                            Values = new string?[]
+                            {
+                                "a",
+                                "B",
+                                "c"
+                            }
+                        },
+                        new EachFieldSettings<int>()
+                        {
+                            FieldName = "arg2",
+                            Values = new int?[]
+                            {
+                                1234,
+                                5678,
+                                9012,
+                                3456,
+                                7890
+                            }
+                        },
+                        new RandomInt16FieldSettings()
+                        {
+                            FieldName = "arg3",
+                            MinimumValue = 0,
+                            MaximumValue = 9999,
+                        }
+                    },
+                    // Specifies the probability of returning null.
+                    NullProbability = 0.1
+                }
+            };
+
+            // Create a context that controls the behavior of the generator.
+            // You can replace random number generation algorithms, string converters, etc. with your own implementation.
+            DataGeneratorContext context = new DataGeneratorContext();
+
+            // Creates a builder.
+            DataGeneratorBuilder builder = generatorSetting.CreateBuilder(context);
+
+            // Creates a generator that generates 10 records and returns it as a DataReader.
+            using IDataReader reader = await builder.BuildAsDataReaderAsync(10);
+
+            Dump(reader);
+
+            string json = JsonConvert.SerializeObject(generatorSetting, s_JsonSerializerSettings);
+
+            System.Diagnostics.Debug.WriteLine(json);
+        }
+
+        #endregion
+
         #region DirectProduct
 
         [TestMethod]

@@ -136,6 +136,9 @@ namespace mxProject.Devs.DataGeneration.Configuration.Json
                 .RegisterField<SequenceDateMonthOffsetFieldSettings>("SequenceDateMonthOffset")
                 .RegisterField<SequenceTimeSpanFieldSettings>("SequenceTimeSpan")
 
+                .RegisterField<FormattedStringFieldSettings>("FormattedString")
+                .RegisterField<ComputingFieldSettings>("Computing")
+                
                 .RegisterTupleField<DirectProductFieldSettings>("DirectProduct")
                 .RegisterTupleField<EachTupleFieldSettings>("EachTuple")
 
