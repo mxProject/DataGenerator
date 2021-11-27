@@ -283,7 +283,11 @@ namespace mxProject.Tools.DataFountain.Forms.FieldEditors.AdditionalTupleFields
             m_EdittingState.SetDbQuery(m_OriginalFieldSettings?.DbQuerySettings);
 
             grdKeyFields.RowCount = m_EdittingState.KeyFields.Count + 1;
+            grdKeyFields.Invalidate();
+
             grdAdditionalFields.RowCount = m_EdittingState.AdditionalValueFieldNames.Count + 1;
+            grdAdditionalFields.Invalidate();
+
             dbQueryEditor.SetDbQuerySettings(m_EdittingState.DbQuery);
         }
 

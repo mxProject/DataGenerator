@@ -335,8 +335,10 @@ namespace mxProject.Tools.DataFountain.Forms.FieldEditors.TupleFields
             }
 
             grdFields.RowCount = m_EdittingState.GetFieldCount() + 1;
-            grdValues.RowCount = m_EdittingState.GetMaxValueCount() + 1;
+            grdFields.Invalidate();
 
+            grdValues.RowCount = m_EdittingState.GetMaxValueCount() + 1;
+            grdValues.Invalidate();
         }
 
         #endregion

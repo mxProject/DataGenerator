@@ -154,6 +154,8 @@ namespace mxProject.Tools.DataFountain.Forms.FieldEditors.TupleFields
             m_EdittingState.SetDbQuery(m_OriginalFieldSettings?.DbQuerySettings);
 
             grdFields.RowCount = m_EdittingState.GetFieldCount() + 1;
+            grdFields.Invalidate();
+
             dbQueryEditor.SetDbQuerySettings(m_EdittingState.DbQuery);
         }
 
