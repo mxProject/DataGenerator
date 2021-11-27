@@ -24,7 +24,14 @@ namespace mxProject.Tools.DataFountain.Models
             {
                 foreach (var field in settings.Fields)
                 {
-                    Fields.Add(new DataGeneratorFieldSettingsState(field));
+                    if (field is CompositeFieldSettingsBase composite)
+                    {
+                        Fields.Add(new CompositeFieldSettingsState(composite));
+                    }
+                    else
+                    {
+                        Fields.Add(new DataGeneratorFieldSettingsState(field));
+                    }
                 }
             }
 

@@ -31,9 +31,22 @@ namespace mxProject.Tools.DataFountain
             if (settings is RandomFieldSettings) { return DataGeneratorFieldType.Random; }
             if (settings is SequenceFieldSettings) { return DataGeneratorFieldType.Sequence; }
             if (settings is DbQueryFieldSettings) { return DataGeneratorFieldType.DbQuery; }
+            if (settings is FormattedStringFieldSettings) { return DataGeneratorFieldType.FormattedString; }
+            if (settings is ComputingFieldSettings) { return DataGeneratorFieldType.Computing; }
 
             return DataGeneratorFieldType.Unknown;
         }
 
+        internal static DataGeneratorFieldSettings[] CreateClones(this DataGeneratorFieldSettings[] settings)
+        {
+            DataGeneratorFieldSettings[] clones = new DataGeneratorFieldSettings[settings.Length];
+
+            for (int i = 0; i < settings.Length; ++i)
+            {
+                clones[i] = (settings[i]?.Clone() as DataGeneratorFieldSettings)!;
+            }
+
+            return clones;
+        }
     }
 }

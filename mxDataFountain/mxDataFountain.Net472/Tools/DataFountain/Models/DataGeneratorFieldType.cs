@@ -18,7 +18,9 @@ namespace mxProject.Tools.DataFountain.Models
         Random,
         Sequence,
         Expression,
-        DbQuery
+        DbQuery,
+        FormattedString,
+        Computing
     }
 
 }

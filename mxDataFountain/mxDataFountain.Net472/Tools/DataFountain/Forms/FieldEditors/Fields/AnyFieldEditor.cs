@@ -157,6 +157,7 @@ namespace mxProject.Tools.DataFountain.Forms.FieldEditors.Fields
             }
 
             grdValues.RowCount = m_EdittingState.GetValueGridRowCount();
+            grdValues.Invalidate();
         }
 
         #endregion
