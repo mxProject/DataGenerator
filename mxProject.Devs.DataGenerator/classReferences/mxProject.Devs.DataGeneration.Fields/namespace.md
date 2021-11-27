@@ -7,6 +7,7 @@
 ## Classes
 |Type|Summary|
 |:--|:--|
+| CompositeFieldFactory |  |
 | [DataGeneratorField](../mxProject.Devs.DataGeneration.Fields/DataGeneratorField.md) | Basic implementation of a field. |
 | [DataGeneratorField&lt;T&gt;](../mxProject.Devs.DataGeneration.Fields/DataGeneratorField`1.md) | Basic implementation of a field. |
 | [DataGeneratorFieldEnumeration](../mxProject.Devs.DataGeneration.Fields/DataGeneratorFieldEnumeration.md) | Field of data generator. |

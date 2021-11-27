@@ -13,6 +13,8 @@
 | [AnyFieldSettings&lt;TValue&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyFieldSettings`1.md) | Settings for a field that enumerates one of the specified values. |
 | [AnyFieldSettingsBase&lt;TValue&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyFieldSettingsBase`1.md) | Basic implementation of settings for a field that enumerates one of the specified values. |
 | [AnyStringFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/AnyStringFieldSettings.md) | Settings for a field that enumerates one of the specified string values. |
+| CompositeFieldSettingsBase |  |
+| ComputingFieldSettings |  |
 | [DbQueryFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DbQueryFieldSettings.md) | Settings for a field that lists ths values read from the specified database query. |
 | [DbQueryFieldsSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DbQueryFieldsSettings.md) | Settings for a tuple field that lists ths values read from the specified database query. |
 | [DirectProductFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/DirectProductFieldSettings.md) | Settings for a field that enumerates the direct product. |
@@ -23,6 +25,7 @@
 | [EachFieldSettingsBase&lt;TValue&gt;](../mxProject.Devs.DataGeneration.Configuration.Fields/EachFieldSettingsBase`1.md) | Basic implementation of settings for a field that lists the specified values in order. |
 | [EachStringFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/EachStringFieldSettings.md) | Settings for a field that enumerates the specified values. |
 | [EachTupleFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/EachTupleFieldSettings.md) | Settings for a field that lists the specified tuple values in order. |
+| FormattedStringFieldSettings |  |
 | [RandomBooleanFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomBooleanFieldSettings.md) | Settings for a field that enumerates the random System.Boolean values. |
 | [RandomByteFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomByteFieldSettings.md) | Settings for a field that enumerates the random System.Byte values. |
 | [RandomDateTimeFieldSettings](../mxProject.Devs.DataGeneration.Configuration.Fields/RandomDateTimeFieldSettings.md) | Settings for a field that enumerates the random System.DateTime values. |
