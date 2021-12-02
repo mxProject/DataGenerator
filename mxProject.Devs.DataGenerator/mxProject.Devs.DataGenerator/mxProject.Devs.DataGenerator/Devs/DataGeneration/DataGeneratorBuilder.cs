@@ -292,6 +292,58 @@ namespace mxProject.Devs.DataGeneration
 
         #endregion
 
+        #region field order
+
+        private Comparison<string>? m_FieldNameComparison;
+
+        /// <summary>
+        /// Sets the method to compare field names.
+        /// </summary>
+        /// <param name="comparison"></param>
+        public void SetFieldNameComparison(Comparison<string>? comparison)
+        {
+            m_FieldNameComparison = comparison;
+        }
+
+        /// <summary>
+        /// Sets a method that compares field names according to the specified sorted field names.
+        /// </summary>
+        /// <param name="sortedFieldNames">The sorted field names.</param>
+        public void SetOrderedFieldNames(IEnumerable<string> sortedFieldNames)
+        {
+            static string NormalizeFieldName(string name)
+            {
+                if (name == null) { return ""; }
+                return name.ToLower();
+            }
+
+            var names = sortedFieldNames.ToArray();
+
+            for (int i = 0; i < names.Length; ++i)
+            {
+                names[i] = NormalizeFieldName(names[i]);
+            }
+
+            SetFieldNameComparison((x, y) => 
+            {
+                var xIndex = Array.IndexOf(names, NormalizeFieldName(x));
+                var yIndex = Array.IndexOf(names, NormalizeFieldName(y));
+
+                return xIndex.CompareTo(yIndex);
+            });
+        }
+
+        /// <summary>
+        /// Gets the method to compare field names.
+        /// </summary>
+        /// <returns></returns>
+        private Comparison<string>? GetFieldNameComparison()
+        {
+            return m_FieldNameComparison;
+        }
+
+        #endregion
+
         #region build
 
         /// <summary>
@@ -331,6 +383,13 @@ namespace mxProject.Devs.DataGeneration
                         return values[fieldIndex];
                     });
                 }
+            }
+
+            var comparison = GetFieldNameComparison();
+
+            if (comparison != null)
+            {
+                generator.SortFieldOrder(comparison);
             }
 
             return generator;
