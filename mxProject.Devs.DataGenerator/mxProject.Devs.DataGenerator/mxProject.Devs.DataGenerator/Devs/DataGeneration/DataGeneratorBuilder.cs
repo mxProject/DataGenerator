@@ -300,16 +300,17 @@ namespace mxProject.Devs.DataGeneration
         /// Sets the method to compare field names.
         /// </summary>
         /// <param name="comparison"></param>
-        public void SetFieldNameComparison(Comparison<string>? comparison)
+        public DataGeneratorBuilder SetFieldNameComparison(Comparison<string>? comparison)
         {
             m_FieldNameComparison = comparison;
+            return this;
         }
 
         /// <summary>
         /// Sets a method that compares field names according to the specified sorted field names.
         /// </summary>
         /// <param name="sortedFieldNames">The sorted field names.</param>
-        public void SetOrderedFieldNames(IEnumerable<string> sortedFieldNames)
+        public DataGeneratorBuilder SetOrderedFieldNames(IEnumerable<string> sortedFieldNames)
         {
             static string NormalizeFieldName(string name)
             {
@@ -324,7 +325,7 @@ namespace mxProject.Devs.DataGeneration
                 names[i] = NormalizeFieldName(names[i]);
             }
 
-            SetFieldNameComparison((x, y) => 
+            return SetFieldNameComparison((x, y) => 
             {
                 var xIndex = Array.IndexOf(names, NormalizeFieldName(x));
                 var yIndex = Array.IndexOf(names, NormalizeFieldName(y));
