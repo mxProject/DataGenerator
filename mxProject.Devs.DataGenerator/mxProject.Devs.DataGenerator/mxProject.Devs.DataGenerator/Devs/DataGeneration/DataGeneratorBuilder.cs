@@ -329,6 +329,9 @@ namespace mxProject.Devs.DataGeneration
                 var xIndex = Array.IndexOf(names, NormalizeFieldName(x));
                 var yIndex = Array.IndexOf(names, NormalizeFieldName(y));
 
+                if (xIndex < 0) { xIndex = int.MaxValue; }
+                if (yIndex < 0) { yIndex = int.MaxValue; }
+
                 return xIndex.CompareTo(yIndex);
             });
         }
