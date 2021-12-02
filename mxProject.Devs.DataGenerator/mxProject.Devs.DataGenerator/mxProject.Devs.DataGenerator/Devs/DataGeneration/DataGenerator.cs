@@ -21,7 +21,7 @@ namespace mxProject.Devs.DataGeneration
         /// Create a new instance.
         /// </summary>
         /// <param name="fields"></param>
-        internal DataGenerator(IList<IDataGeneratorFieldAccessor> fields)
+        internal DataGenerator(List<IDataGeneratorFieldAccessor> fields)
         {
             m_Fields = fields;
             m_FieldNameAndIndexes = GetFieldNameAndIndexes(fields);
@@ -45,7 +45,7 @@ namespace mxProject.Devs.DataGeneration
 
         #region fields
 
-        private readonly IList<IDataGeneratorFieldAccessor> m_Fields;
+        private readonly List<IDataGeneratorFieldAccessor> m_Fields;
 
         private readonly IDictionary<string, int> m_FieldNameAndIndexes;
 
@@ -185,6 +185,26 @@ namespace mxProject.Devs.DataGeneration
 
         #endregion
 
+        #region field order
+
+        /// <summary>
+        /// Sort the order of the fields.
+        /// </summary>
+        /// <param name="fieldNameComparison">The method to compare field names.</param>
+        internal void SortFieldOrder(Comparison<string> fieldNameComparison)
+        {
+            m_Fields.Sort((x, y) =>
+            {
+                return fieldNameComparison(x.FieldName, y.FieldName);
+            });
+
+            for (int i = 0; i < m_Fields.Count; ++i)
+            {
+                m_FieldNameAndIndexes[NormalizeFieldName(m_Fields[i].FieldName)] = i;
+            }
+        }
+
+        #endregion
 
         #region gets value
 

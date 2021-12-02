@@ -39,6 +39,12 @@ namespace mxProject.Devs.DataGeneration.Configuration
         [JsonProperty("AdditionalTupleFields", Order = 4)]
         public DataGeneratorAdditionalTupleFieldSettings[]? AdditionalTupleFields { get; set; }
 
+        /// <summary>
+        /// Gets or sets the sorted field names used to specify the order of the fields.
+        /// </summary>
+        [JsonProperty("SortedFieldNames", Order = 5)]
+        public string[]? SortedFieldNames { get; set; }
+
         #endregion
 
         #region clone
@@ -99,6 +105,11 @@ namespace mxProject.Devs.DataGeneration.Configuration
                 {
                     builder.AddAdditionalTupleField(field.CreateField(context));
                 }
+            }
+
+            if (SortedFieldNames != null && SortedFieldNames.Length > 0)
+            {
+                builder.SetOrderedFieldNames(SortedFieldNames);
             }
 
             return builder;

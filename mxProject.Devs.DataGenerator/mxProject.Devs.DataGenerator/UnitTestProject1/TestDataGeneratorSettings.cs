@@ -295,6 +295,43 @@ namespace UnitTestProject1
                 }
             };
 
+            generatorSetting.SortedFieldNames = new string[]
+            {
+                "TUPLE1.EACH_DAYOFWEEK",
+                "EACH_BOOLEAN",
+                "EACH_BYTE",
+                "EACH_SHORT",
+                "EACH_INT",
+                "EXPRESSION",
+                "EACH_LONG",
+                "EACH_SINGLE",
+                // "EACH_DOUBLE",
+                "EACH_DECIMAL",
+                "EACH_DAYOFWEEK",
+                "RANDOM_BOOLEAN",
+                "RANDOM_BYTE",
+                "RANDOM_SHORT",
+                "RANDOM_INT",
+                "RANDOM_LONG",
+                "RANDOM_SINGLE",
+                // "RANDOM_DOUBLE",
+                "RANDOM_DECIMAL",
+                "RANDOM_DATETIME",
+                "RANDOM_DATETIMEOFFSET",
+                "RANDOM_TIMESPAN",
+                "RANDOM_GUID",
+                "SEQUENCE_BYTE",
+                "SEQUENCE_SHORT",
+                "JOIN1",
+                "JOIN2",
+                "SEQUENCE_INT",
+                "SEQUENCE_LONG",
+                "SEQUENCE_DATETIME",
+                "SEQUENCE_DATETIMEOFFSET",
+                "SEQUENCE_TIMESPAN",
+                "TUPLE1.SEQUENCE_INT",
+            };
+
             DataGeneratorContext context = TestUtility.CreateDataGeneratorContext();
 
             await GenerateAsync(context, generatorSetting, 15).ConfigureAwait(false);

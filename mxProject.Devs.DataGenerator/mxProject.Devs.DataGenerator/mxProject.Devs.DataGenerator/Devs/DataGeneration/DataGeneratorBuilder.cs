@@ -292,6 +292,62 @@ namespace mxProject.Devs.DataGeneration
 
         #endregion
 
+        #region field order
+
+        private Comparison<string>? m_FieldNameComparison;
+
+        /// <summary>
+        /// Sets the method to compare field names.
+        /// </summary>
+        /// <param name="comparison"></param>
+        public DataGeneratorBuilder SetFieldNameComparison(Comparison<string>? comparison)
+        {
+            m_FieldNameComparison = comparison;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets a method that compares field names according to the specified sorted field names.
+        /// </summary>
+        /// <param name="sortedFieldNames">The sorted field names.</param>
+        public DataGeneratorBuilder SetOrderedFieldNames(IEnumerable<string> sortedFieldNames)
+        {
+            static string NormalizeFieldName(string name)
+            {
+                if (name == null) { return ""; }
+                return name.ToLower();
+            }
+
+            var names = sortedFieldNames.ToArray();
+
+            for (int i = 0; i < names.Length; ++i)
+            {
+                names[i] = NormalizeFieldName(names[i]);
+            }
+
+            return SetFieldNameComparison((x, y) => 
+            {
+                var xIndex = Array.IndexOf(names, NormalizeFieldName(x));
+                var yIndex = Array.IndexOf(names, NormalizeFieldName(y));
+
+                if (xIndex < 0) { xIndex = int.MaxValue; }
+                if (yIndex < 0) { yIndex = int.MaxValue; }
+
+                return xIndex.CompareTo(yIndex);
+            });
+        }
+
+        /// <summary>
+        /// Gets the method to compare field names.
+        /// </summary>
+        /// <returns></returns>
+        private Comparison<string>? GetFieldNameComparison()
+        {
+            return m_FieldNameComparison;
+        }
+
+        #endregion
+
         #region build
 
         /// <summary>
@@ -331,6 +387,13 @@ namespace mxProject.Devs.DataGeneration
                         return values[fieldIndex];
                     });
                 }
+            }
+
+            var comparison = GetFieldNameComparison();
+
+            if (comparison != null)
+            {
+                generator.SortFieldOrder(comparison);
             }
 
             return generator;
