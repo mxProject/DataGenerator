@@ -373,6 +373,90 @@ The DataGeneratorSettings instance in the sample code above is serialized into a
 |[Join](documents/Join.md)|Takes the generated data record as an argument and returns the value corresponding to the value of the key field from the dictionary or lookup.|
 |[JoinDbQuery](documents/JoinDbQuery.md)|Takes the generated data record as an argument and returns the value corresponding to the value of the key field from the data reader.|
 
+
+### フィールド順の設定
+
+* Use SetOrderedFieldNames method or SetFieldNameComparison method to specify the order of the fields.
+
+* When using SetOrderedFieldNames method, specify the sorted field names. Fields that are not specified are placed behind and the order of the fields is undefined.
+
+```c#
+// Creates a builder.
+DataGeneratorBuilder builder = new DataGeneratorBuilder()
+
+    // Sequence from 1 to 100
+    .AddField(factory => factory.SequenceInt32(
+        "ID",
+        1,
+        100
+        ))
+
+    // Random date from today to one month later
+    .AddField(factory => factory.RandomDateTime(
+        "SalesDate",
+        DateTime.Today,
+        DateTime.Today.AddMonths(1),
+        x => x.Date
+        ))
+
+    // Returns 1, 2, 3 in order
+    .AddField(factory => factory.Each(
+        "ShopCode",
+        new int[] { 1, 2, 3 }
+        ))
+
+    // Sepecify the field order.
+    .SetOrderedFieldNames(new string[]{
+            "ID",
+            "ShopCode",
+            "SalesDate"
+        });
+;
+```
+
+* When using the configuration class, set the sorted field names in the SortedFieldNames property. 
+
+```c#
+// Creates a generator settings.
+DataGeneratorSettings generatorSettings = new DataGeneratorSettings()
+{
+    Fields = new DataGeneratorFieldSettings[]
+    {
+        // Sequence from 1 to 100
+        new SequenceInt32FieldSettings()
+        {
+            FieldName = "ID",
+            InitialValue = 1,
+            MaximumValue = 100
+        },
+
+        // Random date from today to one month later
+        new RandomDateTimeFieldSettings()
+        {
+            FieldName = "SalesDate",
+            MinimumValue = DateTime.Today,
+            MaximumValue = DateTime.Today.AddMonths(1),
+            SelectorExpression = "x => x.Date"
+        },
+
+        // Returns 1, 2, 3 in order
+        new EachFieldSettings<int>()
+        {
+            FieldName = "ShopCode",
+            Values = new int?[]{ 1, 2, 3 }
+        },
+    },
+
+    // Sepecify the field order
+    SortedFieldNames = new string[]
+    {
+        "ID",
+        "ShopCode",
+        "SalesDate"
+    }
+};
+```
+
 ### Serialization to Json
 
 * The configuration classes that represent the data generator and field definitions support Json serialization. See [Json Serialization](documentation/JsonSerialization.md) page for more information.
