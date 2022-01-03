@@ -1,0 +1,825 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>mxProject.Devs.DataGenerator.Dapper</name>
+    </assembly>
+    <members>
+        <member name="T:mxProject.Devs.DataGeneration.DataGeneratorExtensions">
+            <summary>
+            Extension methods for <see cref="T:mxProject.Devs.DataGeneration.DataGenerator"/>.
+            </summary>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.Map``1(mxProject.Devs.DataGeneration.DataGenerator)">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.Map(mxProject.Devs.DataGeneration.DataGenerator,System.Type)">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="returnType">The type of objects to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex``3(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{``0,``1,``2})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName``3(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{``0,``1,``2})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex``4(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{``0,``1,``2,``3})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName``4(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{``0,``1,``2,``3})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex``5(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{``0,``1,``2,``3,``4})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName``5(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{``0,``1,``2,``3,``4})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex``6(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{``0,``1,``2,``3,``4,``5})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TMapping5">The type of the fifth object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingIndexes5">The indexes of fields to map to the fifth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingType5">The type of the fifth object to map.</param>
+            <param name="mappingIndexes5">The indexes of fields to map to the fifth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName``6(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{``0,``1,``2,``3,``4,``5})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TMapping5">The type of the fifth object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingNames5">The indexes of fields to map to the fifth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingType5">The type of the fifth object to map.</param>
+            <param name="mappingNames5">The indexes of fields to map to the fifth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex``7(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{``0,``1,``2,``3,``4,``5,``6})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TMapping5">The type of the fifth object to map.</typeparam>
+            <typeparam name="TMapping6">The type of the sixth object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingIndexes5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingIndexes6">The indexes of fields to map to the sixth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingType5">The type of the fifth object to map.</param>
+            <param name="mappingIndexes5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingType6">The type of the sixth object to map.</param>
+            <param name="mappingIndexes6">The indexes of fields to map to the sixth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName``7(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{``0,``1,``2,``3,``4,``5,``6})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TMapping5">The type of the fifth object to map.</typeparam>
+            <typeparam name="TMapping6">The type of the sixth object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingNames5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingNames6">The indexes of fields to map to the sixth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingType5">The type of the fifth object to map.</param>
+            <param name="mappingNames5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingType6">The type of the sixth object to map.</param>
+            <param name="mappingNames6">The indexes of fields to map to the sixth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex``8(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{``0,``1,``2,``3,``4,``5,``6,``7})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TMapping5">The type of the fifth object to map.</typeparam>
+            <typeparam name="TMapping6">The type of the sixth object to map.</typeparam>
+            <typeparam name="TMapping7">The type of the seventh object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingIndexes5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingIndexes6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingIndexes7">The indexes of fields to map to the seventh object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingType5">The type of the fifth object to map.</param>
+            <param name="mappingIndexes5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingType6">The type of the sixth object to map.</param>
+            <param name="mappingIndexes6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingType7">The type of the seventh object to map.</param>
+            <param name="mappingIndexes7">The indexes of fields to map to the seventh object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName``8(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{``0,``1,``2,``3,``4,``5,``6,``7})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TMapping5">The type of the fifth object to map.</typeparam>
+            <typeparam name="TMapping6">The type of the sixth object to map.</typeparam>
+            <typeparam name="TMapping7">The type of the seventh object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingNames5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingNames6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingNames7">The indexes of fields to map to the seventh object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingType5">The type of the fifth object to map.</param>
+            <param name="mappingNames5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingType6">The type of the sixth object to map.</param>
+            <param name="mappingNames6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingType7">The type of the seventh object to map.</param>
+            <param name="mappingNames7">The indexes of fields to map to the seventh object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex``9(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TMapping5">The type of the fifth object to map.</typeparam>
+            <typeparam name="TMapping6">The type of the sixth object to map.</typeparam>
+            <typeparam name="TMapping7">The type of the seventh object to map.</typeparam>
+            <typeparam name="TMapping8">The type of the eighth object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingIndexes5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingIndexes6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingIndexes7">The indexes of fields to map to the seventh object.</param>
+            <param name="mappingIndexes8">The indexes of fields to map to the eighth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingType5">The type of the fifth object to map.</param>
+            <param name="mappingIndexes5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingType6">The type of the sixth object to map.</param>
+            <param name="mappingIndexes6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingType7">The type of the seventh object to map.</param>
+            <param name="mappingIndexes7">The indexes of fields to map to the seventh object.</param>
+            <param name="mappingType8">The type of the eighth object to map.</param>
+            <param name="mappingIndexes8">The indexes of fields to map to the eighth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName``9(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TMapping5">The type of the fifth object to map.</typeparam>
+            <typeparam name="TMapping6">The type of the sixth object to map.</typeparam>
+            <typeparam name="TMapping7">The type of the seventh object to map.</typeparam>
+            <typeparam name="TMapping8">The type of the eighth object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingNames5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingNames6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingNames7">The indexes of fields to map to the seventh object.</param>
+            <param name="mappingNames8">The indexes of fields to map to the eighth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingType5">The type of the fifth object to map.</param>
+            <param name="mappingNames5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingType6">The type of the sixth object to map.</param>
+            <param name="mappingNames6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingType7">The type of the seventh object to map.</param>
+            <param name="mappingNames7">The indexes of fields to map to the seventh object.</param>
+            <param name="mappingType8">The type of the eighth object to map.</param>
+            <param name="mappingNames8">The indexes of fields to map to the eighth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex``10(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TMapping5">The type of the fifth object to map.</typeparam>
+            <typeparam name="TMapping6">The type of the sixth object to map.</typeparam>
+            <typeparam name="TMapping7">The type of the seventh object to map.</typeparam>
+            <typeparam name="TMapping8">The type of the eighth object to map.</typeparam>
+            <typeparam name="TMapping9">The type of the ninth object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingIndexes5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingIndexes6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingIndexes7">The indexes of fields to map to the seventh object.</param>
+            <param name="mappingIndexes8">The indexes of fields to map to the eighth object.</param>
+            <param name="mappingIndexes9">The indexes of fields to map to the ninth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldIndex(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingIndexes1">The indexes of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingIndexes2">The indexes of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingIndexes3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingIndexes4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingType5">The type of the fifth object to map.</param>
+            <param name="mappingIndexes5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingType6">The type of the sixth object to map.</param>
+            <param name="mappingIndexes6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingType7">The type of the seventh object to map.</param>
+            <param name="mappingIndexes7">The indexes of fields to map to the seventh object.</param>
+            <param name="mappingType8">The type of the eighth object to map.</param>
+            <param name="mappingIndexes8">The indexes of fields to map to the eighth object.</param>
+            <param name="mappingType9">The type of the ninth object to map.</param>
+            <param name="mappingIndexes9">The indexes of fields to map to the ninth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName``10(mxProject.Devs.DataGeneration.DataGenerator,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <typeparam name="TMapping1">The type of the first object to map.</typeparam>
+            <typeparam name="TMapping2">The type of the second object to map.</typeparam>
+            <typeparam name="TMapping3">The type of the third object to map.</typeparam>
+            <typeparam name="TMapping4">The type of the fourth object to map.</typeparam>
+            <typeparam name="TMapping5">The type of the fifth object to map.</typeparam>
+            <typeparam name="TMapping6">The type of the sixth object to map.</typeparam>
+            <typeparam name="TMapping7">The type of the seventh object to map.</typeparam>
+            <typeparam name="TMapping8">The type of the eighth object to map.</typeparam>
+            <typeparam name="TMapping9">The type of the ninth object to map.</typeparam>
+            <typeparam name="TReturn">The type of objects to enumerate.</typeparam>
+            <param name="generator"></param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingNames5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingNames6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingNames7">The indexes of fields to map to the seventh object.</param>
+            <param name="mappingNames8">The indexes of fields to map to the eighth object.</param>
+            <param name="mappingNames9">The indexes of fields to map to the ninth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.MapByFieldName(mxProject.Devs.DataGeneration.DataGenerator,System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[],System.Func{System.Object[],System.Object})">
+            <summary>
+            Enumerates as an object of the specified type.
+            </summary>
+            <param name="generator"></param>
+            <param name="mappingType1">The type of the first object to map.</param>
+            <param name="mappingNames1">The names of fields to map to the first object.</param>
+            <param name="mappingType2">The type of the second object to map.</param>
+            <param name="mappingNames2">The names of fields to map to the second object.</param>
+            <param name="mappingType3">The type of the third object to map.</param>
+            <param name="mappingNames3">The indexes of fields to map to the third object.</param>
+            <param name="mappingType4">The type of the fourth object to map.</param>
+            <param name="mappingNames4">The indexes of fields to map to the fourth object.</param>
+            <param name="mappingType5">The type of the fifth object to map.</param>
+            <param name="mappingNames5">The indexes of fields to map to the fifth object.</param>
+            <param name="mappingType6">The type of the sixth object to map.</param>
+            <param name="mappingNames6">The indexes of fields to map to the sixth object.</param>
+            <param name="mappingType7">The type of the seventh object to map.</param>
+            <param name="mappingNames7">The indexes of fields to map to the seventh object.</param>
+            <param name="mappingType8">The type of the eighth object to map.</param>
+            <param name="mappingNames8">The indexes of fields to map to the eighth object.</param>
+            <param name="mappingType9">The type of the ninth object to map.</param>
+            <param name="mappingNames9">The indexes of fields to map to the ninth object.</param>
+            <param name="selector">The method that returns an object to enumerate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.EnumerateObjects(mxProject.Devs.DataGeneration.DataGenerator,System.ValueTuple{System.Type,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[]}[])">
+            <summary>
+            Reads data from the specified data generator and enumerates it as an object of the specified type.
+            </summary>
+            <param name="generator">The data generator.</param>
+            <param name="mappingTypes">Combinations of mapping type and fields.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.EnumerateObjects(mxProject.Devs.DataGeneration.DataGenerator,System.ValueTuple{System.Type,mxProject.Devs.DataGeneration.MappingFieldNameInfo[]}[])">
+            <summary>
+            Reads data from the specified data generator and enumerates it as an object of the specified type.
+            </summary>
+            <param name="generator">The data generator.</param>
+            <param name="mappingTypes">Combinations of mapping type and fields.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.EnumerateObjects(System.Data.IDataReader,System.ValueTuple{System.Type,System.Data.IDataReader}[])">
+            <summary>
+            Reads data from the specified data reader and enumerates it as an object of the specified type.
+            </summary>
+            <param name="actualReader">The data reader.</param>
+            <param name="mappingReaders">Combinations of mapping type and data reader.</param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.DataGeneratorExtensions.ChangeType(System.Object,System.Type)">
+            <summary>
+            Changes the type of the specified object.
+            </summary>
+            <param name="obj"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:mxProject.Devs.DataGeneration.MappingDataReader">
+            <summary>
+            DataReader for mapping.
+            </summary>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingDataReader.#ctor(System.Data.IDataReader)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="reader"></param>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingDataReader.#ctor(System.Data.IDataReader,mxProject.Devs.DataGeneration.MappingFieldIndexInfo[])">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="reader"></param>
+            <param name="reorderIndexes"></param>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingDataReader.#ctor(System.Data.IDataReader,mxProject.Devs.DataGeneration.MappingFieldNameInfo[])">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="reader"></param>
+            <param name="reorderNames"></param>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingDataReader.GetAllFieldIndexes(System.Data.IDataReader)">
+            <summary>
+            Gets the all field indexes.
+            </summary>
+            <param name="reader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingDataReader.GetFieldIndexes(System.Data.IDataReader,mxProject.Devs.DataGeneration.MappingFieldNameInfo[])">
+            <summary>
+            Gets the field indexes corresponding to the specified field names.
+            </summary>
+            <param name="reader"></param>
+            <param name="reorderNames"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingDataReader.NormalizeName(System.String)">
+            <summary>
+            Normalizes the spesified field name.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingDataReader.GetActualIndex(System.Int32)">
+            <summary>
+            Gets the actual index corresponding to the specified index.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingDataReader.GetActualIndex(System.String)">
+            <summary>
+            Gets the actual index corresponding to the specified name. 
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingDataReader.GetOrdinalIndex(System.String)">
+            <summary>
+            Gets the ordinal index corresponding to the specified name. 
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:mxProject.Devs.DataGeneration.MappingFieldIndexInfo">
+            <summary>
+            Information about the fields to map. 
+            </summary>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingFieldIndexInfo.#ctor(System.Int32,System.String)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="fieldIndex">The field index.</param>
+            <param name="mappingName">The field name of the mapping destination.</param>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingFieldIndexInfo.CreateArray(System.Int32[])">
+            <summary>
+            Creates a new array.
+            </summary>
+            <param name="fieldIndexes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingFieldIndexInfo.CreateArray(System.ValueTuple{System.Int32,System.String}[])">
+            <summary>
+            Creates a new array.
+            </summary>
+            <param name="fieldIndexes"></param>
+            <returns></returns>
+        </member>
+        <member name="P:mxProject.Devs.DataGeneration.MappingFieldIndexInfo.FieldIndex">
+            <summary>
+            Gets the field index.
+            </summary>
+        </member>
+        <member name="P:mxProject.Devs.DataGeneration.MappingFieldIndexInfo.MappingName">
+            <summary>
+            Gets the field name of the mapping destination.
+            </summary>
+        </member>
+        <member name="T:mxProject.Devs.DataGeneration.MappingFieldNameInfo">
+            <summary>
+            Information about the fields to map.
+            </summary>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingFieldNameInfo.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="fieldName">The field name.</param>
+            <param name="mappingName">The field name of the mapping destination.</param>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingFieldNameInfo.CreateArray(System.String[])">
+            <summary>
+            Creates a new array.
+            </summary>
+            <param name="fieldNames"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingFieldNameInfo.CreateArray(System.ValueTuple{System.String,System.String}[])">
+            <summary>
+            Creates a new array.
+            </summary>
+            <param name="fieldNames"></param>
+            <returns></returns>
+        </member>
+        <member name="P:mxProject.Devs.DataGeneration.MappingFieldNameInfo.FieldName">
+            <summary>
+            Gets the field name.
+            </summary>
+        </member>
+        <member name="P:mxProject.Devs.DataGeneration.MappingFieldNameInfo.MappingName">
+            <summary>
+            Gets the field name of the mapping destination.
+            </summary>
+        </member>
+    </members>
+</doc>

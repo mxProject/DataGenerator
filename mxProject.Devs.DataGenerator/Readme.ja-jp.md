@@ -2,7 +2,7 @@
 
 [English Document](Readme.md)
 
-## Overview
+## 概要
 
 * データレコード形式のテストデータを生成するためのライブラリです。
 
@@ -10,7 +10,7 @@
 
 * IDataReader.Read メソッドが呼び出された時点で次のデータレコードを生成します。データジェネレーター内部ではなるべくリストを保持しないように設計しています。生成するデータレコードの数が多い場合でも、データ生成に必要となるリソースはそれほど大きくなりません。
 
-## Demo
+## デモ
 
 ```c#
 // Creates a builder.
@@ -320,7 +320,7 @@ Debug.WriteLine(json);
 }
 ```
 
-## Description
+## 説明
 
 * 次の手順に従ってデータを生成します。
 
@@ -329,7 +329,7 @@ Debug.WriteLine(json);
   3. DataGenerator インスタンスの GenerateNext メソッドを呼び出します。データレコードはこのとき生成されます。（IDataReader インスタンスの場合は Read メソッド）
   4. GenerateNext メソッドの戻り値が false になるまで繰り返します。（IDataReader インスタンスの場合は Read メソッド）
 
-### Data Fields
+### フィールド
 
 * DataGenerator に定義できるフィールドは、次の四つの種類に分類することができます。
 
@@ -373,29 +373,113 @@ Debug.WriteLine(json);
 |[Join](documents/ja-jp/Join.ja-jp.md)|生成されたデータレコードを引数として受け取り、キーとするフィールドの値に対応する値をディクショナリまたはルックアップから取得して返します。|
 |[JoinDbQuery](documents/ja-jp/JoinDbQuery.ja-jp.md)|生成されたデータレコードを引数として受け取り、キーとするフィールドの値に対応する値をディクショナリまたはルックアップから取得して返します。|
 
-### Serialization to Json
+
+### フィールド順の設定
+
+* フィールド順を指定するには、SetOrderedFieldNames メソッドか SetFieldNameComparison メソッドを使用します。
+
+* SetOrderedFieldNames メソッドでは、ソートされたフィールド名を指定します。指定されなかったフィールドは後方に位置づけられ、そのフィールド順は不定になります。
+
+```c#
+// Creates a builder.
+DataGeneratorBuilder builder = new DataGeneratorBuilder()
+
+    // Sequence from 1 to 100
+    .AddField(factory => factory.SequenceInt32(
+        "ID",
+        1,
+        100
+        ))
+
+    // Random date from today to one month later
+    .AddField(factory => factory.RandomDateTime(
+        "SalesDate",
+        DateTime.Today,
+        DateTime.Today.AddMonths(1),
+        x => x.Date
+        ))
+
+    // Returns 1, 2, 3 in order
+    .AddField(factory => factory.Each(
+        "ShopCode",
+        new int[] { 1, 2, 3 }
+        ))
+
+    // Sepecify the field order.
+    .SetOrderedFieldNames(new string[]{
+            "ID",
+            "ShopCode",
+            "SalesDate"
+        });
+;
+```
+
+* 設定値クラスを用いる場合は SortedFieldNames プロパティにソートされたフィールド名を設定します。
+
+```c#
+// Creates a generator settings.
+DataGeneratorSettings generatorSettings = new DataGeneratorSettings()
+{
+    Fields = new DataGeneratorFieldSettings[]
+    {
+        // Sequence from 1 to 100
+        new SequenceInt32FieldSettings()
+        {
+            FieldName = "ID",
+            InitialValue = 1,
+            MaximumValue = 100
+        },
+
+        // Random date from today to one month later
+        new RandomDateTimeFieldSettings()
+        {
+            FieldName = "SalesDate",
+            MinimumValue = DateTime.Today,
+            MaximumValue = DateTime.Today.AddMonths(1),
+            SelectorExpression = "x => x.Date"
+        },
+
+        // Returns 1, 2, 3 in order
+        new EachFieldSettings<int>()
+        {
+            FieldName = "ShopCode",
+            Values = new int?[]{ 1, 2, 3 }
+        },
+    },
+
+    // Sepecify the field order
+    SortedFieldNames = new string[]
+    {
+        "ID",
+        "ShopCode",
+        "SalesDate"
+    }
+};
+```
+
+### ＪSONシリアライズ
 
 * データジェネレーターおよびフィールドの定義を表す設定クラスは Json シリアライズをサポートしています。詳しくは [Json Serialization](documents/ja-jp/JsonSerialization.ja-jp.md) のページを参照してください。
 
 
-## Requirement
+## 要件
 
-### Framewrork
+### フレームワーク
 
 * .NET Standard 2.0
 
-### PackageReference
+### 主な参照パッケージ
 
 * Newtonsoft.Json (>= 12.0.3)
 * JsonSubTypes (>= 1.7.0)
 * Microsoft.CodeAnalysis.CSharp.Scripting (>= 3.7.0)
 
-## Install
+## インストール
 
-Please install from Nuget.
+Nuget からインストールしてください。
 
 https://www.nuget.org/packages/mxProject.Devs.DataGenerator/
 
-## Licence
+## ライセンス
 
 [MIT Licence](https://github.com/tcnksm/tool/blob/master/LICENCE)
