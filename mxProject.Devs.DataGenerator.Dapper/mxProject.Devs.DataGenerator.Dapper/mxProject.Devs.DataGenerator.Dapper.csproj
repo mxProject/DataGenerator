@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>mxProject</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <Version>0.9.0</Version>
+    <Authors>mxProject</Authors>
+    <Description>O/R mapping library for mxProject.Devs.DataGenerator.</Description>
+    <Copyright>(c) 2021 mxProject.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/mxProject/DataGenerator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mxProject/DataGenerator</RepositoryUrl>
+    <PackageTags>UnitTest, DataGeneration</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\Data\Program\Source\GitHub\mxProject\DataGenerator\mxProject.Devs.DataGenerator.Dapper\mxProject.Devs.DataGenerator.Dapper\mxProject.Devs.DataGenerator.Dapper.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="mxProject.Devs.DataGenerator" Version="0.9.0" />
+  </ItemGroup>
+
+</Project>
