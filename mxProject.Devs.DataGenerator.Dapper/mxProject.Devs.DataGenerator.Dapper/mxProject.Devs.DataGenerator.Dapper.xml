@@ -761,6 +761,20 @@
             <param name="fieldIndex">The field index.</param>
             <param name="mappingName">The field name of the mapping destination.</param>
         </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingFieldIndexInfo.CreateArray(System.Int32[])">
+            <summary>
+            Creates a new array.
+            </summary>
+            <param name="fieldIndexes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:mxProject.Devs.DataGeneration.MappingFieldIndexInfo.CreateArray(System.ValueTuple{System.Int32,System.String}[])">
+            <summary>
+            Creates a new array.
+            </summary>
+            <param name="fieldIndexes"></param>
+            <returns></returns>
+        </member>
         <member name="P:mxProject.Devs.DataGeneration.MappingFieldIndexInfo.FieldIndex">
             <summary>
             Gets the field index.
