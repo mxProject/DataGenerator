@@ -20,7 +20,7 @@ namespace mxProject.Devs.DataGeneration.Fields
         /// <param name="enumerateValueCount">Number of values that will be enumerated.</param>
         /// <param name="mayBeNull">A value that indicates whether it may return a null value.</param>
         /// <param name="enumerationCreator">The method to generate an enumeration.</param>
-        public DataGeneratorField(string fieldName, Type valueType, int? enumerateValueCount, bool mayBeNull, EnumerationCreator enumerationCreator)
+        public DataGeneratorField(string fieldName, Type valueType, int? enumerateValueCount, bool mayBeNull, EnumerationCreatorAsync enumerationCreator)
         {
             FieldName = fieldName;
             ValueType = valueType;
@@ -30,7 +30,7 @@ namespace mxProject.Devs.DataGeneration.Fields
         }
 
         private readonly int? m_EnumerateValueCount;
-        private readonly EnumerationCreator m_EnumerationCreator;
+        private readonly EnumerationCreatorAsync m_EnumerationCreator;
 
 
         /// <inheritdoc/>

@@ -39,6 +39,20 @@ namespace mxProject.Devs.DataGeneration
         /// <returns></returns>
         public IDataGeneratorField Create(string fieldName, Type valueType, int? enumerateValueCount, bool mayBeNull, EnumerationCreator enumeration)
         {
+            return Create(fieldName, valueType, enumerateValueCount, mayBeNull, enumeration.ToAsync());
+        }
+
+        /// <summary>
+        /// Creates a field that returns the values retrieved from the specified enumeration.
+        /// </summary>
+        /// <param name="fieldName">The name of the field.</param>
+        /// <param name="valueType">The value type of the field.</param>
+        /// <param name="enumerateValueCount">Number of values that will be enumerated.</param>
+        /// <param name="mayBeNull">A value that indicates whether it may return a null value.</param>
+        /// <param name="enumeration">The enumeration of field values.</param>
+        /// <returns></returns>
+        public IDataGeneratorField Create(string fieldName, Type valueType, int? enumerateValueCount, bool mayBeNull, EnumerationCreatorAsync enumeration)
+        {
             return new DataGeneratorField(fieldName, valueType, enumerateValueCount, mayBeNull, enumeration);
         }
 
@@ -53,6 +67,20 @@ namespace mxProject.Devs.DataGeneration
         /// <returns></returns>
         public IDataGeneratorField<T> Create<T>(string fieldName, int? enumerateValueCount, bool mayBeNull, EnumerationCreator<T> enumeration) where T : struct
         {
+            return Create(fieldName, enumerateValueCount, mayBeNull, enumeration.ToAsync());
+        }
+
+        /// <summary>
+        /// Creates a field that returns the values retrieved from the specified enumeration.
+        /// </summary>
+        /// <typeparam name="T">The value type of the field.</typeparam>
+        /// <param name="fieldName">The name of the field.</param>
+        /// <param name="enumerateValueCount">Number of values that will be enumerated.</param>
+        /// <param name="mayBeNull">A value that indicates whether it may return a null value.</param>
+        /// <param name="enumeration">The enumeration of field values.</param>
+        /// <returns></returns>
+        public IDataGeneratorField<T> Create<T>(string fieldName, int? enumerateValueCount, bool mayBeNull, EnumerationCreatorAsync<T> enumeration) where T : struct
+        {
             return new DataGeneratorField<T>(fieldName, enumerateValueCount, mayBeNull, enumeration);
         }
 
@@ -66,7 +94,20 @@ namespace mxProject.Devs.DataGeneration
         /// <returns></returns>
         public IDataGeneratorField<StringValue> Create(string fieldName, int? enumerateValueCount, bool mayBeNull, StringEnumerationCreator enumeration)
         {
-            EnumerationCreator<StringValue> ToStringValue(StringEnumerationCreator enumeration)
+            return Create(fieldName, enumerateValueCount, mayBeNull, enumeration.ToAsync());
+        }
+
+        /// <summary>
+        /// Creates a field that returns the values retrieved from the specified enumeration.
+        /// </summary>
+        /// <param name="fieldName">The name of the field.</param>
+        /// <param name="enumerateValueCount">Number of values that will be enumerated.</param>
+        /// <param name="mayBeNull">A value that indicates whether it may return a null value.</param>
+        /// <param name="enumeration">The enumeration of field values.</param>
+        /// <returns></returns>
+        public IDataGeneratorField<StringValue> Create(string fieldName, int? enumerateValueCount, bool mayBeNull, StringEnumerationCreatorAsync enumeration)
+        {
+            EnumerationCreatorAsync<StringValue> ToStringValue(StringEnumerationCreatorAsync enumeration)
             {
                 return async generateCount =>
                 {
