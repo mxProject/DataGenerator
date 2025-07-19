@@ -457,7 +457,7 @@ DataGeneratorSettings generatorSettings = new DataGeneratorSettings()
 };
 ```
 
-### ＪSONシリアライズ
+### JSONシリアライズ
 
 * データジェネレーターおよびフィールドの定義を表す設定クラスは Json シリアライズをサポートしています。詳しくは [Json Serialization](documents/ja-jp/JsonSerialization.ja-jp.md) のページを参照してください。
 

@@ -374,11 +374,11 @@ The DataGeneratorSettings instance in the sample code above is serialized into a
 |[JoinDbQuery](documents/JoinDbQuery.md)|Takes the generated data record as an argument and returns the value corresponding to the value of the key field from the data reader.|
 
 
-### フィールド順の設定
+### Field Order Settings
 
-* Use SetOrderedFieldNames method or SetFieldNameComparison method to specify the order of the fields.
+* Use the SetOrderedFieldNames method or SetFieldNameComparison method to specify the order of the fields.
 
-* When using SetOrderedFieldNames method, specify the sorted field names. Fields that are not specified are placed behind and the order of the fields is undefined.
+* When using the SetOrderedFieldNames method, specify the sorted field names. Fields that are not specified are placed behind and the order of the fields is undefined.
 
 ```c#
 // Creates a builder.
@@ -405,7 +405,7 @@ DataGeneratorBuilder builder = new DataGeneratorBuilder()
         new int[] { 1, 2, 3 }
         ))
 
-    // Sepecify the field order.
+    // Specify the field order.
     .SetOrderedFieldNames(new string[]{
             "ID",
             "ShopCode",
@@ -414,7 +414,7 @@ DataGeneratorBuilder builder = new DataGeneratorBuilder()
 ;
 ```
 
-* When using the configuration class, set the sorted field names in the SortedFieldNames property. 
+* When using the configuration class, set the sorted field names in the SortedFieldNames property.
 
 ```c#
 // Creates a generator settings.
@@ -447,7 +447,7 @@ DataGeneratorSettings generatorSettings = new DataGeneratorSettings()
         },
     },
 
-    // Sepecify the field order
+    // Specify the field order
     SortedFieldNames = new string[]
     {
         "ID",
