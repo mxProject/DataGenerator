@@ -27,13 +27,13 @@ namespace mxProject.Devs.DataGeneration.Fields
         /// <param name="fieldName2">The name of the second field.</param>
         /// <param name="mayBeNull2">A value that indicates whether the second field may return a null value.</param>
         /// <param name="enumerationCreator">The method to generate an enumeration.</param>
-        public DataGeneratorTupleField(string fieldName1, bool mayBeNull1, string fieldName2, bool mayBeNull2, TupleEnumerationCreator<T1, T2> enumerationCreator)
+        public DataGeneratorTupleField(string fieldName1, bool mayBeNull1, string fieldName2, bool mayBeNull2, TupleEnumerationCreatorAsync<T1, T2> enumerationCreator)
             : base(new[] { fieldName1, fieldName2 }, new[] { typeof(T1), typeof(T2) }, new[] { mayBeNull1, mayBeNull2 })
         {
             m_EnumerationCreator = enumerationCreator;
         }
 
-        private readonly TupleEnumerationCreator<T1, T2> m_EnumerationCreator;
+        private readonly TupleEnumerationCreatorAsync<T1, T2> m_EnumerationCreator;
 
         /// <inheritdoc/>
         public override async ValueTask<IDataGeneratorTupleFieldEnumeration> CreateEnumerationAsync(int generateCount)

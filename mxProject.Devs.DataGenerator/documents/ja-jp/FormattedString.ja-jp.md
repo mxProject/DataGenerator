@@ -17,7 +17,7 @@ DataGeneratorBuilder builder = new DataGeneratorBuilder();
 
 // フィールドを追加します。
 builder
-    .AddField(factory => ComplexFieldFactory.CreateFormattedStringField(
+    .AddField(factory => CompositeFieldFactory.CreateFormattedStringField(
         "TelephoneNumber",
         // 書式文字列を指定します。
         // 引数名はサポートしていません。インデックスで指定してください。

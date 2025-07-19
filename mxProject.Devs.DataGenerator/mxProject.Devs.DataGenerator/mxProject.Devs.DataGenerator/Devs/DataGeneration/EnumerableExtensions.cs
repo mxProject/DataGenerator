@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -832,6 +833,26 @@ namespace mxProject.Devs.DataGeneration
             else
             {
                 return values.ToArray();
+            }
+        }
+
+        #endregion
+
+        #region Convert
+
+        /// <summary>
+        /// Converts the values.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of the source sequence.</typeparam>
+        /// <typeparam name="TResult">The type of the elements of the result sequence.</typeparam>
+        /// <param name="values">The source sequence of values to convert.</param>
+        /// <param name="converter">A function to apply to each element.</param>
+        /// <returns>An <see cref="IEnumerable{TResult}"/> whose elements are the result of invoking the converter on each element of the source.</returns>
+        public static IEnumerable<TResult> Convert<TSource, TResult>(this IEnumerable<TSource> values, Converter<TSource, TResult> converter)
+        {
+            foreach (var value in values)
+            {
+                yield return converter(value);
             }
         }
 
