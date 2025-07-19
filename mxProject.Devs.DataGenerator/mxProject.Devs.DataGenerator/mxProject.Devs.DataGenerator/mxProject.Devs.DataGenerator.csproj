@@ -5,16 +5,19 @@
     <RootNamespace>mxProject</RootNamespace>
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
-    <Version>0.9.1</Version>
+    <Version>0.9.2</Version>
     <Authors>mxProject</Authors>
     <Description>The library for generating test data in data record format.</Description>
     <Copyright>(c) 2021 mxProject.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>* Fixed #10. Added ComputingField.ValueTypeName property.</PackageReleaseNotes>
+    <PackageReleaseNotes>* Added IDataGeneratorField&lt;TSource&gt;.Convert&lt;TSource, TResult&gt; method.
+* Added DataGeneratorFieldFactory.EnumerableFactory property.
+* [Breaking Change] Rename delegates.</PackageReleaseNotes>
     <PackageTags>UnitTest, DataGeneration</PackageTags>
     <NeutralLanguage></NeutralLanguage>
     <PackageProjectUrl>https://github.com/mxProject/DataGenerator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mxProject/DataGenerator</RepositoryUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
