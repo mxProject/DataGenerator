@@ -14,7 +14,7 @@ DataGeneratorBuilder builder = new DataGeneratorBuilder();
 
 // Adds fields.
 builder
-    .AddField(factory => ComplexFieldFactory.CreateFormattedStringField(
+    .AddField(factory => CompositeFieldFactory.CreateFormattedStringField(
         "TelephoneNumber",
         // Specifies the composite format string.
         // Argument names are not supported. Specify by argument index.

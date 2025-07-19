@@ -14,7 +14,7 @@ DataGeneratorBuilder builder = new DataGeneratorBuilder();
 
 // Adds fields.
 builder
-    .AddField(factory => ComplexFieldFactory.CreateComputingField(
+    .AddField(factory => CompositeFieldFactory.CreateComputingField(
         "Code",
         // Specifies the value type.
         typeof(String),

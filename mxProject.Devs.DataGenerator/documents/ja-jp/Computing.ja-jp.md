@@ -17,7 +17,7 @@ DataGeneratorBuilder builder = new DataGeneratorBuilder();
 
 // フィールドを追加します。
 builder
-    .AddField(factory => ComplexFieldFactory.CreateComputingField(
+    .AddField(factory => CompositeFieldFactory.CreateComputingField(
         "Code",
         // 型を指定します。
         typeof(String),
