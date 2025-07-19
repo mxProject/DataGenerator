@@ -26,6 +26,13 @@ namespace mxProject.Devs.DataGeneration
             m_Enumeration = enumeration ?? EnumerableFactory.Instance;
         }
 
+        /// <summary>
+        /// Gets the enumeration factory.
+        /// </summary>
+        public EnumerableFactory EnumerableFactory
+        {
+            get { return m_Enumeration; }
+        }
         private readonly EnumerableFactory m_Enumeration;
 
         /// <summary>
